@@ -2,6 +2,12 @@
 
 std::array<int, 3> NumericUtils::hexToDecColors(int hexColor)
 {
+  if (hexColor > 0xFFFFFF)
+    return { 0xFF, 0xFF, 0xFF };
+
+  if (hexColor < 0x000000)
+    return { 0x00, 0x00, 0x00 };
+
   int b = hexColor % 0x100;
   int g = (hexColor - b) / 0x100 % 0x100;
   int r = (hexColor - (g * 0x100 + b)) / 0x10000;

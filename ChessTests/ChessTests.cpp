@@ -21,5 +21,33 @@ namespace ChessTests
 
       Assert::AreEqual(true, assertion);
     }
+    
+    TEST_METHOD(ReturnMaximumColor)
+    {
+      int colorInput = 0xFFFFFFF; // bigger than 0xFFFFFF
+
+      auto out = NumericUtils::hexToDecColors(colorInput);
+
+      bool assertion = 
+        0xFF == out[0] &&
+        0xFF == out[1] && 
+        0xFF == out[2];
+
+      Assert::AreEqual(true, assertion);
+    }
+
+    TEST_METHOD(ReturnMinimumColor)
+    {
+      int colorInput = -0xFF; // less than 0x00
+
+      auto out = NumericUtils::hexToDecColors(colorInput);
+
+      bool assertion = 
+        0x00 == out[0] &&
+        0x00 == out[1] && 
+        0x00 == out[2];
+
+      Assert::AreEqual(true, assertion);
+    }
   };
 }
