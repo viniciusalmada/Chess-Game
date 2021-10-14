@@ -88,11 +88,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\board.cpp" />
     <ClCompile Include="src\gl_utils.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\numeric_utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\board.h" />
     <ClInclude Include="include\gl_utils.h" />
     <ClInclude Include="include\numeric_utils.h" />
   </ItemGroup>

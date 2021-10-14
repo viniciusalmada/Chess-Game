@@ -3,13 +3,35 @@
 #include <GL/glew.h>
 
 #include "gl_utils.h"
+#include "board.h"
+
+Board* board;
 
 int canvas_action_cb(Ihandle* ih, float posx, float posy)
 {
   IupGLMakeCurrent(ih);
   GlUtils::uglClearColor(0xE8E6E4);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  glEnable(GL_LINE_SMOOTH);
 
+  int x = board->getSideSize();
+  glViewport(0, 0, x, x);
+  glMatrixMode(GL_PROJECTION);
+  glLoadIdentity();
+  glOrtho(0, x, x, 0, -1.0, 1.0);
+  glMatrixMode(GL_MODELVIEW);
+  glLoadIdentity();
+
+  glShadeModel(GL_SMOOTH);
+
+  glBegin(GL_TRIANGLES);
+  GlUtils::uglColor3d(0xFF0000);
+  glVertex2d(x * 0.5, x * 0.1);
+  GlUtils::uglColor3d(0x00FF00);
+  glVertex2d(x * 0.1, x * 0.9);
+  GlUtils::uglColor3d(0x0000FF);
+  glVertex2d(x * 0.9, x * 0.9);
+  glEnd();
 
   IupGLSwapBuffers(ih);
 
@@ -44,11 +66,17 @@ int main(int argc, char* argv[])
 
   IupShowXY(dlg, IUP_CENTER, IUP_CENTER);
 
-  IupRedraw(dlg, true);
+  int x;
+  IupGetIntInt(canvas, "DRAWSIZE", &x, nullptr);
+  board = new Board(x);
+
+  IupRedraw(canvas, true);
 
   IupMainLoop();
 
   IupClose();
+
+  delete board;
 
   return 0;
 }
