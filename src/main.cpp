@@ -14,7 +14,9 @@ int canvas_action_cb(Ihandle* ih, float posx, float posy)
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glEnable(GL_LINE_SMOOTH);
 
-  int x = board->getSideSize();
+  int x = 0;
+  if (board)
+    x = board->getSideSize();
   glViewport(0, 0, x, x);
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
@@ -32,6 +34,14 @@ int canvas_action_cb(Ihandle* ih, float posx, float posy)
   GlUtils::uglColor3d(0x0000FF);
   glVertex2d(x * 0.9, x * 0.9);
   glEnd();
+
+   glBegin(GL_QUADS);
+   GlUtils::uglColor3d(0x314FAB);
+   glVertex2d(x * 0.3, x * 0.3);
+   glVertex2d(x * 0.6, x * 0.3);
+   glVertex2d(x * 0.6, x * 0.6);
+   glVertex2d(x * 0.3, x * 0.6);
+   glEnd();
 
   IupGLSwapBuffers(ih);
 
