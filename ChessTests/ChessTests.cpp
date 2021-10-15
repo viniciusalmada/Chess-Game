@@ -1,6 +1,8 @@
+#include <string>
 #include "pch.h"
 #include "CppUnitTest.h"
 #include "../src/numeric_utils.cpp"
+#include "../src/image_loader.cpp"
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -48,6 +50,18 @@ namespace ChessTests
         0x00 == out[2];
 
       Assert::AreEqual(true, assertion);
+    }
+  };
+
+  TEST_CLASS(ImageLoaderTests)
+  {
+    TEST_METHOD(LoadImageToMemory)
+    {
+      std::string path = R"(N:\Projects\ChessWithIUP\images\testing.png)";
+
+      ImageLoader::load(path);
+
+      Assert::IsTrue(true);
     }
   };
 }
