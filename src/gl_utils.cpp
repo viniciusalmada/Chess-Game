@@ -3,6 +3,8 @@
 #include "gl_utils.h"
 #include "numeric_utils.h"
 
+int GlUtils::WHITE = 0xFFFFFF;
+
 std::array<float, 3> GlUtils::getColorsF(int hexColors)
 {
   auto rgb = NumericUtils::hexToDecColors(hexColors);
