@@ -6,6 +6,7 @@ class GlUtils
   static std::array<float, 3> getColorsF(int hexColors);
 
 public:
+  static int RED;
   static int WHITE;
 
   static void uglClearColor(int hexColors);
