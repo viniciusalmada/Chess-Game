@@ -1,6 +1,8 @@
 #include "board.h"
 #include <GL/glew.h>
 #include <gl_utils.h>
+#include <string>
+#include <image_loader.h>
 
 int Board::sBackgroundColor = 0xE8E6E4;
 int Board::sHouseDark = 0xB58863;
@@ -25,7 +27,6 @@ void Board::drawBoard()
   glOrtho(0, s, s, 0, -1.0, 1.0);
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
-  glShadeModel(GL_SMOOTH);
 
   glBegin(GL_QUADS);
   GlUtils::uglColor3d(sBackgroundColor);
@@ -34,6 +35,10 @@ void Board::drawBoard()
   glVertex2d(s, s);
   glVertex2d(0, s);
   glEnd();
+
+  std::string path = R"(N:\Projects\ChessWithIUP\images\polygon.png)";
+  auto* img = ImageLoader::load(path);
+  unsigned int textureId = GlUtils::createTexture2D(img);
 
   int ib = mSideSize - 2 * mBorderSize;
   bool useDark = true;
@@ -46,14 +51,32 @@ void Board::drawBoard()
       int x = i * sq + mBorderSize;
       int y = j * sq + mBorderSize;
 
-      glBegin(GL_QUADS);
       GlUtils::uglColor3d(useDark ? sHouseDark : sHouseLight);
+
+      glBegin(GL_QUADS);
       glVertex2i(x, y);
       glVertex2i(x + sq, y);
       glVertex2i(x + sq, y + sq);
       glVertex2i(x, y + sq);
       glEnd();
-      
+
+      if (i == 0 && j == 0)
+      {
+        //glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+        glBindTexture(GL_TEXTURE_2D, 0);
+
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, textureId);
+        GlUtils::uglColor3d(GlUtils::WHITE);
+        glBegin(GL_QUADS);
+        glTexCoord2f(0.0f, 0.0f); glVertex2i(x, y);
+        glTexCoord2f(0.0f, 1.0f); glVertex2i(x + sq, y);
+        glTexCoord2f(1.0f, 1.0f); glVertex2i(x + sq, y + sq);
+        glTexCoord2f(1.0f, 0.0f); glVertex2i(x, y + sq);
+        glEnd();
+        glDisable(GL_TEXTURE_2D);
+      }
+
       useDark = !useDark;
     }
     useDark = !aux;
