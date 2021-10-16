@@ -13,36 +13,54 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\utils">
+      <UniqueIdentifier>{de67b6eb-2465-4f34-8060-c36e0e1d4769}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\drawables">
+      <UniqueIdentifier>{c71904f6-5380-4551-86ae-3a5880746cc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\utils">
+      <UniqueIdentifier>{f3003603-e066-4acc-a49a-67a8d49f8991}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\drawables">
+      <UniqueIdentifier>{b3ccb10b-69dc-41cc-8b22-679a1569ce85}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\gl_utils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\numeric_utils.cpp">
+    <ClCompile Include="src\app.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\board.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\gl_utils.cpp">
+      <Filter>Source Files\utils</Filter>
     </ClCompile>
     <ClCompile Include="src\image_loader.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\numeric_utils.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\board.cpp">
+      <Filter>Source Files\drawables</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\gl_utils.h">
+    <ClInclude Include="include\app.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\numeric_utils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\board.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\utils</Filter>
     </ClInclude>
     <ClInclude Include="include\image_loader.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gl_utils.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="include\board.h">
+      <Filter>Header Files\drawables</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
