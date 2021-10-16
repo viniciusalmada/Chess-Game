@@ -1,8 +1,9 @@
 #pragma once
 #include <string>
+#include <im/im_image.h>
 
 class ImageLoader
 {
 public:
-  static void load(std::string path);
+  static imImage* load(std::string path);
 };
