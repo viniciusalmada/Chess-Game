@@ -68,11 +68,11 @@ namespace ChessTests
   {
     TEST_METHOD(LoadImageToMemory)
     {
-      std::string path = R"(N:\Projects\ChessWithIUP\images\testing.png)";
+      std::string path = R"(N:\Projects\ChessWithIUP\images\polygon.png)";
 
-      ImageLoader::load(path);
+      auto img = ImageLoader::load(path);
 
-      Assert::IsTrue(true);
+      Assert::IsTrue(img != nullptr);
     }
   };
 }
