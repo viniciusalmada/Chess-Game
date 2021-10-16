@@ -1,8 +1,9 @@
 #pragma once
+#include <sp_string.h>
 #include <string>
 class App
 {
-  std::string mImagesPath;
+  SP::String mImagesPath;
 
 public:
   App(std::string executablePath);
