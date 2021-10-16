@@ -88,6 +88,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\app.cpp" />
     <ClCompile Include="src\board.cpp" />
     <ClCompile Include="src\gl_utils.cpp" />
     <ClCompile Include="src\image_loader.cpp" />
@@ -95,6 +96,7 @@
     <ClCompile Include="src\numeric_utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\app.h" />
     <ClInclude Include="include\board.h" />
     <ClInclude Include="include\gl_utils.h" />
     <ClInclude Include="include\image_loader.h" />
