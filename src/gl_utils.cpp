@@ -8,7 +8,7 @@ int GlUtils::WHITE = 0xFFFFFF;
 
 std::array<float, 3> GlUtils::getColorsF(int hexColors)
 {
-  auto rgb = NumericUtils::hexToDecColors(hexColors);
+  auto rgb = NumericUtils::hexTo3Dec(hexColors);
 
   float r = rgb[0] / (float)0xFF;
   float g = rgb[1] / (float)0xFF;
