@@ -1,5 +1,7 @@
 #pragma once
 #include <array>
+#include <im/im.h>
+#include <im/im_image.h>
 
 class GlUtils
 {
@@ -12,4 +14,6 @@ public:
   static void uglClearColor(int hexColors);
 
   static void uglColor3d(int hexColors);
+
+  static int createTexture2D(imImage* im);
 };
