@@ -13,8 +13,10 @@ int canvas_action_cb(Ihandle* ih, float posx, float posy)
 {
   IupGLMakeCurrent(ih);
   GlUtils::uglClearColor(GlUtils::WHITE);
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  glEnable(GL_LINE_SMOOTH);
+  glClear(GL_COLOR_BUFFER_BIT);
+
+  glEnable(GL_BLEND);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
   if (board)
     board->drawBoard();
