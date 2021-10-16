@@ -45,6 +45,9 @@
     <ClCompile Include="src\board.cpp">
       <Filter>Source Files\drawables</Filter>
     </ClCompile>
+    <ClCompile Include="src\sp_string.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\app.h">
@@ -61,6 +64,9 @@
     </ClInclude>
     <ClInclude Include="include\board.h">
       <Filter>Header Files\drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sp_string.h">
+      <Filter>Header Files\utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
