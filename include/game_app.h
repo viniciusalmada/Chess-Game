@@ -44,7 +44,7 @@ class GameApp
 
   GameApp();
 
-  std::unordered_map<Piece, Coordinate> mPiecesPosition;
+  std::unordered_map<Piece, Coordinate> mPiecesPositions;
 
   void initPiecesCoordinates();
 
