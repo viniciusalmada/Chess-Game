@@ -21,18 +21,38 @@ void Board::loadTextures()
   if (!mTextures.empty())
     return;
 
-  mTextures[Piece::BLACK_BISHOP] = _loadTexture("img_bishop_black.png");
+  mTextures[Piece::BLACK_BISHOP_LEFT] =
+    mTextures[Piece::BLACK_BISHOP_RIGHT] = _loadTexture("img_bishop_black.png");
   mTextures[Piece::BLACK_KING] = _loadTexture("img_king_black.png");
-  mTextures[Piece::BLACK_KNIGHT] = _loadTexture("img_knight_black.png");
-  mTextures[Piece::BLACK_PAWN] = _loadTexture("img_pawn_black.png");
+  mTextures[Piece::BLACK_KNIGHT_LEFT] =
+    mTextures[Piece::BLACK_KNIGHT_RIGHT] = _loadTexture("img_knight_black.png");
+  mTextures[Piece::BLACK_PAWN_1] =
+    mTextures[Piece::BLACK_PAWN_2] =
+    mTextures[Piece::BLACK_PAWN_3] =
+    mTextures[Piece::BLACK_PAWN_4] =
+    mTextures[Piece::BLACK_PAWN_5] =
+    mTextures[Piece::BLACK_PAWN_6] =
+    mTextures[Piece::BLACK_PAWN_7] =
+    mTextures[Piece::BLACK_PAWN_8] = _loadTexture("img_pawn_black.png");
   mTextures[Piece::BLACK_QUEEN] = _loadTexture("img_queen_black.png");
-  mTextures[Piece::BLACK_ROCK] = _loadTexture("img_rock_black.png");
-  mTextures[Piece::WHITE_BISHOP] = _loadTexture("img_bishop_white.png");
-  mTextures[Piece::WHITE_KING] = _loadTexture("img_knight_white.png");
-  mTextures[Piece::WHITE_KNIGHT] = _loadTexture("img_king_white.png");
-  mTextures[Piece::WHITE_PAWN] = _loadTexture("img_pawn_white.png");
+  mTextures[Piece::BLACK_ROCK_LEFT] =
+    mTextures[Piece::BLACK_ROCK_RIGHT] = _loadTexture("img_rock_black.png");
+  mTextures[Piece::WHITE_BISHOP_LEFT] =
+    mTextures[Piece::WHITE_BISHOP_RIGHT] = _loadTexture("img_bishop_white.png");
+  mTextures[Piece::WHITE_KING] = _loadTexture("img_king_white.png");
+  mTextures[Piece::WHITE_KNIGHT_LEFT] =
+    mTextures[Piece::WHITE_KNIGHT_RIGHT] = _loadTexture("img_knight_white.png");
+  mTextures[Piece::WHITE_PAWN_1] =
+    mTextures[Piece::WHITE_PAWN_2] =
+    mTextures[Piece::WHITE_PAWN_3] =
+    mTextures[Piece::WHITE_PAWN_4] =
+    mTextures[Piece::WHITE_PAWN_5] =
+    mTextures[Piece::WHITE_PAWN_6] =
+    mTextures[Piece::WHITE_PAWN_7] =
+    mTextures[Piece::WHITE_PAWN_8] = _loadTexture("img_pawn_white.png");
   mTextures[Piece::WHITE_QUEEN] = _loadTexture("img_queen_white.png");
-  mTextures[Piece::WHITE_ROCK] = _loadTexture("img_rock_white.png");
+  mTextures[Piece::WHITE_ROCK_LEFT] =
+    mTextures[Piece::WHITE_ROCK_RIGHT] = _loadTexture("img_rock_white.png");
 }
 
 Board::Board(int sideSize) : mSideSize(sideSize)
