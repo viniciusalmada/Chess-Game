@@ -57,7 +57,18 @@ void Board::loadTextures()
 
 void Board::forEachSquare(std::function<void(int, int, Coordinate)> fun)
 {
-  
+  int ib = mSideSize - 2 * mBorderSize;
+  for (int i = 0; i < 8; i++)
+  {
+    for (int j = 0; j < 8; j++)
+    {
+      int sq = ib / 8;
+      int x = i * sq + mBorderSize;
+      int y = j * sq + mBorderSize;
+
+      fun(i, j, { x, y });
+    }
+  }
 }
 
 Board::Board(int sideSize) : mSideSize(sideSize)
@@ -82,40 +93,24 @@ void Board::drawBoard()
 
 void Board::drawSquares()
 {
-  int ib = mSideSize - 2 * mBorderSize;
-  bool useDark = true;
-  for (int i = 0; i < 8; i++)
-  {
-    bool aux = useDark;
-    for (int j = 0; j < 8; j++)
+  int innerBorder = mSideSize - 2 * mBorderSize;
+  int squareSize = innerBorder / 8;
+  forEachSquare([&](int i, int j, Coordinate xy)
     {
-      int sq = ib / 8;
-      int x = i * sq + mBorderSize;
-      int y = j * sq + mBorderSize;
+      if ((i + j) % 2 == 0)
+        GlUtils::uglColor3d(sHouseDark);
+      else
+        GlUtils::uglColor3d(sHouseLight);
 
-      GlUtils::uglColor3d(useDark ? sHouseDark : sHouseLight);
+      int x = xy.x();
+      int y = xy.y();
 
-      glBegin(GL_QUADS);
-      glVertex2i(x, y);
-      glVertex2i(x + sq, y);
-      glVertex2i(x + sq, y + sq);
-      glVertex2i(x, y + sq);
-      glEnd();
-
-      useDark = !useDark;
-    }
-    useDark = !aux;
-    aux = useDark;
-  }
+      GlUtils::drawSquare(x, y, squareSize);
+    });
 }
 
 void Board::drawBackground(const int& s)
 {
-  glBegin(GL_QUADS);
   GlUtils::uglColor3d(sBackgroundColor);
-  glVertex2d(0, 0);
-  glVertex2d(s, 0);
-  glVertex2d(s, s);
-  glVertex2d(0, s);
-  glEnd();
+  GlUtils::drawSquare(0, 0, s);
 }
