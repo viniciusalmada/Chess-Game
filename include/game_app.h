@@ -55,7 +55,7 @@ public:
 
   static void start();
 
-  static void forEachPiece(std::function<void(std::pair<Piece, Coordinate>)> fun);
+  static void forEachPiece(std::function<void(Piece, Coordinate)> fun);
 
   GameApp(GameApp& other) = delete;
 
