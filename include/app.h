@@ -6,5 +6,7 @@ class App
   SP::String mImagesPath;
 
 public:
+  static int sPredefinedSize;
+
   App(std::string executablePath);
 };

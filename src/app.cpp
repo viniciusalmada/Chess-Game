@@ -1,6 +1,8 @@
 #include "app.h"
 #include <sp_string.h>
 
+int App::sPredefinedSize = 600;
+
 App::App(std::string executablePath)
 {
   SP::String spPath(executablePath);
