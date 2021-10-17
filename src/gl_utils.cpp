@@ -30,7 +30,7 @@ void GlUtils::uglColor3d(int hexColors)
   glColor3d(rgb[0], rgb[1], rgb[2]);
 }
 
-int GlUtils::createTexture2D(imImage* img)
+GlUtils::Texture GlUtils::createTexture2D(imImage* img)
 {
   int data_type = 0;
   switch (img->data_type)
@@ -88,8 +88,10 @@ int GlUtils::createTexture2D(imImage* img)
 
   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, img->width, img->height, 0, GL_RGBA, data_type, imageBuffer);
 
+  GlUtils::Texture tex{ img->width, img->height, textureId };
+
   delete[] imageBuffer;
   imImageDestroy(img);
 
-  return textureId;
+  return tex;
 }

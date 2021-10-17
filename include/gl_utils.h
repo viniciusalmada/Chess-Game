@@ -8,6 +8,14 @@ class GlUtils
   static std::array<float, 3> getColorsF(int hexColors);
 
 public:
+
+  struct Texture
+  {
+    int width;
+    int height;
+    unsigned int id;
+  };
+
   static int RED;
   static int WHITE;
 
@@ -15,5 +23,5 @@ public:
 
   static void uglColor3d(int hexColors);
 
-  static int createTexture2D(imImage* im);
+  static Texture createTexture2D(imImage* im);
 };
