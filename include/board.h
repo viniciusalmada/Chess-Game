@@ -24,6 +24,7 @@ public:
   int getSideSize() const;
 
   void drawBoard();
+  void drawSquares();
   void drawBackground(const int& s);
 };
 
