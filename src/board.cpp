@@ -3,6 +3,7 @@
 #include <gl_utils.h>
 #include <string>
 #include <image_loader.h>
+#include <app.h>
 
 int Board::sBackgroundColor = 0xE8E6E4;
 int Board::sHouseDark = 0xB58863;
@@ -33,7 +34,7 @@ void Board::drawBoard()
   glVertex2d(0, s);
   glEnd();
 
-  std::string path = R"(N:\Projects\ChessWithIUP\images\polygon.png)";
+  std::string path = App::getImagePath("polygon.png");
   auto* img = ImageLoader::load(path);
   unsigned int textureId = GlUtils::createTexture2D(img);
 

@@ -17,6 +17,8 @@ public:
   
   static void start(std::string executablePath);
 
+  static std::string getImagePath(std::string imageFileName);
+
   App(App& other) = delete;
 
   void operator=(const App& other) = delete;

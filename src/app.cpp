@@ -28,3 +28,10 @@ void App::start(std::string executablePath)
     instance = new App(executablePath);
   }
 }
+
+std::string App::getImagePath(std::string imageFileName)
+{
+  return getInstance()->mImagesPath
+    .append(imageFileName)
+    .getStr();
+}

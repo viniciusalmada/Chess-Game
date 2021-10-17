@@ -17,6 +17,8 @@ namespace SP
 
     std::string getStr() const { return mStr; }
 
+    SP::String append(std::string str) const;
+
     SP::String appendAll(std::vector<SP::String> strings, std::string joinStr = "") const;
   };
 }

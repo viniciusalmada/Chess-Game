@@ -23,6 +23,11 @@ std::vector<SP::String> SP::String::split(std::string delimiter) const
   return splits;
 }
 
+SP::String SP::String::append(std::string str) const
+{
+  return { std::string(mStr).append(str) };
+}
+
 SP::String SP::String::appendAll(std::vector<SP::String> strings, std::string joinStr) const
 {
   std::string strCopy = mStr;
