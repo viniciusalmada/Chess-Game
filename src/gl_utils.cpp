@@ -102,3 +102,13 @@ void GlUtils::uglViewportAndOrtho(int s)
   glLoadIdentity();
   glOrtho(0, s, s, 0, -1.0, 1.0);
 }
+
+void GlUtils::drawSquare(int x, int y, int squareSize)
+{
+  glBegin(GL_QUADS);
+  glVertex2i(x, y);
+  glVertex2i(x + squareSize, y);
+  glVertex2i(x + squareSize, y + squareSize);
+  glVertex2i(x, y + squareSize);
+  glEnd();
+}

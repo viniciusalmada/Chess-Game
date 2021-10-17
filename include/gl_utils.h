@@ -26,4 +26,6 @@ public:
   static Texture createTexture2D(imImage* im);
 
   static void uglViewportAndOrtho(int size);
+
+  static void drawSquare(int x, int y, int squareSize);
 };
