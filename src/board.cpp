@@ -68,19 +68,9 @@ void Board::drawBoard()
 {
   loadTextures();
 
-  const int& s = mSideSize;
+  GlUtils::uglViewportAndOrtho(mSideSize);
 
-  glViewport(0, 0, s, s);
-  glLoadIdentity();
-  glOrtho(0, s, s, 0, -1.0, 1.0);
-
-  glBegin(GL_QUADS);
-  GlUtils::uglColor3d(sBackgroundColor);
-  glVertex2d(0, 0);
-  glVertex2d(s, 0);
-  glVertex2d(s, s);
-  glVertex2d(0, s);
-  glEnd();
+  drawBackground(mSideSize);
 
   int ib = mSideSize - 2 * mBorderSize;
   bool useDark = true;
@@ -123,4 +113,15 @@ void Board::drawBoard()
     useDark = !aux;
     aux = useDark;
   }
+}
+
+void Board::drawBackground(const int& s)
+{
+  glBegin(GL_QUADS);
+  GlUtils::uglColor3d(sBackgroundColor);
+  glVertex2d(0, 0);
+  glVertex2d(s, 0);
+  glVertex2d(s, s);
+  glVertex2d(0, s);
+  glEnd();
 }

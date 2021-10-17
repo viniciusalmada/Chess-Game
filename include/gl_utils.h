@@ -24,4 +24,6 @@ public:
   static void uglColor3d(int hexColors);
 
   static Texture createTexture2D(imImage* im);
+
+  static void uglViewportAndOrtho(int size);
 };

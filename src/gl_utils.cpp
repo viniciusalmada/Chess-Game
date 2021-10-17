@@ -95,3 +95,10 @@ GlUtils::Texture GlUtils::createTexture2D(imImage* img)
 
   return tex;
 }
+
+void GlUtils::uglViewportAndOrtho(int s)
+{
+  glViewport(0, 0, s, s);
+  glLoadIdentity();
+  glOrtho(0, s, s, 0, -1.0, 1.0);
+}
