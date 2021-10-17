@@ -55,6 +55,11 @@ void Board::loadTextures()
     mTextures[Piece::WHITE_ROCK_RIGHT] = _loadTexture("img_rock_white.png");
 }
 
+void Board::forEachSquare(std::function<void(int, int, Coordinate)> fun)
+{
+  
+}
+
 Board::Board(int sideSize) : mSideSize(sideSize)
 {
 }

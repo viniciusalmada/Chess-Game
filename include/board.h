@@ -12,6 +12,8 @@ class Board
 
   void loadTextures();
 
+  void forEachSquare(std::function<void(int, int, Coordinate)> fun);
+
 public:
   static int sBackgroundColor;
   static int sHouseDark;
