@@ -20,6 +20,15 @@ void GameApp::start()
   }
 }
 
+void GameApp::forEachPiece(std::function<void(std::pair<Piece, Coordinate>)> fun)
+{
+  const auto& pieces = getInstance()->mPiecesPositions;
+  for (const auto p : pieces)
+  {
+    fun(p);
+  }
+}
+
 void GameApp::initPiecesCoordinates()
 {
   if (!mPiecesPositions.empty())

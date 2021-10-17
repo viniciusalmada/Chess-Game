@@ -1,6 +1,7 @@
 #pragma once
 #include <unordered_map>
 #include <coordinate.h>
+#include <functional>
 
 enum class Piece
 {
@@ -54,9 +55,9 @@ public:
 
   static void start();
 
+  static void forEachPiece(std::function<void(std::pair<Piece, Coordinate>)> fun);
+
   GameApp(GameApp& other) = delete;
 
   void operator=(const GameApp& other) = delete;
-
-
 };
