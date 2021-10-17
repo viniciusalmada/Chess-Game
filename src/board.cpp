@@ -9,6 +9,32 @@ int Board::sBackgroundColor = 0xE8E6E4;
 int Board::sHouseDark = 0xB58863;
 int Board::sHouseLight = 0xF0D9B5;
 
+static GlUtils::Texture _loadTexture(std::string str)
+{
+  std::string path = App::getImagePath(str);
+  auto* img = ImageLoader::load(path);
+  return GlUtils::createTexture2D(img);
+}
+
+void Board::loadTextures()
+{
+  if (!mTextures.empty())
+    return;
+
+  mTextures[Piece::BLACK_BISHOP] = _loadTexture("img_bishop_black.png");
+  mTextures[Piece::BLACK_KING] = _loadTexture("img_king_black.png");
+  mTextures[Piece::BLACK_KNIGHT] = _loadTexture("img_knight_black.png");
+  mTextures[Piece::BLACK_PAWN] = _loadTexture("img_pawn_black.png");
+  mTextures[Piece::BLACK_QUEEN] = _loadTexture("img_queen_black.png");
+  mTextures[Piece::BLACK_ROCK] = _loadTexture("img_rock_black.png");
+  mTextures[Piece::WHITE_BISHOP] = _loadTexture("img_bishop_white.png");
+  mTextures[Piece::WHITE_KING] = _loadTexture("img_knight_white.png");
+  mTextures[Piece::WHITE_KNIGHT] = _loadTexture("img_king_white.png");
+  mTextures[Piece::WHITE_PAWN] = _loadTexture("img_pawn_white.png");
+  mTextures[Piece::WHITE_QUEEN] = _loadTexture("img_queen_white.png");
+  mTextures[Piece::WHITE_ROCK] = _loadTexture("img_rock_white.png");
+}
+
 Board::Board(int sideSize) : mSideSize(sideSize)
 {
 }
@@ -20,6 +46,8 @@ int Board::getSideSize() const
 
 void Board::drawBoard()
 {
+  loadTextures();
+
   const int& s = mSideSize;
 
   glViewport(0, 0, s, s);
@@ -33,10 +61,6 @@ void Board::drawBoard()
   glVertex2d(s, s);
   glVertex2d(0, s);
   glEnd();
-
-  std::string path = App::getImagePath("polygon.png");
-  auto* img = ImageLoader::load(path);
-  unsigned int textureId = GlUtils::createTexture2D(img);
 
   int ib = mSideSize - 2 * mBorderSize;
   bool useDark = true;
@@ -60,15 +84,16 @@ void Board::drawBoard()
 
       if (i == 0 && j == 0)
       {
+        int gap = sq * 1.0 / 24.0;
         glBindTexture(GL_TEXTURE_2D, 0);
         glEnable(GL_TEXTURE_2D);
-        glBindTexture(GL_TEXTURE_2D, textureId);
+        glBindTexture(GL_TEXTURE_2D, mTextures[Piece::BLACK_QUEEN].id);
         GlUtils::uglColor3d(GlUtils::WHITE);
         glBegin(GL_QUADS);
-        glTexCoord2f(0.0f, 1.0f); glVertex2i(x, y);
-        glTexCoord2f(1.0f, 1.0f); glVertex2i(x + sq, y);
-        glTexCoord2f(1.0f, 0.0f); glVertex2i(x + sq, y + sq);
-        glTexCoord2f(0.0f, 0.0f); glVertex2i(x, y + sq);
+        glTexCoord2f(0.0f, 1.0f); glVertex2i(x + gap, y + gap);
+        glTexCoord2f(1.0f, 1.0f); glVertex2i(x + sq - gap, y + gap);
+        glTexCoord2f(1.0f, 0.0f); glVertex2i(x + sq - gap, y + sq - gap);
+        glTexCoord2f(0.0f, 0.0f); glVertex2i(x + gap, y + sq - gap);
         glEnd();
         glDisable(GL_TEXTURE_2D);
       }
