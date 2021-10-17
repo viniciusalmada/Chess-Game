@@ -60,9 +60,7 @@ void Board::drawBoard()
 
       if (i == 0 && j == 0)
       {
-        //glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
         glBindTexture(GL_TEXTURE_2D, 0);
-
         glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, textureId);
         GlUtils::uglColor3d(GlUtils::WHITE);
