@@ -31,6 +31,12 @@
     <Filter Include="Source Files\ui">
       <UniqueIdentifier>{599b6e15-ac47-47fd-beb4-aeee5bf9e9ad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\logic">
+      <UniqueIdentifier>{6fa590d9-22d5-4ad3-8c61-f6c847d193a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\logic">
+      <UniqueIdentifier>{d2c13443-3d9c-496a-9641-a80b2756fefe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -60,6 +66,9 @@
     <ClCompile Include="src\canvas.cpp">
       <Filter>Source Files\ui</Filter>
     </ClCompile>
+    <ClCompile Include="src\game_app.cpp">
+      <Filter>Source Files\logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\app.h">
@@ -85,6 +94,9 @@
     </ClInclude>
     <ClInclude Include="include\canvas.h">
       <Filter>Header Files\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\game_app.h">
+      <Filter>Header Files\logic</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
