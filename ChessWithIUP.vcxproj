@@ -90,6 +90,7 @@
   <ItemGroup>
     <ClCompile Include="src\app.cpp" />
     <ClCompile Include="src\board.cpp" />
+    <ClCompile Include="src\canvas.cpp" />
     <ClCompile Include="src\gl_utils.cpp" />
     <ClCompile Include="src\image_loader.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -99,6 +100,7 @@
   <ItemGroup>
     <ClInclude Include="include\app.h" />
     <ClInclude Include="include\board.h" />
+    <ClInclude Include="include\canvas.h" />
     <ClInclude Include="include\gl_utils.h" />
     <ClInclude Include="include\image_loader.h" />
     <ClInclude Include="include\numeric_utils.h" />
