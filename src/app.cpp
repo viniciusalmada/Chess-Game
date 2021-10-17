@@ -1,6 +1,8 @@
 #include "app.h"
 #include <sp_string.h>
 
+App* App::instance = nullptr;
+
 int App::sPredefinedSize = 600;
 
 App::App(std::string executablePath)
@@ -12,4 +14,17 @@ App::App(std::string executablePath)
 
   pathDivided.push_back({ "images" });
   this->mImagesPath = SP::String().appendAll(pathDivided, "\\");
+}
+
+App* App::getInstance()
+{
+  return instance;
+}
+
+void App::start(std::string executablePath)
+{
+  if (instance == nullptr)
+  {
+    instance = new App(executablePath);
+  }
 }
