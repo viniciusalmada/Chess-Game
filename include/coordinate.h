@@ -7,5 +7,7 @@ class Coordinate
 
 public:
 
+  Coordinate();
+
   Coordinate(int a, int b);
 };
