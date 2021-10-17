@@ -72,6 +72,11 @@ void Board::drawBoard()
 
   drawBackground(mSideSize);
 
+  drawSquares();
+}
+
+void Board::drawSquares()
+{
   int ib = mSideSize - 2 * mBorderSize;
   bool useDark = true;
   for (int i = 0; i < 8; i++)
@@ -91,22 +96,6 @@ void Board::drawBoard()
       glVertex2i(x + sq, y + sq);
       glVertex2i(x, y + sq);
       glEnd();
-
-      if (i == 0 && j == 0)
-      {
-        int gap = sq * 1.0 / 24.0;
-        glBindTexture(GL_TEXTURE_2D, 0);
-        glEnable(GL_TEXTURE_2D);
-        glBindTexture(GL_TEXTURE_2D, mTextures[Piece::BLACK_QUEEN].id);
-        GlUtils::uglColor3d(GlUtils::WHITE);
-        glBegin(GL_QUADS);
-        glTexCoord2f(0.0f, 1.0f); glVertex2i(x + gap, y + gap);
-        glTexCoord2f(1.0f, 1.0f); glVertex2i(x + sq - gap, y + gap);
-        glTexCoord2f(1.0f, 0.0f); glVertex2i(x + sq - gap, y + sq - gap);
-        glTexCoord2f(0.0f, 0.0f); glVertex2i(x + gap, y + sq - gap);
-        glEnd();
-        glDisable(GL_TEXTURE_2D);
-      }
 
       useDark = !useDark;
     }
