@@ -65,10 +65,10 @@ void Board::drawBoard()
         glBindTexture(GL_TEXTURE_2D, textureId);
         GlUtils::uglColor3d(GlUtils::WHITE);
         glBegin(GL_QUADS);
-        glTexCoord2f(0.0f, 0.0f); glVertex2i(x, y);
-        glTexCoord2f(0.0f, 1.0f); glVertex2i(x + sq, y);
-        glTexCoord2f(1.0f, 1.0f); glVertex2i(x + sq, y + sq);
-        glTexCoord2f(1.0f, 0.0f); glVertex2i(x, y + sq);
+        glTexCoord2f(0.0f, 1.0f); glVertex2i(x, y);
+        glTexCoord2f(1.0f, 1.0f); glVertex2i(x + sq, y);
+        glTexCoord2f(1.0f, 0.0f); glVertex2i(x + sq, y + sq);
+        glTexCoord2f(0.0f, 0.0f); glVertex2i(x, y + sq);
         glEnd();
         glDisable(GL_TEXTURE_2D);
       }
