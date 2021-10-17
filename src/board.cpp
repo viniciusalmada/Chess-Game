@@ -22,11 +22,8 @@ void Board::drawBoard()
   const int& s = mSideSize;
 
   glViewport(0, 0, s, s);
-  glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
   glOrtho(0, s, s, 0, -1.0, 1.0);
-  glMatrixMode(GL_MODELVIEW);
-  glLoadIdentity();
 
   glBegin(GL_QUADS);
   GlUtils::uglColor3d(sBackgroundColor);
