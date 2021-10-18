@@ -43,19 +43,19 @@ class GameApp
 {
   static GameApp* instance;
 
+  static GameApp* getInstance();
+
   GameApp();
 
-  std::unordered_map<Piece, Coordinate> mPiecesPositions;
+  std::unordered_map<Piece, std::pair<int, int>> mPiecesPositions;
 
   void initPiecesCoordinates();
 
 public:
 
-  static GameApp* getInstance();
-
   static void start();
 
-  static void forEachPiece(std::function<void(Piece, Coordinate)> fun);
+  static void forEachPiece(std::function<void(Piece, int, int)> fun);
 
   GameApp(GameApp& other) = delete;
 
