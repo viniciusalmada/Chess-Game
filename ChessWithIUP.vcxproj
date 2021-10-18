@@ -107,6 +107,7 @@
     <ClInclude Include="include\coordinate.h" />
     <ClInclude Include="include\game_app.h" />
     <ClInclude Include="include\gl_utils.h" />
+    <ClInclude Include="include\hash_utl.h" />
     <ClInclude Include="include\image_loader.h" />
     <ClInclude Include="include\main_window.h" />
     <ClInclude Include="include\numeric_utils.h" />

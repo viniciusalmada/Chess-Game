@@ -104,5 +104,8 @@
     <ClInclude Include="include\coordinate.h">
       <Filter>Header Files\logic</Filter>
     </ClInclude>
+    <ClInclude Include="include\hash_utl.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
