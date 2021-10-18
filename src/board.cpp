@@ -55,8 +55,10 @@ void Board::loadTextures()
     mTextures[Piece::WHITE_ROCK_RIGHT] = _loadTexture("img_rock_white.png");
 }
 
-void Board::forEachSquare(std::function<void(int, int, Coordinate)> fun)
+void Board::fillCoordinates()
 {
+  if (!mSquaresCoordinates.empty()) return;
+
   int ib = mSideSize - 2 * mBorderSize;
   for (int i = 0; i < 8; i++)
   {
@@ -65,8 +67,7 @@ void Board::forEachSquare(std::function<void(int, int, Coordinate)> fun)
       int sq = ib / 8;
       int x = i * sq + mBorderSize;
       int y = j * sq + mBorderSize;
-
-      fun(i, j, { x, y });
+      mSquaresCoordinates.push_back({ i, j, { x, y } });
     }
   }
 }
@@ -84,6 +85,8 @@ void Board::drawBoard()
 {
   loadTextures();
 
+  fillCoordinates();
+
   GlUtils::uglViewportAndOrtho(mSideSize);
 
   drawBackground(mSideSize);
@@ -95,18 +98,23 @@ void Board::drawSquares()
 {
   int innerBorder = mSideSize - 2 * mBorderSize;
   int squareSize = innerBorder / 8;
-  forEachSquare([&](int i, int j, Coordinate xy)
-    {
-      if ((i + j) % 2 == 0)
-        GlUtils::uglColor3d(sHouseDark);
-      else
-        GlUtils::uglColor3d(sHouseLight);
+  for (const auto& square : mSquaresCoordinates)
+  {
+    int i = square.i;
+    int j = square.j;
 
-      int x = xy.x();
-      int y = xy.y();
+    if ((i + j) % 2 == 0)
+      GlUtils::uglColor3d(sHouseDark);
+    else
+      GlUtils::uglColor3d(sHouseLight);
 
-      GlUtils::drawSquare(x, y, squareSize);
-    });
+    int x = square.c.x();
+    int y = square.c.y();
+
+    GlUtils::drawSquare(x, y, squareSize);
+  }
+}
+
 }
 
 void Board::drawBackground(const int& s)

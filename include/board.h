@@ -2,17 +2,26 @@
 #include <unordered_map>
 #include "gl_utils.h"
 #include "game_app.h"
+#include <vector>
 
 class Board
 {
+  struct SquareCoordinate
+  {
+    int i;
+    int j;
+    Coordinate c;
+  };
+
   const int mBorderSize = 10;
   int mSideSize;
 
   std::unordered_map<Piece, GlUtils::Texture> mTextures;
+  std::vector<SquareCoordinate> mSquaresCoordinates;
 
   void loadTextures();
 
-  void forEachSquare(std::function<void(int, int, Coordinate)> fun);
+  void fillCoordinates();
 
 public:
   static int sBackgroundColor;
