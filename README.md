@@ -32,5 +32,5 @@ Some classes act only like a holder for static functions like the [GlUtils](incl
 
 ### Assets
 
-The image pieces was get from [OpenGameArt.org](https://opengameart.org/content/chess-pieces-and-board-squares) from user [JohnPablok](https://opengameart.org/users/johnpablo) under this [license](https://creativecommons.org/licenses/by/4.0/).
+The images of the pieces were obtained from [OpenGameArt.org](https://opengameart.org/content/chess-pieces-and-board-squares) from user [JohnPablok](https://opengameart.org/users/johnpablo) under this [license](https://creativecommons.org/licenses/by/4.0/).
 
