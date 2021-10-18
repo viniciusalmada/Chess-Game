@@ -1,5 +1,6 @@
 #include "app.h"
 #include <sp_string.h>
+#include <game_app.h>
 
 App* App::instance = nullptr;
 
@@ -14,6 +15,8 @@ App::App(std::string executablePath)
 
   pathDivided.push_back({ "images" });
   this->mImagesPath = SP::String().appendAll(pathDivided, "\\");
+
+  GameApp::start();
 }
 
 App* App::getInstance()
