@@ -28,4 +28,6 @@ public:
   static void uglViewportAndOrtho(int size);
 
   static void drawSquare(int x, int y, int squareSize);
+
+  static void draw2DTexture(int texId, int x, int y, int sq);
 };

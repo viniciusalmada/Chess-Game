@@ -112,3 +112,18 @@ void GlUtils::drawSquare(int x, int y, int squareSize)
   glVertex2i(x, y + squareSize);
   glEnd();
 }
+
+void GlUtils::draw2DTexture(int texId, int x, int y, int sq)
+{
+  glBindTexture(GL_TEXTURE_2D, 0);
+  glEnable(GL_TEXTURE_2D);
+  glBindTexture(GL_TEXTURE_2D, texId);
+  GlUtils::uglColor3d(GlUtils::WHITE);
+  glBegin(GL_QUADS);
+  glTexCoord2f(0.0f, 1.0f); glVertex2i(x, y);
+  glTexCoord2f(1.0f, 1.0f); glVertex2i(x + sq, y);
+  glTexCoord2f(1.0f, 0.0f); glVertex2i(x + sq, y + sq);
+  glTexCoord2f(0.0f, 0.0f); glVertex2i(x, y + sq);
+  glEnd();
+  glDisable(GL_TEXTURE_2D);
+}
