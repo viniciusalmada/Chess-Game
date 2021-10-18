@@ -67,7 +67,7 @@ void Board::fillCoordinates()
       int sq = ib / 8;
       int x = i * sq + mBorderSize;
       int y = j * sq + mBorderSize;
-      mSquaresCoordinates.push_back({ i, j, { x, y } });
+      mSquaresCoordinates[{ i, j}] = { x, y };
     }
   }
 }
@@ -100,16 +100,16 @@ void Board::drawSquares()
   int squareSize = innerBorder / 8;
   for (const auto& square : mSquaresCoordinates)
   {
-    int i = square.i;
-    int j = square.j;
+    int i = square.first.first;
+    int j = square.first.second;
 
     if ((i + j) % 2 == 0)
       GlUtils::uglColor3d(sHouseDark);
     else
       GlUtils::uglColor3d(sHouseLight);
 
-    int x = square.c.x();
-    int y = square.c.y();
+    int x = square.second.x();
+    int y = square.second.y();
 
     GlUtils::drawSquare(x, y, squareSize);
   }
