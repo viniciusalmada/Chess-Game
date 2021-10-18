@@ -35,8 +35,8 @@ void Board::loadTextures()
     mTextures[Piece::BLACK_PAWN_7] =
     mTextures[Piece::BLACK_PAWN_8] = _loadTexture("img_pawn_black.png");
   mTextures[Piece::BLACK_QUEEN] = _loadTexture("img_queen_black.png");
-  mTextures[Piece::BLACK_ROCK_LEFT] =
-    mTextures[Piece::BLACK_ROCK_RIGHT] = _loadTexture("img_rock_black.png");
+  mTextures[Piece::BLACK_ROOK_LEFT] =
+    mTextures[Piece::BLACK_ROOK_RIGHT] = _loadTexture("img_rook_black.png");
   mTextures[Piece::WHITE_BISHOP_LEFT] =
     mTextures[Piece::WHITE_BISHOP_RIGHT] = _loadTexture("img_bishop_white.png");
   mTextures[Piece::WHITE_KING] = _loadTexture("img_king_white.png");
@@ -51,8 +51,8 @@ void Board::loadTextures()
     mTextures[Piece::WHITE_PAWN_7] =
     mTextures[Piece::WHITE_PAWN_8] = _loadTexture("img_pawn_white.png");
   mTextures[Piece::WHITE_QUEEN] = _loadTexture("img_queen_white.png");
-  mTextures[Piece::WHITE_ROCK_LEFT] =
-    mTextures[Piece::WHITE_ROCK_RIGHT] = _loadTexture("img_rock_white.png");
+  mTextures[Piece::WHITE_ROOK_LEFT] =
+    mTextures[Piece::WHITE_ROOK_RIGHT] = _loadTexture("img_rook_white.png");
 }
 
 void Board::fillCoordinates()
