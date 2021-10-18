@@ -59,12 +59,11 @@ void Board::fillCoordinates()
 {
   if (!mSquaresCoordinates.empty()) return;
 
-  int ib = mSideSize - 2 * mBorderSize;
   for (int i = 0; i < 8; i++)
   {
     for (int j = 0; j < 8; j++)
     {
-      int sq = ib / 8;
+      int sq = innerBorder() / 8;
       int x = i * sq + mBorderSize;
       int y = j * sq + mBorderSize;
       mSquaresCoordinates[{ i, j}] = { x, y };
@@ -92,12 +91,12 @@ void Board::drawBoard()
   drawBackground(mSideSize);
 
   drawSquares();
+
+  drawPieces();
 }
 
 void Board::drawSquares()
 {
-  int innerBorder = mSideSize - 2 * mBorderSize;
-  int squareSize = innerBorder / 8;
   for (const auto& square : mSquaresCoordinates)
   {
     int i = square.first.first;
@@ -111,10 +110,22 @@ void Board::drawSquares()
     int x = square.second.x();
     int y = square.second.y();
 
-    GlUtils::drawSquare(x, y, squareSize);
+    GlUtils::drawSquare(x, y, squareSize());
   }
 }
 
+void Board::drawPieces()
+{
+  GameApp::forEachPiece([this](Piece p, int i, int j)
+    {
+      Coordinate coords = mSquaresCoordinates[{i, j}];
+      GlUtils::Texture tex = mTextures[p];
+      int x = coords.x();
+      int y = coords.y();
+      int sq = squareSize();
+
+      GlUtils::draw2DTexture(tex.id, x, y, sq);
+    });
 }
 
 void Board::drawBackground(const int& s)

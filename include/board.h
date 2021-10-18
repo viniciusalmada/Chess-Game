@@ -8,7 +8,6 @@
 
 class Board
 {
-
   const int mBorderSize = 10;
   int mSideSize;
 
@@ -18,6 +17,9 @@ class Board
   void loadTextures();
 
   void fillCoordinates();
+
+  int innerBorder() { return mSideSize - 2 * mBorderSize; }
+  int squareSize() { return innerBorder() / 8; }
 
 public:
   static int sBackgroundColor;
@@ -31,5 +33,6 @@ public:
   void drawBoard();
   void drawSquares();
   void drawBackground(const int& s);
+  void drawPieces();
 };
 
