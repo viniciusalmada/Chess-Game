@@ -120,9 +120,13 @@ void GlUtils::draw2DTexture(int texId, int x, int y, int sq)
   glBindTexture(GL_TEXTURE_2D, texId);
   GlUtils::uglColor3d(GlUtils::WHITE);
   glBegin(GL_QUADS);
+  // top-right
   glTexCoord2f(0.0f, 1.0f); glVertex2i(x, y);
+  // top-left
   glTexCoord2f(1.0f, 1.0f); glVertex2i(x + sq, y);
+  // bottom-left
   glTexCoord2f(1.0f, 0.0f); glVertex2i(x + sq, y + sq);
+  // bottom-right
   glTexCoord2f(0.0f, 0.0f); glVertex2i(x, y + sq);
   glEnd();
   glDisable(GL_TEXTURE_2D);
