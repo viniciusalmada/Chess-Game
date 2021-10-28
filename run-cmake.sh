@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-mkdir -p cmake-build-debug
+mkdir -p cmake-build
 mkdir -p bin
-cd cmake-build-debug
+cd cmake-build
 cmake -S .. -B .
 make -j `nproc` && \
   mv Chess-Game ../bin
