@@ -1,15 +1,15 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.21)
 
 # set the project name
 project(Chess-Game)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED on)
 
 include_directories(include)
 
-add_compile_definitions(GLEW_STATIC)
+add_compile_options(-Wall -Wextra -Wpedantic -Werror)
 
-# add the executable
-add_executable(Chess-Game 
-	src/main.cpp
+add_library(LibsModule
 	include/app.h src/app.cpp
 	include/board.h src/board.cpp
 	include/canvas.h src/canvas.cpp
@@ -21,8 +21,12 @@ add_executable(Chess-Game
 	include/main_window.h src/main_window.cpp
 	include/numeric_utils.h src/numeric_utils.cpp
 	include/sp_string.h src/sp_string.cpp
-	)
+)
 
-find_library(project_libraries glew ${P iup im GL)
+target_link_libraries(LibsModule iup iupgl im GL)
 
-target_link_libraries(Chess-Game ${project_libraries})
+add_executable(Chess-Game 
+	src/main.cpp)
+
+	
+target_link_libraries(Chess-Game LibsModule)
