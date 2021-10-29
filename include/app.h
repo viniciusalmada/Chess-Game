@@ -1,13 +1,14 @@
 #pragma once
+#include <filesystem>
 #include <sp_string.h>
 #include <string>
 class App
 {
   static App* instance;
 
-  SP::String mImagesPath;
+  std::filesystem::path mImagesPath;
 
-  App(std::string executablePath);
+  App();
 
 public:
 
@@ -15,9 +16,9 @@ public:
 
   static App* getInstance();
   
-  static void start(std::string executablePath);
+  static void start();
 
-  static std::string getImagePath(std::string imageFileName);
+  static std::filesystem::path getImagePath(std::string imageFileName);
 
   App(App& other) = delete;
 

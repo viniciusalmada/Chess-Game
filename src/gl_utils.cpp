@@ -1,4 +1,3 @@
-#pragma once
 #include <GL/glew.h>
 #include "gl_utils.h"
 #include "numeric_utils.h"

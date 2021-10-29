@@ -55,7 +55,7 @@ public:
 
   static void start();
 
-  static void forEachPiece(std::function<void(Piece, int, int)> fun);
+  static void forEachPiece(const std::function<void(Piece, int, int)>& fun);
 
   GameApp(GameApp& other) = delete;
 

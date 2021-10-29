@@ -1,40 +1,39 @@
 #include "app.h"
-#include <sp_string.h>
 #include <game_app.h>
+#include <iostream>
 
-App* App::instance = nullptr;
+App *App::instance = nullptr;
 
 int App::sPredefinedSize = 600;
 
-App::App(std::string executablePath)
+App::App()
 {
-  SP::String spPath(executablePath);
-  auto pathDivided = spPath.split("\\");
-  pathDivided.pop_back();
-  pathDivided.pop_back();
-
-  pathDivided.push_back({ "images" });
-  this->mImagesPath = SP::String().appendAll(pathDivided, "\\");
+  std::filesystem::path currentPath;
+#ifdef WORKING_DIR
+  currentPath = std::filesystem::path{WORKING_DIR};
+#else
+  currentPath = std::filesystem::current_path();
+#endif
+  this->mImagesPath = currentPath.append("images");
 
   GameApp::start();
 }
 
-App* App::getInstance()
+App *App::getInstance()
 {
   return instance;
 }
 
-void App::start(std::string executablePath)
+void App::start()
 {
   if (instance == nullptr)
   {
-    instance = new App(executablePath);
+    instance = new App();
   }
 }
 
-std::string App::getImagePath(std::string imageFileName)
+std::filesystem::path App::getImagePath(std::string imageFileName)
 {
-  return getInstance()->mImagesPath
-    .append(imageFileName)
-    .getStr();
+  auto imagesPath = getInstance()->mImagesPath;
+  return imagesPath.append(imageFileName);
 }

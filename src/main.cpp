@@ -1,9 +1,11 @@
 ﻿#include <app.h>
 #include <main_window.h>
-int main(int argc, char* argv[])
-{
+#include <string>
+#include <iostream>
 
-  App::start(argv[0]);
+int main()
+{
+  App::start();
   MainWindow mw{};
 
   mw.show();
