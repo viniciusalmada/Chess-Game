@@ -7,6 +7,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED on)
 
 include_directories(include)
 
+add_definitions(-DWORKING_DIR="${CMAKE_SOURCE_DIR}")
+
 add_compile_options(-Wall -Wextra -Wpedantic -Werror)
 
 add_library(LibsModule
