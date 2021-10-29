@@ -21,7 +21,7 @@ int Canvas::actionCallback(Ihandle* cnv)
   if (getInstance()->mBoard)
     getInstance()->mBoard->drawBoard();
 
-  IupGLSwapBuffers(cnv);
+  glFlush();
 
   return IUP_DEFAULT;
 }
