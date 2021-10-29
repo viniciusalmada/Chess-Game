@@ -4,10 +4,11 @@
 #include <app.h>
 #include <gl_utils.h>
 #include <GL/glew.h>
+#include <log.h>
+
+static Coordinate _mousePressedCoord;
 
 Canvas* Canvas::instance = nullptr;
-
-std::string Canvas::ATTR_BOARD = "ATTR_BOARD";
 
 int Canvas::actionCallback(Ihandle* cnv)
 {
@@ -23,6 +24,24 @@ int Canvas::actionCallback(Ihandle* cnv)
 
   glFlush();
 
+  return IUP_DEFAULT;
+}
+
+int Canvas::buttonCallback(Ihandle* ih, int btn, int pressed, int x, int y, char* status)
+{
+  if (!iup_isbutton1(status))
+    return IUP_DEFAULT;
+
+  if (pressed)
+  {
+    _mousePressedCoord = { x, y };
+    return IUP_DEFAULT;
+  }
+
+  if (_mousePressedCoord != Coordinate(x, y))
+    return IUP_DEFAULT;
+
+  Log::logDebug({ "pressed?" + std::to_string(btn) + "x = " + std::to_string(x) + ",y = " + std::to_string(y) });
   return IUP_DEFAULT;
 }
 
@@ -51,6 +70,7 @@ void Canvas::build()
   {
     instance = new Canvas();
     IupSetCallback(instance->mCnv, IUP_ACTION, (Icallback)Canvas::actionCallback);
+    IupSetCallback(instance->mCnv, IUP_BUTTON_CB, (Icallback)Canvas::buttonCallback);
   }
 }
 

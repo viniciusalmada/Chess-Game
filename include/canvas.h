@@ -11,16 +11,16 @@ class Canvas
 
   static Canvas* instance;
 
-  static std::string ATTR_BOARD;
-
   static int actionCallback(Ihandle* ih);
+
+  static int buttonCallback(Ihandle* ih, int btn, int pressed, int x, int y, char* status);
 
   Canvas();
 
   ~Canvas();
 
 public:
-  
+
   static Canvas* getInstance();
 
   static void build();
