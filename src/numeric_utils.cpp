@@ -19,9 +19,6 @@ std::array<int, 4> NumericUtils::hexTo4Dec(unsigned long hexColor)
   if (hexColor > 0xFFFFFFFF)
     return { 0xFF, 0xFF, 0xFF, 0xFF };
 
-  if (hexColor < 0x00000000)
-    return { 0x00, 0x00, 0x00, 0x00 };
-
   int b = hexColor % 0x100;
   int g = (hexColor - b) / 0x100 % 0x100;
   int r = ((hexColor - (g * 0x100 + b)) / 0x10000) % 0x100;
