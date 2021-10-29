@@ -11,7 +11,7 @@ int Board::sHouseLight = 0xF0D9B5;
 
 static GlUtils::Texture _loadTexture(std::string str)
 {
-  std::string path = App::getImagePath(str);
+  std::string path = App::getImagePath(str).generic_string();
   auto* img = ImageLoader::load(path);
   return GlUtils::createTexture2D(img);
 }
