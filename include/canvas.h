@@ -2,14 +2,15 @@
 #include <iup/iup.h>
 #include <board.h>
 #include <string>
+#include <memory>
 
 class Canvas
 {
   Ihandle* mCnv;
 
-  Board* mBoard;
+  std::unique_ptr<Board> mBoard;
 
-  static Canvas* instance;
+  static std::shared_ptr<Canvas> instance;
 
   static int actionCallback(Ihandle* ih);
 
@@ -17,11 +18,9 @@ class Canvas
 
   Canvas();
 
-  ~Canvas();
-
 public:
 
-  static Canvas* getInstance();
+  static std::shared_ptr<Canvas> getInstance();
 
   static void build();
 

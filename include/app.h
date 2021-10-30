@@ -2,9 +2,11 @@
 #include <filesystem>
 #include <sp_string.h>
 #include <string>
+#include <memory>
+
 class App
 {
-  static App* instance;
+  static std::shared_ptr<App> instance;
 
   std::filesystem::path mImagesPath;
 
@@ -14,7 +16,7 @@ public:
 
   static int sPredefinedSize;
 
-  static App* getInstance();
+  static std::shared_ptr<App> getInstance();
   
   static void start();
 

@@ -2,6 +2,7 @@
 #include <unordered_map>
 #include <coordinate.h>
 #include <functional>
+#include <memory>
 
 enum class Piece
 {
@@ -41,12 +42,10 @@ enum class Piece
 
 class GameApp
 {
-  static GameApp* instance;
-
-  static GameApp* getInstance();
+  static std::shared_ptr<GameApp> instance;
 
   GameApp();
-
+   
   std::unordered_map<Piece, std::pair<int, int>> mPiecesPositions;
 
   void initPiecesCoordinates();
@@ -54,6 +53,8 @@ class GameApp
 public:
 
   static void start();
+
+  static std::shared_ptr<GameApp> getInstance();
 
   static void forEachPiece(const std::function<void(Piece, int, int)>& fun);
 

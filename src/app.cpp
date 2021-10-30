@@ -2,7 +2,7 @@
 #include <game_app.h>
 #include <iostream>
 
-App *App::instance = nullptr;
+std::shared_ptr<App> App::instance = nullptr;
 
 int App::sPredefinedSize = 600;
 
@@ -19,7 +19,7 @@ App::App()
   GameApp::start();
 }
 
-App *App::getInstance()
+std::shared_ptr<App> App::getInstance()
 {
   return instance;
 }
@@ -28,7 +28,7 @@ void App::start()
 {
   if (instance == nullptr)
   {
-    instance = new App();
+    instance = std::make_shared<App>();
   }
 }
 

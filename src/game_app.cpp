@@ -1,13 +1,13 @@
 #include "game_app.h"
 
-GameApp* GameApp::instance = nullptr;
+std::shared_ptr<GameApp> GameApp::instance = nullptr;
 
 GameApp::GameApp()
 {
   initPiecesCoordinates();
 }
 
-GameApp* GameApp::getInstance()
+std::shared_ptr<GameApp> GameApp::getInstance()
 {
   return instance;
 }
@@ -16,7 +16,7 @@ void GameApp::start()
 {
   if (instance == nullptr)
   {
-    instance = new GameApp();
+    instance = std::make_shared<GameApp>();
   }
 }
 

@@ -8,7 +8,7 @@
 
 static Coordinate _mousePressedCoord;
 
-Canvas* Canvas::instance = nullptr;
+std::shared_ptr<Canvas> Canvas::instance = nullptr;
 
 int Canvas::actionCallback(Ihandle* cnv)
 {
@@ -51,15 +51,10 @@ Canvas::Canvas()
   IupSetAttribute(mCnv, IUP_EXPAND, IUP_YES);
   IupSetAttribute(mCnv, IUP_BORDER, IUP_YES);
 
-  mBoard = new Board(App::sPredefinedSize);
+  mBoard = std::make_unique<Board>(App::sPredefinedSize);
 }
 
-Canvas::~Canvas()
-{
-  delete mBoard;
-}
-
-Canvas* Canvas::getInstance()
+std::shared_ptr<Canvas> Canvas::getInstance()
 {
   return instance;
 }
