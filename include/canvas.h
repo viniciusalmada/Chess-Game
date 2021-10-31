@@ -6,29 +6,21 @@
 
 class Canvas
 {
-  Ihandle* mCnv;
+  Ihandle* mCnv = nullptr;
 
   std::unique_ptr<Board> mBoard;
-
-  static std::shared_ptr<Canvas> instance;
 
   static int actionCallback(Ihandle* ih);
 
   static int buttonCallback(Ihandle* ih, int btn, int pressed, int x, int y, char* status);
 
-  Canvas();
-
 public:
 
-  static std::shared_ptr<Canvas> getInstance();
+  static std::string HANDLE_NAME;
 
-  static void build();
+  Canvas() {};
 
-  Canvas(Canvas& other) = delete;
-
-  void operator=(const Canvas& other) = delete;
+  void init();
 
   Ihandle* handle() const { return mCnv; }
-
-  void redraw() const;
 };

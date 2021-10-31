@@ -1,30 +1,38 @@
 #pragma once
 #include <filesystem>
-#include <sp_string.h>
 #include <string>
 #include <memory>
 
+#include <sp_string.h>
+#include <main_window.h>
+#include <game_app.h>
+#include <board.h>
+
 class App
 {
-  static std::shared_ptr<App> instance;
+  static App* instance;
 
+  GameApp mGame;
+  MainWindow mMainWindow;
+  Canvas mCanvas;
+  Board mBoard;
   std::filesystem::path mImagesPath;
 
-  App();
+  static void show();
 
 public:
 
-  static int sPredefinedSize;
+  App();
 
-  static std::shared_ptr<App> getInstance();
-  
   static void start();
+
+  const static int PREDEFINED_SIZE = 600;
+
+  static void updateBoard();
 
   static std::filesystem::path getImagePath(std::string imageFileName);
 
   App(App& other) = delete;
 
   void operator=(const App& other) = delete;
-
-
 };

@@ -4,10 +4,12 @@
 
 class MainWindow
 {
-  Ihandle* mDialog;
+  Ihandle* mDialog = nullptr;
 
 public:
-  MainWindow();
+  MainWindow() {};
+
+  void init(Canvas& canvas);
 
   void show() const;
 };

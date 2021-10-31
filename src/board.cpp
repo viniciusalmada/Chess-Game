@@ -80,7 +80,7 @@ int Board::getSideSize() const
   return mSideSize;
 }
 
-void Board::drawBoard()
+void Board::drawBoard(const GameApp& game)
 {
   loadTextures();
 
@@ -92,7 +92,7 @@ void Board::drawBoard()
 
   drawSquares();
 
-  drawPieces();
+  drawPieces(game);
 }
 
 void Board::drawSquares()
@@ -114,9 +114,9 @@ void Board::drawSquares()
   }
 }
 
-void Board::drawPieces()
+void Board::drawPieces(const GameApp& game)
 {
-  GameApp::forEachPiece([this](Piece p, int i, int j)
+  game.forEachPiece([this](Piece p, int i, int j)
     {
       Coordinate coords = mSquaresCoordinates[{i, j}];
       GlUtils::Texture tex = mTextures[p];

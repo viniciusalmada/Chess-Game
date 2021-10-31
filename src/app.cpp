@@ -2,9 +2,12 @@
 #include <game_app.h>
 #include <iostream>
 
-std::shared_ptr<App> App::instance = nullptr;
+App* App::instance = nullptr;
 
-int App::sPredefinedSize = 600;
+void App::show()
+{
+  instance->mMainWindow.show();
+}
 
 App::App()
 {
@@ -16,24 +19,26 @@ App::App()
 #endif
   this->mImagesPath = currentPath.append("images");
 
-  GameApp::start();
-}
+  mMainWindow.init(mCanvas);
 
-std::shared_ptr<App> App::getInstance()
-{
-  return instance;
+  mBoard = Board(600);
 }
 
 void App::start()
 {
   if (instance == nullptr)
-  {
-    instance = std::make_shared<App>();
-  }
+    instance = new App();
+  show();
+}
+
+void App::updateBoard()
+{
+  if (instance == nullptr) return;
+  instance->mBoard.drawBoard(instance->mGame);
 }
 
 std::filesystem::path App::getImagePath(std::string imageFileName)
 {
-  auto imagesPath = getInstance()->mImagesPath;
+  auto imagesPath = instance->mImagesPath;
   return imagesPath.append(imageFileName);
 }

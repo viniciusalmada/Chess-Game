@@ -6,9 +6,6 @@
 int main()
 {
   App::start();
-  MainWindow mw{};
-
-  mw.show();
 
   return 0;
 }
