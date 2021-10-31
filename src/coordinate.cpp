@@ -48,3 +48,8 @@ bool SquarePosition::operator==(const SquarePosition& other) const
   return fileId() == other.fileId() &&
     rankId() == other.rankId();;
 }
+
+bool SquarePosition::operator!=(const SquarePosition& other) const
+{
+  return !(*this == other);
+}

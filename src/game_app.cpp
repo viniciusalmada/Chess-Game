@@ -5,11 +5,10 @@ void GameApp::checkSelectedPiece(SquarePosition pos)
   currentSelectedPiece = Piece::UNDEFINED;
   for (const auto& piece : mPiecesPositions)
   {
-    if (piece.second == pos)
-    {
-      currentSelectedPiece = piece.first;
-      break;
-    }
+    if (piece.second != pos)
+      continue;
+    currentSelectedPiece = piece.first;
+    break;
   }
 }
 

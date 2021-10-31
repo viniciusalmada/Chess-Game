@@ -48,6 +48,8 @@ public:
   Rank getRank() const { return rank; }
 
   bool operator==(const SquarePosition& other) const;
+  
+  bool operator!=(const SquarePosition& other) const;
 };
 
 class Coordinate
