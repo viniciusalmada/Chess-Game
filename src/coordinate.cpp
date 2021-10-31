@@ -42,3 +42,9 @@ int SquarePosition::rankId() const
 {
   return static_cast<int>(rank);
 }
+
+bool SquarePosition::operator==(const SquarePosition& other) const
+{
+  return fileId() == other.fileId() &&
+    rankId() == other.rankId();;
+}

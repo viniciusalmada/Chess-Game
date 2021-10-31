@@ -16,6 +16,7 @@ class App
   MainWindow mMainWindow;
   Canvas mCanvas;
   Board mBoard;
+
   std::filesystem::path mImagesPath;
 
   static void show();
@@ -29,6 +30,8 @@ public:
   const static int PREDEFINED_SIZE = 600;
 
   static void updateBoard();
+
+  static void processLeftClick(int x, int y);
 
   static std::filesystem::path getImagePath(std::string imageFileName);
 

@@ -37,6 +37,13 @@ void App::updateBoard()
   instance->mBoard.drawBoard(instance->mGame);
 }
 
+void App::processLeftClick(int x, int y)
+{
+  SquarePosition squareSelected = instance->mBoard.getSelectedSquare(x, y);
+  bool toRedraw = instance->mGame.processAction(squareSelected);
+  if (toRedraw) updateBoard();
+}
+
 std::filesystem::path App::getImagePath(std::string imageFileName)
 {
   auto imagesPath = instance->mImagesPath;

@@ -95,6 +95,30 @@ void Board::drawBoard(const GameApp& game)
   drawPieces(game);
 }
 
+SquarePosition Board::getSelectedSquare(int x, int y)
+{
+  int fileId = 0;
+  while (fileId < 8)
+  {
+    if (x < squareSize())
+      break;
+    x -= squareSize();
+    fileId++;
+  }
+
+  int rankId = 0;
+  while (rankId < 8)
+  {
+    if (y < squareSize())
+      break;
+    y -= squareSize();
+    rankId++;
+  }
+  rankId = 7 - rankId;
+
+  return SquarePosition(fileId, rankId);
+}
+
 void Board::drawSquares()
 {
   for (const auto& square : mSquaresCoordinates)

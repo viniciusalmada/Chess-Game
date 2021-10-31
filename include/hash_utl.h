@@ -15,7 +15,6 @@ struct SquarePositionEqual
 {
   bool operator()(const SquarePosition& lhs,const SquarePosition& rhs) const
   {
-    return lhs.fileId() == rhs.fileId() &&
-      lhs.rankId() == rhs.rankId();
+    return lhs == rhs;
   }
 };

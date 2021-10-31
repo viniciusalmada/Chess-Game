@@ -41,6 +41,9 @@ int Canvas::buttonCallback(Ihandle* ih, int btn, int pressed, int x, int y, char
     return IUP_DEFAULT;
 
   Log::logDebug({ "pressed?" + std::to_string(btn) + "x = " + std::to_string(x) + ",y = " + std::to_string(y) });
+
+  App::processLeftClick(x, y);
+
   return IUP_DEFAULT;
 }
 

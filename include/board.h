@@ -22,18 +22,21 @@ class Board
   int innerBorder() { return mSideSize - 2 * mBorderSize; }
   int squareSize() { return innerBorder() / 8; }
 
+  int getSideSize() const;
+
+  void drawSquares();
+  void drawBackground(const int& s);
+  void drawPieces(const GameApp& game);
+
 public:
   static int sBackgroundColor;
   static int sHouseDark;
   static int sHouseLight;
 
-  explicit Board(int sideSize = 500);
-
-  int getSideSize() const;
+  explicit Board(int sideSize = 600);
 
   void drawBoard(const GameApp& game);
-  void drawSquares();
-  void drawBackground(const int& s);
-  void drawPieces(const GameApp& game);
+
+  SquarePosition getSelectedSquare(int x, int y);
 };
 

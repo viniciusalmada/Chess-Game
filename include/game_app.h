@@ -37,11 +37,24 @@ enum class Piece
   WHITE_PAWN_6,
   WHITE_PAWN_7,
   WHITE_PAWN_8,
+  UNDEFINED,
 };
+
+enum class Player { WHITE, BLACK };
+
+enum class CommandType { SHOW_OPTIONS, CONFIRM };
 
 class GameApp
 {
   std::unordered_map<Piece, SquarePosition> mPiecesPositions;
+
+  Player currentPlayer = Player::WHITE;
+
+  CommandType currentCommandType = CommandType::SHOW_OPTIONS;
+
+  Piece currentSelectedPiece = Piece::UNDEFINED;
+
+  void checkSelectedPiece(SquarePosition pos);
 
 public:
 
@@ -49,4 +62,5 @@ public:
 
   void forEachPiece(const std::function<void(Piece, SquarePosition)>& fun) const;
 
+  bool processAction(SquarePosition pos);
 };

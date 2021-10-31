@@ -1,5 +1,18 @@
 #include "game_app.h"
 
+void GameApp::checkSelectedPiece(SquarePosition pos)
+{
+  currentSelectedPiece = Piece::UNDEFINED;
+  for (const auto& piece : mPiecesPositions)
+  {
+    if (piece.second == pos)
+    {
+      currentSelectedPiece = piece.first;
+      break;
+    }
+  }
+}
+
 GameApp::GameApp()
 {
   mPiecesPositions =
@@ -47,3 +60,11 @@ void GameApp::forEachPiece(const std::function<void(Piece, SquarePosition)>& fun
   }
 }
 
+bool GameApp::processAction(SquarePosition pos)
+{
+  checkSelectedPiece(pos);
+  if (currentSelectedPiece == Piece::UNDEFINED)
+    return false;
+
+
+}

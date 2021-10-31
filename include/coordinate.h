@@ -42,6 +42,12 @@ public:
   int fileId() const;
 
   int rankId() const;
+
+  File getFile() const { return file; }
+
+  Rank getRank() const { return rank; }
+
+  bool operator==(const SquarePosition& other) const;
 };
 
 class Coordinate
