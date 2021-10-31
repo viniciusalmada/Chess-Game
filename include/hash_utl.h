@@ -1,11 +1,21 @@
 #pragma once
 #include <unordered_map>
+#include <coordinate.h>
 
-struct PairIntIntHash
+struct SquarePositionHash
 {
-  std::size_t operator()(const std::pair<int, int>& k) const
+  std::size_t operator()(const SquarePosition& k) const
   {
-    return std::hash<int>()(k.first) ^
-      (std::hash<int>()(k.second) << 1);
+    return std::hash<int>()(k.rankId()) ^
+      (std::hash<int>()(k.fileId()) << 1);
+  }
+};
+
+struct SquarePositionEqual
+{
+  bool operator()(const SquarePosition& lhs,const SquarePosition& rhs) const
+  {
+    return lhs.fileId() == rhs.fileId() &&
+      lhs.rankId() == rhs.rankId();
   }
 };

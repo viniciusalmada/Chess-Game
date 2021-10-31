@@ -41,11 +41,12 @@ enum class Piece
 
 class GameApp
 {
-  std::unordered_map<Piece, std::pair<int, int>> mPiecesPositions;
+  std::unordered_map<Piece, SquarePosition> mPiecesPositions;
 
 public:
 
   GameApp();
 
-  void forEachPiece(const std::function<void(Piece, int, int)>& fun) const;
+  void forEachPiece(const std::function<void(Piece, SquarePosition)>& fun) const;
+
 };

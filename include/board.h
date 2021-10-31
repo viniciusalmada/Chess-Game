@@ -13,7 +13,7 @@ class Board
   int mSideSize;
 
   std::unordered_map<Piece, GlUtils::Texture> mTextures;
-  std::unordered_map<std::pair<int, int>, Coordinate, PairIntIntHash> mSquaresCoordinates;
+  std::unordered_map<SquarePosition, Coordinate, SquarePositionHash, SquarePositionEqual> mSquaresCoordinates;
 
   void loadTextures();
 

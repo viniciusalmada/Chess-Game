@@ -66,7 +66,7 @@ void Board::fillCoordinates()
       int sq = innerBorder() / 8;
       int x = i * sq + mBorderSize;
       int y = j * sq + mBorderSize;
-      mSquaresCoordinates[{ i, j}] = { x, y };
+      mSquaresCoordinates[{ i, 7 - j }] = { x, y };
     }
   }
 }
@@ -99,8 +99,8 @@ void Board::drawSquares()
 {
   for (const auto& square : mSquaresCoordinates)
   {
-    int i = square.first.first;
-    int j = square.first.second;
+    int i = square.first.rankId();
+    int j = square.first.fileId();
 
     if ((i + j) % 2 == 0)
       GlUtils::uglColor3d(sHouseDark);
@@ -116,10 +116,10 @@ void Board::drawSquares()
 
 void Board::drawPieces(const GameApp& game)
 {
-  game.forEachPiece([this](Piece p, int i, int j)
+  game.forEachPiece([this](Piece piece, SquarePosition pos)
     {
-      Coordinate coords = mSquaresCoordinates[{i, j}];
-      GlUtils::Texture tex = mTextures[p];
+      Coordinate coords = mSquaresCoordinates[pos];
+      GlUtils::Texture tex = mTextures[piece];
       int x = coords.x();
       int y = coords.y();
       int sq = squareSize();
