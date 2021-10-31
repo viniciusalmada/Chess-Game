@@ -66,5 +66,5 @@ bool GameApp::processAction(SquarePosition pos)
   if (currentSelectedPiece == Piece::UNDEFINED)
     return false;
 
-
+  return true;
 }
