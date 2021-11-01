@@ -5,7 +5,7 @@ Piece::Piece()
   this->name = PieceName::UNDEFINED;
   this->player = Player::WHITE;
   this->position = { File::F_UNDEF, Rank::R_UNDEF };
-  this->isSelected = false;
+  this->selected = false;
 }
 
 Piece::Piece(PieceName name, Player player, SquarePosition position)
@@ -13,7 +13,7 @@ Piece::Piece(PieceName name, Player player, SquarePosition position)
   this->name = name;
   this->player = player;
   this->position = position;
-  this->isSelected = false;
+  this->selected = false;
 }
 
 bool Piece::operator<(const Piece& other) const
@@ -56,62 +56,73 @@ PieceName Piece::getName() const
   return name;
 }
 
-std::vector<SquarePosition> Piece::possibleMovements()
+bool Piece::isSelected() const
 {
-  return std::vector<SquarePosition>();
+  return this->selected;
+}
+
+std::set<SquarePosition> Piece::possibleMovements()
+{
+  return std::set<SquarePosition>();
 }
 
 RookPiece::RookPiece(Player player, SquarePosition position) : Piece(PieceName::ROOK, player, position)
 {
 }
 
-std::vector<SquarePosition> RookPiece::possibleMovements()
+std::set<SquarePosition> RookPiece::possibleMovements()
 {
-
-  return std::vector<SquarePosition>();
+  std::set<SquarePosition> moves;
+  for (int i = 0; i < 8; i++)
+  {
+    moves.insert({ static_cast<File>(i), position.getRank() });
+    moves.insert({ position.getFile(), static_cast<Rank>(i) });
+  }
+  return moves;
 }
 
 BishopPiece::BishopPiece(Player player, SquarePosition position) : Piece(PieceName::BISHOP, player, position)
 {
 }
 
-std::vector<SquarePosition> BishopPiece::possibleMovements()
+std::set<SquarePosition> BishopPiece::possibleMovements()
 {
-  return std::vector<SquarePosition>();
+  std::set<SquarePosition> moves;
+  return std::set<SquarePosition>();
 }
 
 KnightPiece::KnightPiece(Player player, SquarePosition position) : Piece(PieceName::KNIGHT, player, position)
 {
 }
 
-std::vector<SquarePosition> KnightPiece::possibleMovements()
+std::set<SquarePosition> KnightPiece::possibleMovements()
 {
-  return std::vector<SquarePosition>();
+  return std::set<SquarePosition>();
 }
 
 QueenPiece::QueenPiece(Player player, SquarePosition position) : Piece(PieceName::QUEEN, player, position)
 {
 }
 
-std::vector<SquarePosition> QueenPiece::possibleMovements()
+std::set<SquarePosition> QueenPiece::possibleMovements()
 {
-  return std::vector<SquarePosition>();
+  return std::set<SquarePosition>();
 }
 
 KingPiece::KingPiece(Player player, SquarePosition position) : Piece(PieceName::KING, player, position)
 {
 }
 
-std::vector<SquarePosition> KingPiece::possibleMovements()
+std::set<SquarePosition> KingPiece::possibleMovements()
 {
-  return std::vector<SquarePosition>();
+  return std::set<SquarePosition>();
 }
 
 PawnPiece::PawnPiece(Player player, SquarePosition position) : Piece(PieceName::PAWN, player, position)
 {
 }
 
-std::vector<SquarePosition> PawnPiece::possibleMovements()
+std::set<SquarePosition> PawnPiece::possibleMovements()
 {
-  return std::vector<SquarePosition>();
+  return std::set<SquarePosition>();
 }

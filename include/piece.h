@@ -1,5 +1,5 @@
 #pragma once
-#include <vector>
+#include <set>
 #include "player.h"
 #include "coordinate.h"
 
@@ -16,12 +16,12 @@ enum class PieceName
 
 class Piece
 {
+protected:
   PieceName name;
   Player player;
   SquarePosition position;
-  bool isSelected;
+  bool selected;
 
-protected:
   Piece(PieceName name, Player player, SquarePosition position);
 
 public:
@@ -43,7 +43,9 @@ public:
 
   PieceName getName() const;
 
-  virtual std::vector<SquarePosition> possibleMovements();
+  bool isSelected() const;
+
+  virtual std::set<SquarePosition> possibleMovements();
 };
 
 class RookPiece : public Piece
@@ -51,7 +53,7 @@ class RookPiece : public Piece
 public:
   RookPiece(Player player, SquarePosition position);
 
-  std::vector<SquarePosition> possibleMovements() override;
+  std::set<SquarePosition> possibleMovements() override;
 };
 
 class BishopPiece : public Piece
@@ -59,7 +61,7 @@ class BishopPiece : public Piece
 public:
   BishopPiece(Player player, SquarePosition position);
 
-  std::vector<SquarePosition> possibleMovements() override;
+  std::set<SquarePosition> possibleMovements() override;
 };
 
 class KnightPiece : public Piece
@@ -67,7 +69,7 @@ class KnightPiece : public Piece
 public:
   KnightPiece(Player player, SquarePosition position);
 
-  std::vector<SquarePosition> possibleMovements() override;
+  std::set<SquarePosition> possibleMovements() override;
 };
 
 class QueenPiece : public Piece
@@ -75,7 +77,7 @@ class QueenPiece : public Piece
 public:
   QueenPiece(Player player, SquarePosition position);
 
-  std::vector<SquarePosition> possibleMovements() override;
+  std::set<SquarePosition> possibleMovements() override;
 };
 
 class KingPiece : public Piece
@@ -83,7 +85,7 @@ class KingPiece : public Piece
 public:
   KingPiece(Player player, SquarePosition position);
 
-  std::vector<SquarePosition> possibleMovements() override;
+  std::set<SquarePosition> possibleMovements() override;
 };
 
 class PawnPiece : public Piece
@@ -91,5 +93,5 @@ class PawnPiece : public Piece
 public:
   PawnPiece(Player player, SquarePosition position);
 
-  std::vector<SquarePosition> possibleMovements() override;
+  std::set<SquarePosition> possibleMovements() override;
 };

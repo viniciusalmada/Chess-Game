@@ -133,6 +133,11 @@ void Board::drawPieces(const GameApp& game)
       int sq = squareSize();
 
       GlUtils::draw2DTexture(tex.id, x, y, sq);
+
+      if (piece.isSelected())
+      {
+
+      }
     });
 }
 
