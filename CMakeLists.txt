@@ -9,7 +9,7 @@ include_directories(include)
 
 add_definitions(-DWORKING_DIR="${CMAKE_SOURCE_DIR}")
 
-add_compile_options(-Wall -Wextra -Wpedantic -Werror)
+add_compile_options(-Wall -Wextra -Wpedantic)
 
 add_library(LibsModule
 	include/app.h src/app.cpp
