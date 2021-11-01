@@ -102,12 +102,14 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\main_window.cpp" />
     <ClCompile Include="src\numeric_utils.cpp" />
+    <ClCompile Include="src\piece.cpp" />
     <ClCompile Include="src\sp_string.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\app.h" />
     <ClInclude Include="include\board.h" />
     <ClInclude Include="include\canvas.h" />
+    <ClInclude Include="include\player.h" />
     <ClInclude Include="include\coordinate.h" />
     <ClInclude Include="include\game_app.h" />
     <ClInclude Include="include\gl_utils.h" />
@@ -116,6 +118,7 @@
     <ClInclude Include="include\log.h" />
     <ClInclude Include="include\main_window.h" />
     <ClInclude Include="include\numeric_utils.h" />
+    <ClInclude Include="include\piece.h" />
     <ClInclude Include="include\sp_string.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -21,38 +21,38 @@ void Board::loadTextures()
   if (!mTextures.empty())
     return;
 
-  mTextures[Piece::BLACK_BISHOP_LEFT] =
-    mTextures[Piece::BLACK_BISHOP_RIGHT] = _loadTexture("img_bishop_black.png");
-  mTextures[Piece::BLACK_KING] = _loadTexture("img_king_black.png");
-  mTextures[Piece::BLACK_KNIGHT_LEFT] =
-    mTextures[Piece::BLACK_KNIGHT_RIGHT] = _loadTexture("img_knight_black.png");
-  mTextures[Piece::BLACK_PAWN_1] =
-    mTextures[Piece::BLACK_PAWN_2] =
-    mTextures[Piece::BLACK_PAWN_3] =
-    mTextures[Piece::BLACK_PAWN_4] =
-    mTextures[Piece::BLACK_PAWN_5] =
-    mTextures[Piece::BLACK_PAWN_6] =
-    mTextures[Piece::BLACK_PAWN_7] =
-    mTextures[Piece::BLACK_PAWN_8] = _loadTexture("img_pawn_black.png");
-  mTextures[Piece::BLACK_QUEEN] = _loadTexture("img_queen_black.png");
-  mTextures[Piece::BLACK_ROOK_LEFT] =
-    mTextures[Piece::BLACK_ROOK_RIGHT] = _loadTexture("img_rook_black.png");
-  mTextures[Piece::WHITE_BISHOP_LEFT] =
-    mTextures[Piece::WHITE_BISHOP_RIGHT] = _loadTexture("img_bishop_white.png");
-  mTextures[Piece::WHITE_KING] = _loadTexture("img_king_white.png");
-  mTextures[Piece::WHITE_KNIGHT_LEFT] =
-    mTextures[Piece::WHITE_KNIGHT_RIGHT] = _loadTexture("img_knight_white.png");
-  mTextures[Piece::WHITE_PAWN_1] =
-    mTextures[Piece::WHITE_PAWN_2] =
-    mTextures[Piece::WHITE_PAWN_3] =
-    mTextures[Piece::WHITE_PAWN_4] =
-    mTextures[Piece::WHITE_PAWN_5] =
-    mTextures[Piece::WHITE_PAWN_6] =
-    mTextures[Piece::WHITE_PAWN_7] =
-    mTextures[Piece::WHITE_PAWN_8] = _loadTexture("img_pawn_white.png");
-  mTextures[Piece::WHITE_QUEEN] = _loadTexture("img_queen_white.png");
-  mTextures[Piece::WHITE_ROOK_LEFT] =
-    mTextures[Piece::WHITE_ROOK_RIGHT] = _loadTexture("img_rook_white.png");
+  mTextures[PieceName::BLACK_BISHOP_LEFT] =
+    mTextures[PieceName::BLACK_BISHOP_RIGHT] = _loadTexture("img_bishop_black.png");
+  mTextures[PieceName::BLACK_KING] = _loadTexture("img_king_black.png");
+  mTextures[PieceName::BLACK_KNIGHT_LEFT] =
+    mTextures[PieceName::BLACK_KNIGHT_RIGHT] = _loadTexture("img_knight_black.png");
+  mTextures[PieceName::BLACK_PAWN_1] =
+    mTextures[PieceName::BLACK_PAWN_2] =
+    mTextures[PieceName::BLACK_PAWN_3] =
+    mTextures[PieceName::BLACK_PAWN_4] =
+    mTextures[PieceName::BLACK_PAWN_5] =
+    mTextures[PieceName::BLACK_PAWN_6] =
+    mTextures[PieceName::BLACK_PAWN_7] =
+    mTextures[PieceName::BLACK_PAWN_8] = _loadTexture("img_pawn_black.png");
+  mTextures[PieceName::BLACK_QUEEN] = _loadTexture("img_queen_black.png");
+  mTextures[PieceName::BLACK_ROOK_LEFT] =
+    mTextures[PieceName::BLACK_ROOK_RIGHT] = _loadTexture("img_rook_black.png");
+  mTextures[PieceName::WHITE_BISHOP_LEFT] =
+    mTextures[PieceName::WHITE_BISHOP_RIGHT] = _loadTexture("img_bishop_white.png");
+  mTextures[PieceName::WHITE_KING] = _loadTexture("img_king_white.png");
+  mTextures[PieceName::WHITE_KNIGHT_LEFT] =
+    mTextures[PieceName::WHITE_KNIGHT_RIGHT] = _loadTexture("img_knight_white.png");
+  mTextures[PieceName::WHITE_PAWN_1] =
+    mTextures[PieceName::WHITE_PAWN_2] =
+    mTextures[PieceName::WHITE_PAWN_3] =
+    mTextures[PieceName::WHITE_PAWN_4] =
+    mTextures[PieceName::WHITE_PAWN_5] =
+    mTextures[PieceName::WHITE_PAWN_6] =
+    mTextures[PieceName::WHITE_PAWN_7] =
+    mTextures[PieceName::WHITE_PAWN_8] = _loadTexture("img_pawn_white.png");
+  mTextures[PieceName::WHITE_QUEEN] = _loadTexture("img_queen_white.png");
+  mTextures[PieceName::WHITE_ROOK_LEFT] =
+    mTextures[PieceName::WHITE_ROOK_RIGHT] = _loadTexture("img_rook_white.png");
 }
 
 void Board::fillCoordinates()
@@ -140,10 +140,10 @@ void Board::drawSquares()
 
 void Board::drawPieces(const GameApp& game)
 {
-  game.forEachPiece([this](Piece piece, SquarePosition pos)
+  game.forEachPiece([this](Piece piece)
     {
-      Coordinate coords = mSquaresCoordinates[pos];
-      GlUtils::Texture tex = mTextures[piece];
+      Coordinate coords = mSquaresCoordinates[piece.getPosition()];
+      GlUtils::Texture tex = mTextures[piece.getName()];
       int x = coords.x();
       int y = coords.y();
       int sq = squareSize();

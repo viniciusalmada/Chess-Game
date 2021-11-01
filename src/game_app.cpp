@@ -2,113 +2,81 @@
 
 void GameApp::checkSelectedPiece(SquarePosition pos)
 {
-  currentSelectedPiece = Piece::UNDEFINED;
-  for (const auto& piece : mPiecesPositions)
+  currentSelectedPiece = Piece();
+  for (const auto& piece : mPieces)
   {
-    if (piece.second != pos)
+    if (!piece.equalPosition(pos))
       continue;
-    currentSelectedPiece = piece.first;
+    currentSelectedPiece = piece;
     break;
   }
 }
 
 bool GameApp::checkPieceOfCurrentPlayer()
 {
-  if (currentSelectedPiece == Piece::UNDEFINED) return false;
+  if (currentSelectedPiece.isUndefined()) return false;
 
   if (currentPlayer == Player::BLACK)
   {
-    return currentSelectedPiece == Piece::BLACK_BISHOP_LEFT ||
-      currentSelectedPiece == Piece::BLACK_ROOK_LEFT ||
-      currentSelectedPiece == Piece::BLACK_BISHOP_LEFT ||
-      currentSelectedPiece == Piece::BLACK_KNIGHT_LEFT ||
-      currentSelectedPiece == Piece::BLACK_QUEEN ||
-      currentSelectedPiece == Piece::BLACK_KING ||
-      currentSelectedPiece == Piece::BLACK_KNIGHT_RIGHT ||
-      currentSelectedPiece == Piece::BLACK_BISHOP_RIGHT ||
-      currentSelectedPiece == Piece::BLACK_ROOK_RIGHT ||
-      currentSelectedPiece == Piece::BLACK_PAWN_1 ||
-      currentSelectedPiece == Piece::BLACK_PAWN_2 ||
-      currentSelectedPiece == Piece::BLACK_PAWN_3 ||
-      currentSelectedPiece == Piece::BLACK_PAWN_4 ||
-      currentSelectedPiece == Piece::BLACK_PAWN_5 ||
-      currentSelectedPiece == Piece::BLACK_PAWN_6 ||
-      currentSelectedPiece == Piece::BLACK_PAWN_7 ||
-      currentSelectedPiece == Piece::BLACK_PAWN_8;
+    return currentSelectedPiece.isBlack();
   }
   else
   {
-    return currentSelectedPiece == Piece::WHITE_BISHOP_LEFT ||
-      currentSelectedPiece == Piece::WHITE_ROOK_LEFT ||
-      currentSelectedPiece == Piece::WHITE_BISHOP_LEFT ||
-      currentSelectedPiece == Piece::WHITE_KNIGHT_LEFT ||
-      currentSelectedPiece == Piece::WHITE_QUEEN ||
-      currentSelectedPiece == Piece::WHITE_KING ||
-      currentSelectedPiece == Piece::WHITE_KNIGHT_RIGHT ||
-      currentSelectedPiece == Piece::WHITE_BISHOP_RIGHT ||
-      currentSelectedPiece == Piece::WHITE_ROOK_RIGHT ||
-      currentSelectedPiece == Piece::WHITE_PAWN_1 ||
-      currentSelectedPiece == Piece::WHITE_PAWN_2 ||
-      currentSelectedPiece == Piece::WHITE_PAWN_3 ||
-      currentSelectedPiece == Piece::WHITE_PAWN_4 ||
-      currentSelectedPiece == Piece::WHITE_PAWN_5 ||
-      currentSelectedPiece == Piece::WHITE_PAWN_6 ||
-      currentSelectedPiece == Piece::WHITE_PAWN_7 ||
-      currentSelectedPiece == Piece::WHITE_PAWN_8;
+    return currentSelectedPiece.isWhite();
   }
 }
 
 GameApp::GameApp()
 {
-  mPiecesPositions =
+  mPieces =
   {
-    { Piece::BLACK_ROOK_LEFT, { File::F_A, Rank::R_8 } },
-    { Piece::BLACK_KNIGHT_LEFT, { File::F_B, Rank::R_8 } },
-    { Piece::BLACK_BISHOP_LEFT, { File::F_C, Rank::R_8 } },
-    { Piece::BLACK_QUEEN, { File::F_D, Rank::R_8 } },
-    { Piece::BLACK_KING, { File::F_E, Rank::R_8 } },
-    { Piece::BLACK_BISHOP_RIGHT, { File::F_F, Rank::R_8 } },
-    { Piece::BLACK_KNIGHT_RIGHT, { File::F_G, Rank::R_8 } },
-    { Piece::BLACK_ROOK_RIGHT, { File::F_H, Rank::R_8 } },
-    { Piece::BLACK_PAWN_1, { File::F_A, Rank::R_7 } },
-    { Piece::BLACK_PAWN_2, { File::F_B, Rank::R_7 } },
-    { Piece::BLACK_PAWN_3, { File::F_C, Rank::R_7 } },
-    { Piece::BLACK_PAWN_4, { File::F_D, Rank::R_7 } },
-    { Piece::BLACK_PAWN_5, { File::F_E, Rank::R_7 } },
-    { Piece::BLACK_PAWN_6, { File::F_F, Rank::R_7 } },
-    { Piece::BLACK_PAWN_7, { File::F_G, Rank::R_7 } },
-    { Piece::BLACK_PAWN_8, { File::F_H, Rank::R_7 } },
-    { Piece::WHITE_ROOK_LEFT, { File::F_A, Rank::R_1 } },
-    { Piece::WHITE_KNIGHT_LEFT, { File::F_B, Rank::R_1 } },
-    { Piece::WHITE_BISHOP_LEFT, { File::F_C, Rank::R_1 } },
-    { Piece::WHITE_QUEEN, { File::F_D, Rank::R_1 } },
-    { Piece::WHITE_KING, { File::F_E, Rank::R_1 } },
-    { Piece::WHITE_BISHOP_RIGHT, { File::F_F, Rank::R_1 } },
-    { Piece::WHITE_KNIGHT_RIGHT, { File::F_G, Rank::R_1 } },
-    { Piece::WHITE_ROOK_RIGHT, { File::F_H, Rank::R_1 } },
-    { Piece::WHITE_PAWN_1, { File::F_A, Rank::R_2 } },
-    { Piece::WHITE_PAWN_2, { File::F_B, Rank::R_2 } },
-    { Piece::WHITE_PAWN_3, { File::F_C, Rank::R_2 } },
-    { Piece::WHITE_PAWN_4, { File::F_D, Rank::R_2 } },
-    { Piece::WHITE_PAWN_5, { File::F_E, Rank::R_2 } },
-    { Piece::WHITE_PAWN_6, { File::F_F, Rank::R_2 } },
-    { Piece::WHITE_PAWN_7, { File::F_G, Rank::R_2 } },
-    { Piece::WHITE_PAWN_8, { File::F_H, Rank::R_2 } },
+    { PieceName::BLACK_ROOK_LEFT, Player::BLACK, { File::F_A, Rank::R_8 } },
+    { PieceName::BLACK_KNIGHT_LEFT, Player::BLACK, { File::F_B, Rank::R_8 } },
+    { PieceName::BLACK_BISHOP_LEFT, Player::BLACK, { File::F_C, Rank::R_8 } },
+    { PieceName::BLACK_QUEEN, Player::BLACK, { File::F_D, Rank::R_8 } },
+    { PieceName::BLACK_KING, Player::BLACK, { File::F_E, Rank::R_8 } },
+    { PieceName::BLACK_BISHOP_RIGHT, Player::BLACK, { File::F_F, Rank::R_8 } },
+    { PieceName::BLACK_KNIGHT_RIGHT, Player::BLACK, { File::F_G, Rank::R_8 } },
+    { PieceName::BLACK_ROOK_RIGHT, Player::BLACK, { File::F_H, Rank::R_8 } },
+    { PieceName::BLACK_PAWN_1, Player::BLACK, { File::F_A, Rank::R_7 } },
+    { PieceName::BLACK_PAWN_2, Player::BLACK, { File::F_B, Rank::R_7 } },
+    { PieceName::BLACK_PAWN_3, Player::BLACK, { File::F_C, Rank::R_7 } },
+    { PieceName::BLACK_PAWN_4, Player::BLACK, { File::F_D, Rank::R_7 } },
+    { PieceName::BLACK_PAWN_5, Player::BLACK, { File::F_E, Rank::R_7 } },
+    { PieceName::BLACK_PAWN_6, Player::BLACK, { File::F_F, Rank::R_7 } },
+    { PieceName::BLACK_PAWN_7, Player::BLACK, { File::F_G, Rank::R_7 } },
+    { PieceName::BLACK_PAWN_8, Player::BLACK, { File::F_H, Rank::R_7 } },
+    { PieceName::WHITE_ROOK_LEFT, Player::WHITE, { File::F_A, Rank::R_1 } },
+    { PieceName::WHITE_KNIGHT_LEFT, Player::WHITE, { File::F_B, Rank::R_1 } },
+    { PieceName::WHITE_BISHOP_LEFT, Player::WHITE, { File::F_C, Rank::R_1 } },
+    { PieceName::WHITE_QUEEN, Player::WHITE, { File::F_D, Rank::R_1 } },
+    { PieceName::WHITE_KING, Player::WHITE, { File::F_E, Rank::R_1 } },
+    { PieceName::WHITE_BISHOP_RIGHT, Player::WHITE, { File::F_F, Rank::R_1 } },
+    { PieceName::WHITE_KNIGHT_RIGHT, Player::WHITE, { File::F_G, Rank::R_1 } },
+    { PieceName::WHITE_ROOK_RIGHT, Player::WHITE, { File::F_H, Rank::R_1 } },
+    { PieceName::WHITE_PAWN_1, Player::WHITE, { File::F_A, Rank::R_2 } },
+    { PieceName::WHITE_PAWN_2, Player::WHITE, { File::F_B, Rank::R_2 } },
+    { PieceName::WHITE_PAWN_3, Player::WHITE, { File::F_C, Rank::R_2 } },
+    { PieceName::WHITE_PAWN_4, Player::WHITE, { File::F_D, Rank::R_2 } },
+    { PieceName::WHITE_PAWN_5, Player::WHITE, { File::F_E, Rank::R_2 } },
+    { PieceName::WHITE_PAWN_6, Player::WHITE, { File::F_F, Rank::R_2 } },
+    { PieceName::WHITE_PAWN_7, Player::WHITE, { File::F_G, Rank::R_2 } },
+    { PieceName::WHITE_PAWN_8, Player::WHITE, { File::F_H, Rank::R_2 } },
   };
 }
 
-void GameApp::forEachPiece(const std::function<void(Piece, SquarePosition)>& fun) const
+void GameApp::forEachPiece(const std::function<void(Piece)>& fun) const
 {
-  for (const auto& p : mPiecesPositions)
+  for (const auto& p : mPieces)
   {
-    fun(p.first, p.second);
+    fun(p);
   }
 }
 
 bool GameApp::processAction(SquarePosition pos)
 {
   checkSelectedPiece(pos);
-  if (currentSelectedPiece == Piece::UNDEFINED)
+  if (currentSelectedPiece.isUndefined())
     return false;
 
   bool toContinue = checkPieceOfCurrentPlayer();
