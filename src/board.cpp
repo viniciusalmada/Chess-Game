@@ -18,41 +18,21 @@ static GlUtils::Texture _loadTexture(std::string str)
 
 void Board::loadTextures()
 {
-  if (!mTextures.empty())
+  if (!mTexturesBlack.empty() && !mTexturesWhite.empty())
     return;
 
-  mTextures[PieceName::BLACK_BISHOP_LEFT] =
-    mTextures[PieceName::BLACK_BISHOP_RIGHT] = _loadTexture("img_bishop_black.png");
-  mTextures[PieceName::BLACK_KING] = _loadTexture("img_king_black.png");
-  mTextures[PieceName::BLACK_KNIGHT_LEFT] =
-    mTextures[PieceName::BLACK_KNIGHT_RIGHT] = _loadTexture("img_knight_black.png");
-  mTextures[PieceName::BLACK_PAWN_1] =
-    mTextures[PieceName::BLACK_PAWN_2] =
-    mTextures[PieceName::BLACK_PAWN_3] =
-    mTextures[PieceName::BLACK_PAWN_4] =
-    mTextures[PieceName::BLACK_PAWN_5] =
-    mTextures[PieceName::BLACK_PAWN_6] =
-    mTextures[PieceName::BLACK_PAWN_7] =
-    mTextures[PieceName::BLACK_PAWN_8] = _loadTexture("img_pawn_black.png");
-  mTextures[PieceName::BLACK_QUEEN] = _loadTexture("img_queen_black.png");
-  mTextures[PieceName::BLACK_ROOK_LEFT] =
-    mTextures[PieceName::BLACK_ROOK_RIGHT] = _loadTexture("img_rook_black.png");
-  mTextures[PieceName::WHITE_BISHOP_LEFT] =
-    mTextures[PieceName::WHITE_BISHOP_RIGHT] = _loadTexture("img_bishop_white.png");
-  mTextures[PieceName::WHITE_KING] = _loadTexture("img_king_white.png");
-  mTextures[PieceName::WHITE_KNIGHT_LEFT] =
-    mTextures[PieceName::WHITE_KNIGHT_RIGHT] = _loadTexture("img_knight_white.png");
-  mTextures[PieceName::WHITE_PAWN_1] =
-    mTextures[PieceName::WHITE_PAWN_2] =
-    mTextures[PieceName::WHITE_PAWN_3] =
-    mTextures[PieceName::WHITE_PAWN_4] =
-    mTextures[PieceName::WHITE_PAWN_5] =
-    mTextures[PieceName::WHITE_PAWN_6] =
-    mTextures[PieceName::WHITE_PAWN_7] =
-    mTextures[PieceName::WHITE_PAWN_8] = _loadTexture("img_pawn_white.png");
-  mTextures[PieceName::WHITE_QUEEN] = _loadTexture("img_queen_white.png");
-  mTextures[PieceName::WHITE_ROOK_LEFT] =
-    mTextures[PieceName::WHITE_ROOK_RIGHT] = _loadTexture("img_rook_white.png");
+  mTexturesBlack[PieceName::BISHOP] = _loadTexture("img_bishop_black.png");
+  mTexturesBlack[PieceName::KING] = _loadTexture("img_king_black.png");
+  mTexturesBlack[PieceName::KNIGHT] = _loadTexture("img_knight_black.png");
+  mTexturesBlack[PieceName::PAWN] = _loadTexture("img_pawn_black.png");
+  mTexturesBlack[PieceName::QUEEN] = _loadTexture("img_queen_black.png");
+  mTexturesBlack[PieceName::ROOK] = _loadTexture("img_rook_black.png");
+  mTexturesWhite[PieceName::BISHOP] = _loadTexture("img_bishop_white.png");
+  mTexturesWhite[PieceName::KING] = _loadTexture("img_king_white.png");
+  mTexturesWhite[PieceName::KNIGHT] = _loadTexture("img_knight_white.png");
+  mTexturesWhite[PieceName::PAWN] = _loadTexture("img_pawn_white.png");
+  mTexturesWhite[PieceName::QUEEN] = _loadTexture("img_queen_white.png");
+  mTexturesWhite[PieceName::ROOK] = _loadTexture("img_rook_white.png");
 }
 
 void Board::fillCoordinates()
@@ -140,10 +120,14 @@ void Board::drawSquares()
 
 void Board::drawPieces(const GameApp& game)
 {
-  game.forEachPiece([this](Piece piece)
+  game.forEachPiece([this](const Piece& piece)
     {
       Coordinate coords = mSquaresCoordinates[piece.getPosition()];
-      GlUtils::Texture tex = mTextures[piece.getName()];
+      GlUtils::Texture tex;
+      if (piece.isBlack())
+        tex = mTexturesBlack[piece.getName()];
+      else
+        tex = mTexturesWhite[piece.getName()];
       int x = coords.x();
       int y = coords.y();
       int sq = squareSize();

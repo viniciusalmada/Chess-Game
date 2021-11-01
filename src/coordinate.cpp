@@ -53,3 +53,8 @@ bool SquarePosition::operator!=(const SquarePosition& other) const
 {
   return !(*this == other);
 }
+
+bool SquarePosition::operator<(const SquarePosition& other) const
+{
+  return file < other.file || (file == other.file && rank < other.rank);
+}

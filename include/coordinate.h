@@ -50,6 +50,8 @@ public:
   bool operator==(const SquarePosition& other) const;
   
   bool operator!=(const SquarePosition& other) const;
+
+  bool operator<(const SquarePosition& other) const;
 };
 
 class Coordinate

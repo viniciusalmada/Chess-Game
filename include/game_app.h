@@ -24,7 +24,7 @@ public:
 
   GameApp();
 
-  void forEachPiece(const std::function<void(Piece)>& fun) const;
+  void forEachPiece(const std::function<void(const Piece& p)>& fun) const;
 
   bool processAction(SquarePosition pos);
 };
