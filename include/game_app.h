@@ -56,6 +56,8 @@ class GameApp
 
   void checkSelectedPiece(SquarePosition pos);
 
+  bool checkPieceOfCurrentPlayer();
+
 public:
 
   GameApp();

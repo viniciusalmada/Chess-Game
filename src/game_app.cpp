@@ -12,6 +12,52 @@ void GameApp::checkSelectedPiece(SquarePosition pos)
   }
 }
 
+bool GameApp::checkPieceOfCurrentPlayer()
+{
+  if (currentSelectedPiece == Piece::UNDEFINED) return false;
+
+  if (currentPlayer == Player::BLACK)
+  {
+    return currentSelectedPiece == Piece::BLACK_BISHOP_LEFT ||
+      currentSelectedPiece == Piece::BLACK_ROOK_LEFT ||
+      currentSelectedPiece == Piece::BLACK_BISHOP_LEFT ||
+      currentSelectedPiece == Piece::BLACK_KNIGHT_LEFT ||
+      currentSelectedPiece == Piece::BLACK_QUEEN ||
+      currentSelectedPiece == Piece::BLACK_KING ||
+      currentSelectedPiece == Piece::BLACK_KNIGHT_RIGHT ||
+      currentSelectedPiece == Piece::BLACK_BISHOP_RIGHT ||
+      currentSelectedPiece == Piece::BLACK_ROOK_RIGHT ||
+      currentSelectedPiece == Piece::BLACK_PAWN_1 ||
+      currentSelectedPiece == Piece::BLACK_PAWN_2 ||
+      currentSelectedPiece == Piece::BLACK_PAWN_3 ||
+      currentSelectedPiece == Piece::BLACK_PAWN_4 ||
+      currentSelectedPiece == Piece::BLACK_PAWN_5 ||
+      currentSelectedPiece == Piece::BLACK_PAWN_6 ||
+      currentSelectedPiece == Piece::BLACK_PAWN_7 ||
+      currentSelectedPiece == Piece::BLACK_PAWN_8;
+  }
+  else
+  {
+    return currentSelectedPiece == Piece::WHITE_BISHOP_LEFT ||
+      currentSelectedPiece == Piece::WHITE_ROOK_LEFT ||
+      currentSelectedPiece == Piece::WHITE_BISHOP_LEFT ||
+      currentSelectedPiece == Piece::WHITE_KNIGHT_LEFT ||
+      currentSelectedPiece == Piece::WHITE_QUEEN ||
+      currentSelectedPiece == Piece::WHITE_KING ||
+      currentSelectedPiece == Piece::WHITE_KNIGHT_RIGHT ||
+      currentSelectedPiece == Piece::WHITE_BISHOP_RIGHT ||
+      currentSelectedPiece == Piece::WHITE_ROOK_RIGHT ||
+      currentSelectedPiece == Piece::WHITE_PAWN_1 ||
+      currentSelectedPiece == Piece::WHITE_PAWN_2 ||
+      currentSelectedPiece == Piece::WHITE_PAWN_3 ||
+      currentSelectedPiece == Piece::WHITE_PAWN_4 ||
+      currentSelectedPiece == Piece::WHITE_PAWN_5 ||
+      currentSelectedPiece == Piece::WHITE_PAWN_6 ||
+      currentSelectedPiece == Piece::WHITE_PAWN_7 ||
+      currentSelectedPiece == Piece::WHITE_PAWN_8;
+  }
+}
+
 GameApp::GameApp()
 {
   mPiecesPositions =
@@ -63,6 +109,10 @@ bool GameApp::processAction(SquarePosition pos)
 {
   checkSelectedPiece(pos);
   if (currentSelectedPiece == Piece::UNDEFINED)
+    return false;
+
+  bool toContinue = checkPieceOfCurrentPlayer();
+  if (!toContinue)
     return false;
 
   return true;
