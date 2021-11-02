@@ -1,6 +1,11 @@
 #pragma once
 #include <utility>
-#include <array>
+#include <set>
+
+enum Direction
+{
+  N, E, W, S, NE, SE, SW, NW
+};
 
 enum class File
 {
@@ -14,6 +19,7 @@ enum class File
   F_H = 7,
   F_UNDEF = -1,
 };
+
 enum class Rank
 {
   R_1 = 0,
@@ -48,8 +54,38 @@ public:
   Rank getRank() const { return rank; }
 
   bool operator==(const SquarePosition& other) const;
-  
+
   bool operator!=(const SquarePosition& other) const;
+
+  bool operator<(const SquarePosition& other) const;
+
+  bool isValid() const { return rank != Rank::R_UNDEF && file != File::F_UNDEF; };
+
+  bool isOnNSide() const { return rank == Rank::R_8; }
+  bool isOnESide() const { return file == File::F_H; }
+  bool isOnSSide() const { return rank == Rank::R_1; }
+  bool isOnWSide() const { return file == File::F_A; }
+  bool isOnNECorner() const { return isOnNSide() && isOnESide(); }
+  bool isOnSECorner() const { return isOnSSide() && isOnESide(); }
+  bool isOnSWCorner() const { return isOnSSide() && isOnWSide(); }
+  bool isOnNWCorner() const { return isOnNSide() && isOnWSide(); }
+
+  SquarePosition neighbor(Direction direction) const;
+  SquarePosition neighborN() const;
+  SquarePosition neighborE() const;
+  SquarePosition neighborS() const;
+  SquarePosition neighborW() const;
+  SquarePosition neighborNE() const;
+  SquarePosition neighborSE() const;
+  SquarePosition neighborSW() const;
+  SquarePosition neighborNW() const;
+
+  std::set<SquarePosition> getAllOnFile() const;
+  std::set<SquarePosition> getAllOnRank() const;
+  std::set<SquarePosition> getAllOnSWtoNE() const;
+  std::set<SquarePosition> getAllOnNWtoSE() const;
+
+  SquarePosition fromRelativePath(int fileSteps, int rankSteps) const;
 };
 
 class Coordinate

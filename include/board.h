@@ -12,7 +12,8 @@ class Board
   int mBorderSize = 10;
   int mSideSize;
 
-  std::unordered_map<Piece, GlUtils::Texture> mTextures;
+  std::unordered_map<PieceName, GlUtils::Texture> mTexturesBlack;
+  std::unordered_map<PieceName, GlUtils::Texture> mTexturesWhite;
   std::unordered_map<SquarePosition, Coordinate, SquarePositionHash, SquarePositionEqual> mSquaresCoordinates;
 
   void loadTextures();
