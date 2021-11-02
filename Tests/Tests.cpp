@@ -116,7 +116,7 @@ namespace Tests
 
       Assert::IsTrue(allIn);
     }
-    
+
     TEST_METHOD(GetAllOnRank)
     {
       SquarePosition pos{ File::F_D, Rank::R_4 };
@@ -145,7 +145,7 @@ namespace Tests
 
       Assert::IsTrue(allIn);
     }
-    
+
     TEST_METHOD(GetAllOnSWtoNEFromNW)
     {
       SquarePosition pos{ File::F_A, Rank::R_8 };
@@ -167,7 +167,7 @@ namespace Tests
 
       Assert::IsTrue(allIn);
     }
-    
+
     TEST_METHOD(GetAllOnSWtoNEFromSE)
     {
       SquarePosition pos{ File::F_H, Rank::R_1 };
@@ -189,7 +189,7 @@ namespace Tests
 
       Assert::IsTrue(allIn);
     }
-    
+
     TEST_METHOD(GetAllOnSWtoNEFromAny)
     {
       SquarePosition pos{ File::F_D, Rank::R_4 };
@@ -239,7 +239,7 @@ namespace Tests
 
       Assert::IsTrue(allIn);
     }
-    
+
     TEST_METHOD(GetAllOnNWtoSEFromSW)
     {
       SquarePosition pos{ File::F_A, Rank::R_1 };
@@ -261,7 +261,7 @@ namespace Tests
 
       Assert::IsTrue(allIn);
     }
-    
+
     TEST_METHOD(GetAllOnNWtoSEFromAny)
     {
       SquarePosition pos{ File::F_D, Rank::R_4 };
@@ -287,6 +287,28 @@ namespace Tests
       }
 
       Assert::IsTrue(allIn);
+    }
+
+    TEST_METHOD(GetFromRelativePathInvalid)
+    {
+      SquarePosition pos{ File::F_B, Rank::R_2 };
+      int fileSteps = -3;
+      int rankSteps = 0;
+
+      auto posInvalid = pos.fromRelativePath(fileSteps, rankSteps);
+
+      Assert::IsTrue(!posInvalid.isValid());
+    }
+    TEST_METHOD(GetFromRelativePathValid)
+    {
+      SquarePosition pos{ File::F_B, Rank::R_2 };
+      int fileSteps = 3;
+      int rankSteps = 2;
+
+      auto posValid = pos.fromRelativePath(fileSteps, rankSteps);
+      SquarePosition expected{ File::F_E, Rank::R_4 };
+
+      Assert::IsTrue(posValid == expected);
     }
   };
 

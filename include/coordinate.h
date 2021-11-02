@@ -59,6 +59,8 @@ public:
 
   bool operator<(const SquarePosition& other) const;
 
+  bool isValid() const { return rank != Rank::R_UNDEF && file != File::F_UNDEF; };
+
   bool isOnNSide() const { return rank == Rank::R_8; }
   bool isOnESide() const { return file == File::F_H; }
   bool isOnSSide() const { return rank == Rank::R_1; }
@@ -82,6 +84,8 @@ public:
   std::set<SquarePosition> getAllOnRank() const;
   std::set<SquarePosition> getAllOnSWtoNE() const;
   std::set<SquarePosition> getAllOnNWtoSE() const;
+
+  SquarePosition fromRelativePath(int fileSteps, int rankSteps) const;
 };
 
 class Coordinate

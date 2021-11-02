@@ -194,3 +194,16 @@ std::set<SquarePosition> SquarePosition::getAllOnNWtoSE() const
 
   return allOnNWtoSE;
 }
+
+SquarePosition SquarePosition::fromRelativePath(int fileSteps, int rankSteps) const
+{
+  int newFileId = (int)file + fileSteps;
+  if (newFileId < (int)File::F_A || newFileId >(int)File::F_H)
+    return {};
+
+  int newRankId = (int)rank + rankSteps;
+  if (newRankId < (int)Rank::R_1 || newRankId >(int)Rank::R_8)
+    return {};
+
+  return { (int)file + fileSteps, (int)(rank)+rankSteps };
+}
