@@ -1,6 +1,7 @@
 #pragma once
 #include <utility>
 #include <set>
+#include <string>
 
 enum Direction
 {
@@ -86,6 +87,8 @@ public:
   std::set<SquarePosition> getAllOnNWtoSE() const;
 
   SquarePosition fromRelativePath(int fileSteps, int rankSteps) const;
+
+  std::string toString() const;
 };
 
 class Coordinate

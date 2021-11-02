@@ -207,3 +207,43 @@ SquarePosition SquarePosition::fromRelativePath(int fileSteps, int rankSteps) co
 
   return { (int)file + fileSteps, (int)(rank)+rankSteps };
 }
+
+std::string SquarePosition::toString() const
+{
+  std::string str;
+  switch (file)
+  {
+  case File::F_A:
+    str.append("A");
+    break;
+  case File::F_B:
+    str.append("B");
+    break;
+  case File::F_C:
+    str.append("C");
+    break;
+  case File::F_D:
+    str.append("D");
+    break;
+  case File::F_E:
+    str.append("E");
+    break;
+  case File::F_F:
+    str.append("F");
+    break;
+  case File::F_G:
+    str.append("G");
+    break;
+  case File::F_H:
+    str.append("H");
+    break;
+  case File::F_UNDEF:
+    break;
+  default:
+    break;
+  }
+
+  str.append(std::to_string(rankId() + 1));
+
+  return str;
+}

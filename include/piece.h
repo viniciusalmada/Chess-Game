@@ -1,5 +1,6 @@
 #pragma once
 #include <set>
+#include <string>
 #include "player.h"
 #include "coordinate.h"
 
@@ -50,6 +51,8 @@ public:
   void unselect() { selected = false; }
 
   virtual std::set<SquarePosition> possibleMovements();
+
+  std::string generateTitle() const;
 };
 
 class RookPiece : public Piece

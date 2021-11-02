@@ -66,6 +66,45 @@ std::set<SquarePosition> Piece::possibleMovements()
   return std::set<SquarePosition>();
 }
 
+std::string Piece::generateTitle() const
+{
+  std::string title;
+  switch (name)
+  {
+  case PieceName::ROOK:
+    title.append("Rook ");
+    break;
+  case PieceName::BISHOP:
+    title.append("Bishop ");
+    break;
+  case PieceName::KNIGHT:
+    title.append("Knight ");
+    break;
+  case PieceName::QUEEN:
+    title.append("Queen ");
+    break;
+  case PieceName::KING:
+    title.append("King ");
+    break;
+  case PieceName::PAWN:
+    title.append("Pawn ");
+    break;
+  case PieceName::UNDEFINED:
+    break;
+  default:
+    break;
+  }
+
+  if (this->player == Player::BLACK)
+    title.append("Black");
+  else
+    title.append("White");
+
+  title.append(" (").append(position.toString()).append(")");
+
+  return title;
+}
+
 RookPiece::RookPiece(Player player, SquarePosition position) : Piece(PieceName::ROOK, player, position)
 {
 }

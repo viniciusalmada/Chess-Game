@@ -4,6 +4,7 @@
 #include <string>
 #include <image_loader.h>
 #include <app.h>
+#include <log.h>
 
 int Board::sBackgroundColor = 0xE8E6E4;
 int Board::sHouseDark = 0xB58863;
@@ -136,7 +137,7 @@ void Board::drawPieces(const GameApp& game)
 
       if (piece.isSelected())
       {
-
+        Log::logDebug("Piece " + piece.generateTitle() + " is selected");
       }
     });
 }
