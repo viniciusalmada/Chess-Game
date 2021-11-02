@@ -45,6 +45,10 @@ public:
 
   bool isSelected() const;
 
+  void select() { selected = true; }
+
+  void unselect() { selected = false; }
+
   virtual std::set<SquarePosition> possibleMovements();
 };
 
