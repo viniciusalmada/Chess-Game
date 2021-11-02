@@ -78,3 +78,37 @@ std::set<SquarePosition> SquarePosition::getAllOnRank() const
   }
   return squares;
 }
+
+SquarePosition SquarePosition::getEastOrSouthBorderSquare() const
+{
+  if ((int)file == (int)rank)
+    return { File::F_A, Rank::R_1 };
+
+  if (file == File::F_A && rank == Rank::R_8)
+    return *this;
+
+  if (file == File::F_H && rank == Rank::R_1)
+    return *this;
+
+  if ((int)file > (int)rank) // border on south
+  {
+    int diffToFirstRank = (int)rank;
+    return { (int)file - diffToFirstRank, (int)Rank::R_1 };
+  }
+
+  int diffToFirstFile = (int)file;
+  return { (int)File::F_A, (int)rank - diffToFirstFile };
+}
+
+std::set<SquarePosition> SquarePosition::getAllInSWtoNE() const
+{
+  if (isOnWestSide() && isOnNorthSide())
+    return std::set<SquarePosition>{*this};
+
+  if (isOnEastSide() && isOnSouthSide())
+    return std::set<SquarePosition>{*this};
+
+
+
+  return std::set<SquarePosition>();
+}

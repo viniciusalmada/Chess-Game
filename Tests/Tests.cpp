@@ -86,6 +86,141 @@ namespace Tests
     }
   };
 
+  TEST_CLASS(CoordinatesTests)
+  {
+    TEST_METHOD(GetAllOnFile)
+    {
+      SquarePosition pos{ File::F_D, Rank::R_4 };
+      auto allOnFile = pos.getAllOnFile();
+
+      std::set<SquarePosition> allOnFileExpected = {
+        {File::F_D, Rank::R_1},
+        {File::F_D, Rank::R_2},
+        {File::F_D, Rank::R_3},
+        {File::F_D, Rank::R_4},
+        {File::F_D, Rank::R_5},
+        {File::F_D, Rank::R_6},
+        {File::F_D, Rank::R_7},
+        {File::F_D, Rank::R_8},
+      };
+
+      bool allIn = true;
+      for (const auto& exp : allOnFileExpected)
+      {
+        if (allOnFile.find(exp) == allOnFile.end())
+        {
+          allIn = false;
+          break;
+        }
+      }
+
+      Assert::IsTrue(allIn);
+    }
+    TEST_METHOD(GetAllOnRank)
+    {
+      SquarePosition pos{ File::F_D, Rank::R_4 };
+      auto allOnRank = pos.getAllOnRank();
+
+      std::set<SquarePosition> allOnRankExpected = {
+        {File::F_A, Rank::R_4},
+        {File::F_B, Rank::R_4},
+        {File::F_C, Rank::R_4},
+        {File::F_D, Rank::R_4},
+        {File::F_E, Rank::R_4},
+        {File::F_F, Rank::R_4},
+        {File::F_G, Rank::R_4},
+        {File::F_H, Rank::R_4},
+      };
+
+      bool allIn = true;
+      for (const auto& exp : allOnRankExpected)
+      {
+        if (allOnRank.find(exp) == allOnRank.end())
+        {
+          allIn = false;
+          break;
+        }
+      }
+
+      Assert::IsTrue(allIn);
+    }
+    TEST_METHOD(GetEastOrSouthBorderSquareFromDiagonal)
+    {
+      SquarePosition sA1{ File::F_A, Rank::R_1 };
+      SquarePosition sG7{ File::F_G, Rank::R_7 };
+
+      auto fromA1 = sA1.getEastOrSouthBorderSquare();
+      auto fromG7 = sA1.getEastOrSouthBorderSquare();
+      SquarePosition expected(File::F_A, Rank::R_1);
+
+      Assert::IsTrue(
+        fromA1 == expected &&
+        fromG7 == expected);
+    }
+
+    TEST_METHOD(GetEastOrSouthBorderSquareFromBottomRight)
+    {
+      SquarePosition sC2{ File::F_C, Rank::R_2 };
+
+      auto fromC2 = sC2.getEastOrSouthBorderSquare();
+      SquarePosition expected(File::F_B, Rank::R_1);
+
+      Assert::IsTrue(fromC2 == expected);
+    }
+
+    TEST_METHOD(GetEastOrSouthBorderSquareFromUpperLeft)
+    {
+      SquarePosition sB3{ File::F_B, Rank::R_3 };
+
+      auto fromB3 = sB3.getEastOrSouthBorderSquare();
+      SquarePosition expected(File::F_A, Rank::R_2);
+
+      Assert::IsTrue(fromB3 == expected);
+    }
+    TEST_METHOD(GetAllOnSWtoNEFromNW)
+    {
+      SquarePosition pos{ File::F_A, Rank::R_8 };
+      auto allOnSWtoNE = pos.getAllInSWtoNE();
+
+      std::set<SquarePosition> allOnExpected = {
+        {File::F_A, Rank::R_8},
+      };
+
+      bool allIn = true;
+      for (const auto& exp : allOnExpected)
+      {
+        if (allOnSWtoNE.find(exp) == allOnSWtoNE.end())
+        {
+          allIn = false;
+          break;
+        }
+      }
+
+      Assert::IsTrue(allIn);
+    }
+    TEST_METHOD(GetAllOnSWtoNEFromSE)
+    {
+      SquarePosition pos{ File::F_H, Rank::R_1 };
+      auto allOnSWtoNE = pos.getAllInSWtoNE();
+
+      std::set<SquarePosition> allOnExpected = {
+        {File::F_H, Rank::R_1},
+      };
+
+      bool allIn = true;
+      for (const auto& exp : allOnExpected)
+      {
+        if (allOnSWtoNE.find(exp) == allOnSWtoNE.end())
+        {
+          allIn = false;
+          break;
+        }
+      }
+
+      Assert::IsTrue(allIn);
+    }
+  };
+
   TEST_CLASS(PiecesTests)
   {
     TEST_METHOD(RookMovements)

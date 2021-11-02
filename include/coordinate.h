@@ -56,6 +56,14 @@ public:
   std::set<SquarePosition> getAllOnFile() const;
   std::set<SquarePosition> getAllOnRank() const;
 
+  bool isOnEastSide() const { return file == File::F_H; }
+  bool isOnWestSide() const { return file == File::F_A; }
+  bool isOnNorthSide() const { return rank == Rank::R_8; }
+  bool isOnSouthSide() const { return rank == Rank::R_1; }
+
+  SquarePosition getEastOrSouthBorderSquare() const;
+
+  std::set<SquarePosition> getAllInSWtoNE() const;
 };
 
 class Coordinate
