@@ -116,6 +116,7 @@ namespace Tests
 
       Assert::IsTrue(allIn);
     }
+    
     TEST_METHOD(GetAllOnRank)
     {
       SquarePosition pos{ File::F_D, Rank::R_4 };
@@ -144,43 +145,11 @@ namespace Tests
 
       Assert::IsTrue(allIn);
     }
-    TEST_METHOD(GetEastOrSouthBorderSquareFromDiagonal)
-    {
-      SquarePosition sA1{ File::F_A, Rank::R_1 };
-      SquarePosition sG7{ File::F_G, Rank::R_7 };
-
-      auto fromA1 = sA1.getEastOrSouthBorderSquare();
-      auto fromG7 = sA1.getEastOrSouthBorderSquare();
-      SquarePosition expected(File::F_A, Rank::R_1);
-
-      Assert::IsTrue(
-        fromA1 == expected &&
-        fromG7 == expected);
-    }
-
-    TEST_METHOD(GetEastOrSouthBorderSquareFromBottomRight)
-    {
-      SquarePosition sC2{ File::F_C, Rank::R_2 };
-
-      auto fromC2 = sC2.getEastOrSouthBorderSquare();
-      SquarePosition expected(File::F_B, Rank::R_1);
-
-      Assert::IsTrue(fromC2 == expected);
-    }
-
-    TEST_METHOD(GetEastOrSouthBorderSquareFromUpperLeft)
-    {
-      SquarePosition sB3{ File::F_B, Rank::R_3 };
-
-      auto fromB3 = sB3.getEastOrSouthBorderSquare();
-      SquarePosition expected(File::F_A, Rank::R_2);
-
-      Assert::IsTrue(fromB3 == expected);
-    }
+    
     TEST_METHOD(GetAllOnSWtoNEFromNW)
     {
       SquarePosition pos{ File::F_A, Rank::R_8 };
-      auto allOnSWtoNE = pos.getAllInSWtoNE();
+      auto allOnSWtoNE = pos.getAllOnSWtoNE();
 
       std::set<SquarePosition> allOnExpected = {
         {File::F_A, Rank::R_8},
@@ -198,10 +167,11 @@ namespace Tests
 
       Assert::IsTrue(allIn);
     }
+    
     TEST_METHOD(GetAllOnSWtoNEFromSE)
     {
       SquarePosition pos{ File::F_H, Rank::R_1 };
-      auto allOnSWtoNE = pos.getAllInSWtoNE();
+      auto allOnSWtoNE = pos.getAllOnSWtoNE();
 
       std::set<SquarePosition> allOnExpected = {
         {File::F_H, Rank::R_1},
@@ -211,6 +181,105 @@ namespace Tests
       for (const auto& exp : allOnExpected)
       {
         if (allOnSWtoNE.find(exp) == allOnSWtoNE.end())
+        {
+          allIn = false;
+          break;
+        }
+      }
+
+      Assert::IsTrue(allIn);
+    }
+    
+    TEST_METHOD(GetAllOnSWtoNEFromAny)
+    {
+      SquarePosition pos{ File::F_D, Rank::R_4 };
+      auto allOnSWtoNE = pos.getAllOnSWtoNE();
+
+      std::set<SquarePosition> allOnExpected = {
+        {File::F_C, Rank::R_3},
+        {File::F_B, Rank::R_2},
+        {File::F_A, Rank::R_1},
+        {File::F_E, Rank::R_5},
+        {File::F_F, Rank::R_6},
+        {File::F_G, Rank::R_7},
+        {File::F_H, Rank::R_8},
+      };
+
+      bool allIn = true;
+      for (const auto& exp : allOnExpected)
+      {
+        if (allOnSWtoNE.find(exp) == allOnSWtoNE.end())
+        {
+          allIn = false;
+          break;
+        }
+      }
+
+      Assert::IsTrue(allIn);
+    }
+
+    TEST_METHOD(GetAllOnNWtoSEFromNE)
+    {
+      SquarePosition pos{ File::F_H, Rank::R_8 };
+      auto allOnNWtoSE = pos.getAllOnNWtoSE();
+
+      std::set<SquarePosition> allOnExpected = {
+        {File::F_H, Rank::R_8},
+      };
+
+      bool allIn = true;
+      for (const auto& exp : allOnExpected)
+      {
+        if (allOnNWtoSE.find(exp) == allOnNWtoSE.end())
+        {
+          allIn = false;
+          break;
+        }
+      }
+
+      Assert::IsTrue(allIn);
+    }
+    
+    TEST_METHOD(GetAllOnNWtoSEFromSW)
+    {
+      SquarePosition pos{ File::F_A, Rank::R_1 };
+      auto allOnNWtoSE = pos.getAllOnSWtoNE();
+
+      std::set<SquarePosition> allOnExpected = {
+        {File::F_A, Rank::R_1},
+      };
+
+      bool allIn = true;
+      for (const auto& exp : allOnExpected)
+      {
+        if (allOnNWtoSE.find(exp) == allOnNWtoSE.end())
+        {
+          allIn = false;
+          break;
+        }
+      }
+
+      Assert::IsTrue(allIn);
+    }
+    
+    TEST_METHOD(GetAllOnNWtoSEFromAny)
+    {
+      SquarePosition pos{ File::F_D, Rank::R_4 };
+      auto allOnNWtoSE = pos.getAllOnNWtoSE();
+
+      std::set<SquarePosition> allOnExpected = {
+        {File::F_C, Rank::R_5},
+        {File::F_B, Rank::R_6},
+        {File::F_A, Rank::R_7},
+        {File::F_E, Rank::R_3},
+        {File::F_F, Rank::R_2},
+        {File::F_G, Rank::R_1},
+      };
+
+      bool allIn = true;
+      for (const auto& exp : allOnExpected)
+      {
+        if (allOnNWtoSE.find(exp) == allOnNWtoSE.end())
         {
           allIn = false;
           break;

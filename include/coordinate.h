@@ -2,6 +2,11 @@
 #include <utility>
 #include <set>
 
+enum Direction
+{
+  N, E, W, S, NE, SE, SW, NW
+};
+
 enum class File
 {
   F_A = 0,
@@ -14,6 +19,7 @@ enum class File
   F_H = 7,
   F_UNDEF = -1,
 };
+
 enum class Rank
 {
   R_1 = 0,
@@ -53,17 +59,29 @@ public:
 
   bool operator<(const SquarePosition& other) const;
 
+  bool isOnNSide() const { return rank == Rank::R_8; }
+  bool isOnESide() const { return file == File::F_H; }
+  bool isOnSSide() const { return rank == Rank::R_1; }
+  bool isOnWSide() const { return file == File::F_A; }
+  bool isOnNECorner() const { return isOnNSide() && isOnESide(); }
+  bool isOnSECorner() const { return isOnSSide() && isOnESide(); }
+  bool isOnSWCorner() const { return isOnSSide() && isOnWSide(); }
+  bool isOnNWCorner() const { return isOnNSide() && isOnWSide(); }
+
+  SquarePosition neighbor(Direction direction) const;
+  SquarePosition neighborN() const;
+  SquarePosition neighborE() const;
+  SquarePosition neighborS() const;
+  SquarePosition neighborW() const;
+  SquarePosition neighborNE() const;
+  SquarePosition neighborSE() const;
+  SquarePosition neighborSW() const;
+  SquarePosition neighborNW() const;
+
   std::set<SquarePosition> getAllOnFile() const;
   std::set<SquarePosition> getAllOnRank() const;
-
-  bool isOnEastSide() const { return file == File::F_H; }
-  bool isOnWestSide() const { return file == File::F_A; }
-  bool isOnNorthSide() const { return rank == Rank::R_8; }
-  bool isOnSouthSide() const { return rank == Rank::R_1; }
-
-  SquarePosition getEastOrSouthBorderSquare() const;
-
-  std::set<SquarePosition> getAllInSWtoNE() const;
+  std::set<SquarePosition> getAllOnSWtoNE() const;
+  std::set<SquarePosition> getAllOnNWtoSE() const;
 };
 
 class Coordinate
