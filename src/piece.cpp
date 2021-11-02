@@ -73,11 +73,10 @@ RookPiece::RookPiece(Player player, SquarePosition position) : Piece(PieceName::
 std::set<SquarePosition> RookPiece::possibleMovements()
 {
   std::set<SquarePosition> moves;
-  for (int i = 0; i < 8; i++)
-  {
-    moves.insert({ static_cast<File>(i), position.getRank() });
-    moves.insert({ position.getFile(), static_cast<Rank>(i) });
-  }
+  auto squaresHor = position.getAllOnRank();
+  auto squaresVer = position.getAllOnFile();
+  moves.insert(squaresHor.begin(), squaresHor.end());
+  moves.insert(squaresVer.begin(), squaresVer.end());
   moves.erase(position);
   return moves;
 }

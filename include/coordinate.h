@@ -1,6 +1,6 @@
 #pragma once
 #include <utility>
-#include <array>
+#include <set>
 
 enum class File
 {
@@ -48,10 +48,14 @@ public:
   Rank getRank() const { return rank; }
 
   bool operator==(const SquarePosition& other) const;
-  
+
   bool operator!=(const SquarePosition& other) const;
 
   bool operator<(const SquarePosition& other) const;
+
+  std::set<SquarePosition> getAllOnFile() const;
+  std::set<SquarePosition> getAllOnRank() const;
+
 };
 
 class Coordinate

@@ -58,3 +58,23 @@ bool SquarePosition::operator<(const SquarePosition& other) const
 {
   return file < other.file || (file == other.file && rank < other.rank);
 }
+
+std::set<SquarePosition> SquarePosition::getAllOnFile() const
+{
+  std::set<SquarePosition> squares;
+  for (int i = 0; i < 8; i++)
+  {
+    squares.insert({ getFile(), (Rank)i });
+  }
+  return squares;
+}
+
+std::set<SquarePosition> SquarePosition::getAllOnRank() const
+{
+  std::set<SquarePosition> squares;
+  for (int i = 0; i < 8; i++)
+  {
+    squares.insert({ (File)(i), getRank() });
+  }
+  return squares;
+}
