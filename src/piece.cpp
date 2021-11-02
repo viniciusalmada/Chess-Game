@@ -88,7 +88,12 @@ BishopPiece::BishopPiece(Player player, SquarePosition position) : Piece(PieceNa
 std::set<SquarePosition> BishopPiece::possibleMovements()
 {
   std::set<SquarePosition> moves;
-  return std::set<SquarePosition>();
+  auto allOnSWtoNE = position.getAllOnSWtoNE();
+  auto allOnNWtoSE = position.getAllOnNWtoSE();
+  moves.insert(allOnSWtoNE.begin(), allOnSWtoNE.end());
+  moves.insert(allOnNWtoSE.begin(), allOnNWtoSE.end());
+  moves.erase(position);
+  return moves;
 }
 
 KnightPiece::KnightPiece(Player player, SquarePosition position) : Piece(PieceName::KNIGHT, player, position)

@@ -317,7 +317,41 @@ namespace Tests
         resD1 && resD2 && resD3 && resD5 && resD6 && resD7 && resD8 &&
         resA4 && resB4 && resC4 && resE4 && resF4 && resG4 && resH4);
     }
-    
-    
+
+    TEST_METHOD(BishopMovements)
+    {
+      BishopPiece bishop(Player::WHITE, { File::F_D, Rank::R_4 });
+
+      auto bishopMovement = bishop.possibleMovements();
+
+      std::set<SquarePosition> expectedOut = {
+        { File::F_C, Rank::R_3 },
+        { File::F_B, Rank::R_2 },
+        { File::F_A, Rank::R_1 },
+        { File::F_E, Rank::R_5 },
+        { File::F_F, Rank::R_6 },
+        { File::F_G, Rank::R_7 },
+        { File::F_H, Rank::R_8 },
+        { File::F_E, Rank::R_3 },
+        { File::F_F, Rank::R_2 },
+        { File::F_G, Rank::R_1 },
+        { File::F_C, Rank::R_5 },
+        { File::F_B, Rank::R_6 },
+        { File::F_A, Rank::R_7 },
+      };
+
+      bool allIn = true;
+
+      for (const auto& move : expectedOut)
+      {
+        if (bishopMovement.find(move) == bishopMovement.end())
+        {
+          allIn = false;
+          break;
+        }
+      }
+
+      Assert::IsTrue(allIn);
+    }
   };
 }
