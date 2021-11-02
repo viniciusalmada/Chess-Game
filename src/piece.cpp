@@ -120,7 +120,15 @@ QueenPiece::QueenPiece(Player player, SquarePosition position) : Piece(PieceName
 
 std::set<SquarePosition> QueenPiece::possibleMovements()
 {
-  return std::set<SquarePosition>();
+  RookPiece rookAuxiliar{ Player::WHITE, position };
+  BishopPiece bishopAuxiliar{ Player::WHITE, position };
+  auto rookMovements = rookAuxiliar.possibleMovements();
+  auto bishopMovements = bishopAuxiliar.possibleMovements();
+  std::set<SquarePosition> moves;
+  moves.insert(rookMovements.begin(), rookMovements.end());
+  moves.insert(bishopMovements.begin(), bishopMovements.end());
+  moves.erase(position);
+  return moves;
 }
 
 KingPiece::KingPiece(Player player, SquarePosition position) : Piece(PieceName::KING, player, position)
