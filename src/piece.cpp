@@ -78,6 +78,7 @@ std::set<SquarePosition> RookPiece::possibleMovements()
     moves.insert({ static_cast<File>(i), position.getRank() });
     moves.insert({ position.getFile(), static_cast<Rank>(i) });
   }
+  moves.erase(position);
   return moves;
 }
 
