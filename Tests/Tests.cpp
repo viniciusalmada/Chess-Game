@@ -316,28 +316,39 @@ namespace Tests
   {
     TEST_METHOD(RookMovements)
     {
-      RookPiece hook(Player::WHITE, { File::F_D, Rank::R_4 });
+      RookPiece rook(Player::WHITE, { File::F_D, Rank::R_4 });
 
-      auto movement = hook.possibleMovements();
+      auto rookMovement = rook.possibleMovements();
 
-      bool resD1 = movement.find({ File::F_D, Rank::R_1 }) != movement.end();
-      bool resD2 = movement.find({ File::F_D, Rank::R_2 }) != movement.end();
-      bool resD3 = movement.find({ File::F_D, Rank::R_3 }) != movement.end();
-      bool resD5 = movement.find({ File::F_D, Rank::R_5 }) != movement.end();
-      bool resD6 = movement.find({ File::F_D, Rank::R_6 }) != movement.end();
-      bool resD7 = movement.find({ File::F_D, Rank::R_7 }) != movement.end();
-      bool resD8 = movement.find({ File::F_D, Rank::R_8 }) != movement.end();
-      bool resA4 = movement.find({ File::F_A, Rank::R_4 }) != movement.end();
-      bool resB4 = movement.find({ File::F_B, Rank::R_4 }) != movement.end();
-      bool resC4 = movement.find({ File::F_C, Rank::R_4 }) != movement.end();
-      bool resE4 = movement.find({ File::F_E, Rank::R_4 }) != movement.end();
-      bool resF4 = movement.find({ File::F_F, Rank::R_4 }) != movement.end();
-      bool resG4 = movement.find({ File::F_G, Rank::R_4 }) != movement.end();
-      bool resH4 = movement.find({ File::F_H, Rank::R_4 }) != movement.end();
+      std::set<SquarePosition> expectedOut = {
+        { File::F_D, Rank::R_1 },
+        { File::F_D, Rank::R_2 },
+        { File::F_D, Rank::R_3 },
+        { File::F_D, Rank::R_5 },
+        { File::F_D, Rank::R_6 },
+        { File::F_D, Rank::R_7 },
+        { File::F_D, Rank::R_8 },
+        { File::F_A, Rank::R_4 },
+        { File::F_B, Rank::R_4 },
+        { File::F_C, Rank::R_4 },
+        { File::F_E, Rank::R_4 },
+        { File::F_F, Rank::R_4 },
+        { File::F_G, Rank::R_4 },
+        { File::F_H, Rank::R_4 },
+      };
 
-      Assert::IsTrue(
-        resD1 && resD2 && resD3 && resD5 && resD6 && resD7 && resD8 &&
-        resA4 && resB4 && resC4 && resE4 && resF4 && resG4 && resH4);
+      bool allIn = true;
+
+      for (const auto& move : expectedOut)
+      {
+        if (rookMovement.find(move) == rookMovement.end())
+        {
+          allIn = false;
+          break;
+        }
+      }
+
+      Assert::IsTrue(allIn);
     }
 
     TEST_METHOD(BishopMovements)
