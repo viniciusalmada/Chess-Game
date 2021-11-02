@@ -21,7 +21,7 @@ int Canvas::actionCallback(Ihandle* cnv)
 
   App::updateBoard();
 
-  glFlush();
+  IupGLSwapBuffers(cnv);
 
   return IUP_DEFAULT;
 }
@@ -40,8 +40,6 @@ int Canvas::buttonCallback(Ihandle* ih, int btn, int pressed, int x, int y, char
   if (_mousePressedCoord != Coordinate(x, y))
     return IUP_DEFAULT;
 
-  Log::logDebug({ "pressed?" + std::to_string(btn) + "x = " + std::to_string(x) + ",y = " + std::to_string(y) });
-
   App::processLeftClick(x, y);
 
   return IUP_DEFAULT;
@@ -52,6 +50,7 @@ void Canvas::init()
   mCnv = IupGLCanvas(nullptr);
   IupSetAttribute(mCnv, IUP_EXPAND, IUP_YES);
   IupSetAttribute(mCnv, IUP_BORDER, IUP_YES);
+  IupSetAttribute(mCnv, IUP_BUFFER, IUP_DOUBLE);
   IupSetHandle(HANDLE_NAME.c_str(), mCnv);
 
   IupSetCallback(mCnv, IUP_ACTION, (Icallback)Canvas::actionCallback);
