@@ -23,6 +23,8 @@ add_library(LibsModule
 	include/main_window.h src/main_window.cpp
 	include/numeric_utils.h src/numeric_utils.cpp
 	include/sp_string.h src/sp_string.cpp
+	include/piece.h src/piece.cpp
+	include/player.h
 )
 
 target_link_libraries(LibsModule iup iupgl im GL)
