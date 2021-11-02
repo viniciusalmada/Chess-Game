@@ -441,5 +441,40 @@ namespace Tests
 
       Assert::IsTrue(checkExpectedInsideMovements(queenMovement, expectedOut));
     }
+    
+    TEST_METHOD(KingMovementsFromInside)
+    {
+      KingPiece king(Player::WHITE, { File::F_F, Rank::R_5 });
+
+      auto kingMovement = king.possibleMovements();
+
+      std::set<SquarePosition> expectedOut = {
+        { File::F_E, Rank::R_6 },
+        { File::F_F, Rank::R_6 },
+        { File::F_G, Rank::R_6 },
+        { File::F_G, Rank::R_5 },
+        { File::F_G, Rank::R_4 },
+        { File::F_F, Rank::R_4 },
+        { File::F_E, Rank::R_4 },
+        { File::F_E, Rank::R_5 },
+      };
+
+      Assert::IsTrue(checkExpectedInsideMovements(kingMovement, expectedOut));
+    }
+    
+    TEST_METHOD(KingMovementsFromCorner)
+    {
+      KingPiece king(Player::WHITE, { File::F_H, Rank::R_8 });
+
+      auto kingMovement = king.possibleMovements();
+
+      std::set<SquarePosition> expectedOut = {
+        { File::F_G, Rank::R_8 },
+        { File::F_G, Rank::R_7 },
+        { File::F_H, Rank::R_7 },
+      };
+
+      Assert::IsTrue(checkExpectedInsideMovements(kingMovement, expectedOut));
+    }
   };
 }

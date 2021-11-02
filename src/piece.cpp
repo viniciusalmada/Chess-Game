@@ -137,7 +137,17 @@ KingPiece::KingPiece(Player player, SquarePosition position) : Piece(PieceName::
 
 std::set<SquarePosition> KingPiece::possibleMovements()
 {
-  return std::set<SquarePosition>();
+  std::set<SquarePosition> moves;
+  moves.insert(position.neighborN());
+  moves.insert(position.neighborE());
+  moves.insert(position.neighborS());
+  moves.insert(position.neighborW());
+  moves.insert(position.neighborNE());
+  moves.insert(position.neighborSE());
+  moves.insert(position.neighborSW());
+  moves.insert(position.neighborNW());
+  moves.erase(position);
+  return moves;
 }
 
 PawnPiece::PawnPiece(Player player, SquarePosition position) : Piece(PieceName::PAWN, player, position)
