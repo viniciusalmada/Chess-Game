@@ -314,6 +314,24 @@ namespace Tests
 
   TEST_CLASS(PiecesTests)
   {
+
+    bool checkExpectedInsideMovements(
+      const std::set<SquarePosition>& calculatedMovements,
+      const std::set<SquarePosition>& expectedMovements)
+    {
+      bool allIn = true;
+
+      for (const auto& exp : expectedMovements)
+      {
+        if (calculatedMovements.find(exp) == calculatedMovements.end())
+        {
+          allIn = false;
+          break;
+        }
+      }
+
+      return allIn;
+    }
     TEST_METHOD(RookMovements)
     {
       RookPiece rook(Player::WHITE, { File::F_D, Rank::R_4 });
@@ -337,18 +355,7 @@ namespace Tests
         { File::F_H, Rank::R_4 },
       };
 
-      bool allIn = true;
-
-      for (const auto& move : expectedOut)
-      {
-        if (rookMovement.find(move) == rookMovement.end())
-        {
-          allIn = false;
-          break;
-        }
-      }
-
-      Assert::IsTrue(allIn);
+      Assert::IsTrue(checkExpectedInsideMovements(rookMovement, expectedOut));
     }
 
     TEST_METHOD(BishopMovements)
@@ -373,18 +380,7 @@ namespace Tests
         { File::F_A, Rank::R_7 },
       };
 
-      bool allIn = true;
-
-      for (const auto& move : expectedOut)
-      {
-        if (bishopMovement.find(move) == bishopMovement.end())
-        {
-          allIn = false;
-          break;
-        }
-      }
-
-      Assert::IsTrue(allIn);
+      Assert::IsTrue(checkExpectedInsideMovements(bishopMovement, expectedOut));
     }
 
     TEST_METHOD(KnightMovements)
@@ -404,18 +400,7 @@ namespace Tests
         { File::F_C, Rank::R_7 },
       };
 
-      bool allIn = true;
-
-      for (const auto& move : expectedOut)
-      {
-        if (knightMovement.find(move) == knightMovement.end())
-        {
-          allIn = false;
-          break;
-        }
-      }
-
-      Assert::IsTrue(allIn);
+      Assert::IsTrue(checkExpectedInsideMovements(knightMovement, expectedOut));
     }
 
     TEST_METHOD(QueenMovements)
@@ -454,18 +439,7 @@ namespace Tests
         { File::F_H, Rank::R_4 },
       };
 
-      bool allIn = true;
-
-      for (const auto& move : expectedOut)
-      {
-        if (queenMovement.find(move) == queenMovement.end())
-        {
-          allIn = false;
-          break;
-        }
-      }
-
-      Assert::IsTrue(allIn);
+      Assert::IsTrue(checkExpectedInsideMovements(queenMovement, expectedOut));
     }
   };
 }
