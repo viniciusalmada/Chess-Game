@@ -30,9 +30,10 @@ class Board
   void drawPieces(const GameApp& game);
 
 public:
-  static int sBackgroundColor;
-  static int sHouseDark;
-  static int sHouseLight;
+  static Color sBackgroundColor;
+  static Color sHouseDark;
+  static Color sHouseLight;
+  static Color sHighlightPiece;
 
   explicit Board(int sideSize = 600);
 

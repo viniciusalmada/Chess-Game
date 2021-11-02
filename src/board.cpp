@@ -6,9 +6,10 @@
 #include <app.h>
 #include <log.h>
 
-int Board::sBackgroundColor = 0xE8E6E4;
-int Board::sHouseDark = 0xB58863;
-int Board::sHouseLight = 0xF0D9B5;
+Color Board::sBackgroundColor = { 0xE8E6E4 };
+Color Board::sHouseDark = { 0xB58863 };
+Color Board::sHouseLight = { 0xF0D9B5 };
+Color Board::sHighlightPiece = { 0xfc4d02 };
 
 static GlUtils::Texture _loadTexture(std::string str)
 {
@@ -108,9 +109,9 @@ void Board::drawSquares()
     int j = square.first.fileId();
 
     if ((i + j) % 2 == 0)
-      GlUtils::uglColor3d(sHouseDark);
+      GlUtils::uglColor3f(sHouseDark);
     else
-      GlUtils::uglColor3d(sHouseLight);
+      GlUtils::uglColor3f(sHouseLight);
 
     int x = square.second.x();
     int y = square.second.y();
@@ -133,10 +134,11 @@ void Board::drawPieces(const GameApp& game)
       int y = coords.y();
       int sq = squareSize();
 
-      GlUtils::draw2DTexture(tex.id, x, y, sq);
-
-      if (piece.isSelected())
+      if (!piece.isSelected())
+        GlUtils::draw2DTexture(tex.id, x, y, sq);
+      else
       {
+        GlUtils::draw2DTexture(tex.id, x, y, sq, sHighlightPiece);
         Log::logDebug("Piece " + piece.generateTitle() + " is selected");
       }
     });
@@ -144,6 +146,6 @@ void Board::drawPieces(const GameApp& game)
 
 void Board::drawBackground(const int& s)
 {
-  GlUtils::uglColor3d(sBackgroundColor);
+  GlUtils::uglColor3f(sBackgroundColor);
   GlUtils::drawSquare(0, 0, s);
 }

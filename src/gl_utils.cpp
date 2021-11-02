@@ -2,31 +2,39 @@
 #include "gl_utils.h"
 #include "numeric_utils.h"
 
-int GlUtils::RED = 0xFF0000;
-int GlUtils::WHITE = 0xFFFFFF;
+Color GlUtils::RED = { 0xFF0000 };
+Color GlUtils::WHITE = { 0xFFFFFF };
 
-std::array<float, 3> GlUtils::getColorsF(int hexColors)
+std::array<float, 4> Color::getColorsF()
 {
-  auto rgb = NumericUtils::hexTo3Dec(hexColors);
+  auto rgb = NumericUtils::hexTo3Dec(hexColor);
 
   float r = rgb[0] / (float)0xFF;
   float g = rgb[1] / (float)0xFF;
   float b = rgb[2] / (float)0xFF;
-  return { r, g, b };
+  float a = alpha / (float)0xFF;
+  return { r, g, b, a };
 }
 
-void GlUtils::uglClearColor(int hexColors)
+void GlUtils::uglClearColor(Color color)
 {
-  auto rgb = getColorsF(hexColors);
+  auto rgb = color.getColorsF();
 
-  glClearColor(rgb[0], rgb[1], rgb[2], 1.0f);
+  glClearColor(rgb[0], rgb[1], rgb[2], rgb[3]);
 }
 
-void GlUtils::uglColor3d(int hexColors)
+void GlUtils::uglColor3f(Color color)
 {
-  auto rgb = getColorsF(hexColors);
+  auto rgb = color.getColorsF();
 
-  glColor3d(rgb[0], rgb[1], rgb[2]);
+  glColor3f(rgb[0], rgb[1], rgb[2]);
+}
+
+void GlUtils::uglColor4f(Color color)
+{
+  auto rgba = color.getColorsF();
+
+  glColor4f(rgba[0], rgba[1], rgba[2], rgba[3]);
 }
 
 GlUtils::Texture GlUtils::createTexture2D(imImage* img)
@@ -112,12 +120,12 @@ void GlUtils::drawSquare(int x, int y, int squareSize)
   glEnd();
 }
 
-void GlUtils::draw2DTexture(int texId, int x, int y, int sq)
+void GlUtils::draw2DTexture(int texId, int x, int y, int sq, Color color)
 {
   glBindTexture(GL_TEXTURE_2D, 0);
   glEnable(GL_TEXTURE_2D);
   glBindTexture(GL_TEXTURE_2D, texId);
-  GlUtils::uglColor3d(GlUtils::WHITE);
+  GlUtils::uglColor4f(color);
   glBegin(GL_QUADS);
   // top-right
   glTexCoord2f(0.0f, 1.0f); glVertex2i(x, y);

@@ -3,12 +3,17 @@
 #include <im/im.h>
 #include <im/im_image.h>
 
+struct Color
+{
+  unsigned int hexColor;
+  int alpha = 0xFF;
+
+  std::array<float, 4> getColorsF();
+};
+
 class GlUtils
 {
-  static std::array<float, 3> getColorsF(int hexColors);
-
 public:
-
   struct Texture
   {
     int width;
@@ -16,12 +21,14 @@ public:
     unsigned int id;
   };
 
-  static int RED;
-  static int WHITE;
+  static Color RED;
+  static Color WHITE;
 
-  static void uglClearColor(int hexColors);
+  static void uglClearColor(Color color);
 
-  static void uglColor3d(int hexColors);
+  static void uglColor3f(Color color);
+  
+  static void uglColor4f(Color color);
 
   static Texture createTexture2D(imImage* im);
 
@@ -29,5 +36,5 @@ public:
 
   static void drawSquare(int x, int y, int squareSize);
 
-  static void draw2DTexture(int texId, int x, int y, int sq);
+  static void draw2DTexture(int texId, int x, int y, int sq, Color color = WHITE);
 };
