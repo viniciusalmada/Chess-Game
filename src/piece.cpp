@@ -156,5 +156,8 @@ PawnPiece::PawnPiece(Player player, SquarePosition position) : Piece(PieceName::
 
 std::set<SquarePosition> PawnPiece::possibleMovements()
 {
-  return std::set<SquarePosition>();
+  std::set<SquarePosition> moves;
+  moves.insert(position.neighborN());
+  moves.erase(position);
+  return moves;
 }

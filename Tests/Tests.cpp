@@ -476,5 +476,18 @@ namespace Tests
 
       Assert::IsTrue(checkExpectedInsideMovements(kingMovement, expectedOut));
     }
+
+    TEST_METHOD(PawnMovements)
+    {
+      PawnPiece pawn(Player::WHITE, { File::F_C, Rank::R_4 });
+
+      auto pawnMovement = pawn.possibleMovements();
+
+      std::set<SquarePosition> expectedOut = {
+        { File::F_C, Rank::R_5 },
+      };
+
+      Assert::IsTrue(checkExpectedInsideMovements(pawnMovement, expectedOut));
+    }
   };
 }
