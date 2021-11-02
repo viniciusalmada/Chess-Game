@@ -1,18 +1,19 @@
 #pragma once
 #include <unordered_map>
 #include "gl_utils.h"
-#include "game_app.h"
 #include <vector>
 #include <unordered_set>
+
 #include <hash_utl.h>
+#include "game_app.h"
 
 class Board
 {
-  const int mBorderSize = 10;
+  int mBorderSize = 10;
   int mSideSize;
 
   std::unordered_map<Piece, GlUtils::Texture> mTextures;
-  std::unordered_map<std::pair<int, int>, Coordinate, PairIntIntHash> mSquaresCoordinates;
+  std::unordered_map<SquarePosition, Coordinate, SquarePositionHash, SquarePositionEqual> mSquaresCoordinates;
 
   void loadTextures();
 
@@ -21,18 +22,21 @@ class Board
   int innerBorder() { return mSideSize - 2 * mBorderSize; }
   int squareSize() { return innerBorder() / 8; }
 
+  int getSideSize() const;
+
+  void drawSquares();
+  void drawBackground(const int& s);
+  void drawPieces(const GameApp& game);
+
 public:
   static int sBackgroundColor;
   static int sHouseDark;
   static int sHouseLight;
 
-  Board(int sideSize);
+  explicit Board(int sideSize = 600);
 
-  int getSideSize() const;
+  void drawBoard(const GameApp& game);
 
-  void drawBoard();
-  void drawSquares();
-  void drawBackground(const int& s);
-  void drawPieces();
+  SquarePosition getSelectedSquare(int x, int y);
 };
 

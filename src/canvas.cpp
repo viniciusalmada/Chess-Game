@@ -4,10 +4,11 @@
 #include <app.h>
 #include <gl_utils.h>
 #include <GL/glew.h>
+#include <log.h>
 
-Canvas* Canvas::instance = nullptr;
+std::string Canvas::HANDLE_NAME = "CHESS_CANVAS_HANDLE_NAME";
 
-std::string Canvas::ATTR_BOARD = "ATTR_BOARD";
+static Coordinate _mousePressedCoord;
 
 int Canvas::actionCallback(Ihandle* cnv)
 {
@@ -18,43 +19,41 @@ int Canvas::actionCallback(Ihandle* cnv)
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-  if (getInstance()->mBoard)
-    getInstance()->mBoard->drawBoard();
+  App::updateBoard();
 
   glFlush();
 
   return IUP_DEFAULT;
 }
 
-Canvas::Canvas()
+int Canvas::buttonCallback(Ihandle* ih, int btn, int pressed, int x, int y, char* status)
+{
+  if (!iup_isbutton1(status))
+    return IUP_DEFAULT;
+
+  if (pressed)
+  {
+    _mousePressedCoord = { x, y };
+    return IUP_DEFAULT;
+  }
+
+  if (_mousePressedCoord != Coordinate(x, y))
+    return IUP_DEFAULT;
+
+  Log::logDebug({ "pressed?" + std::to_string(btn) + "x = " + std::to_string(x) + ",y = " + std::to_string(y) });
+
+  App::processLeftClick(x, y);
+
+  return IUP_DEFAULT;
+}
+
+void Canvas::init()
 {
   mCnv = IupGLCanvas(nullptr);
   IupSetAttribute(mCnv, IUP_EXPAND, IUP_YES);
   IupSetAttribute(mCnv, IUP_BORDER, IUP_YES);
+  IupSetHandle(HANDLE_NAME.c_str(), mCnv);
 
-  mBoard = new Board(App::sPredefinedSize);
-}
-
-Canvas::~Canvas()
-{
-  delete mBoard;
-}
-
-Canvas* Canvas::getInstance()
-{
-  return instance;
-}
-
-void Canvas::build()
-{
-  if (instance == nullptr)
-  {
-    instance = new Canvas();
-    IupSetCallback(instance->mCnv, IUP_ACTION, (Icallback)Canvas::actionCallback);
-  }
-}
-
-void Canvas::redraw() const
-{
-  IupRedraw(mCnv, true);
+  IupSetCallback(mCnv, IUP_ACTION, (Icallback)Canvas::actionCallback);
+  IupSetCallback(mCnv, IUP_BUTTON_CB, (Icallback)Canvas::buttonCallback);
 }

@@ -4,14 +4,14 @@
 #include "main_window.h"
 #include <app.h>
 
-MainWindow::MainWindow()
+void MainWindow::init(Canvas& canvas)
 {
   IupOpen(nullptr, nullptr);
   IupGLCanvasOpen();
 
-  Canvas::build();
+  canvas.init();
 
-  Ihandle* box = IupHbox(Canvas::getInstance()->handle(), nullptr);
+  Ihandle* box = IupHbox(canvas.handle(), nullptr);
 
   mDialog = IupDialog(box);
   IupSetAttribute(mDialog, IUP_TITLE, "Chess with IUP");
@@ -27,8 +27,8 @@ MainWindow::MainWindow()
 
   int dx = ndx - cdx;
   int dy = ndy - cdy;
-  int newX = App::sPredefinedSize + dx;
-  int newY = App::sPredefinedSize + dy;
+  int newX = App::PREDEFINED_SIZE + dx;
+  int newY = App::PREDEFINED_SIZE + dy;
   std::string newSizeStr = std::to_string(newX) + "x" + std::to_string(newY);
   IupHide(mDialog);
   IupSetAttribute(mDialog, "RASTERSIZE", newSizeStr.c_str());
@@ -38,8 +38,9 @@ void MainWindow::show() const
 {
   IupShowXY(mDialog, IUP_CENTER, IUP_CENTER);
 
-  Canvas::getInstance()->redraw();
-  Canvas::getInstance()->redraw();
+  auto canvasHandle = IupGetHandle(Canvas::HANDLE_NAME.c_str());
+  IupRedraw(canvasHandle, true);
+  IupRedraw(canvasHandle, true);
 
   IupMainLoop();
 

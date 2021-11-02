@@ -2,9 +2,12 @@
 #include <game_app.h>
 #include <iostream>
 
-App *App::instance = nullptr;
+App* App::instance = nullptr;
 
-int App::sPredefinedSize = 600;
+void App::show()
+{
+  instance->mMainWindow.show();
+}
 
 App::App()
 {
@@ -16,24 +19,33 @@ App::App()
 #endif
   this->mImagesPath = currentPath.append("images");
 
-  GameApp::start();
-}
+  mMainWindow.init(mCanvas);
 
-App *App::getInstance()
-{
-  return instance;
+  mBoard = Board(600);
 }
 
 void App::start()
 {
   if (instance == nullptr)
-  {
     instance = new App();
-  }
+  show();
+}
+
+void App::updateBoard()
+{
+  if (instance == nullptr) return;
+  instance->mBoard.drawBoard(instance->mGame);
+}
+
+void App::processLeftClick(int x, int y)
+{
+  SquarePosition squareSelected = instance->mBoard.getSelectedSquare(x, y);
+  bool toRedraw = instance->mGame.processAction(squareSelected);
+  if (toRedraw) updateBoard();
 }
 
 std::filesystem::path App::getImagePath(std::string imageFileName)
 {
-  auto imagesPath = getInstance()->mImagesPath;
+  auto imagesPath = instance->mImagesPath;
   return imagesPath.append(imageFileName);
 }

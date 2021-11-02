@@ -2,34 +2,25 @@
 #include <iup/iup.h>
 #include <board.h>
 #include <string>
+#include <memory>
 
 class Canvas
 {
-  Ihandle* mCnv;
+  Ihandle* mCnv = nullptr;
 
-  Board* mBoard;
-
-  static Canvas* instance;
-
-  static std::string ATTR_BOARD;
+  std::unique_ptr<Board> mBoard;
 
   static int actionCallback(Ihandle* ih);
 
-  Canvas();
-
-  ~Canvas();
+  static int buttonCallback(Ihandle* ih, int btn, int pressed, int x, int y, char* status);
 
 public:
-  
-  static Canvas* getInstance();
 
-  static void build();
+  static std::string HANDLE_NAME;
 
-  Canvas(Canvas& other) = delete;
+  Canvas() {};
 
-  void operator=(const Canvas& other) = delete;
+  void init();
 
   Ihandle* handle() const { return mCnv; }
-
-  void redraw() const;
 };
