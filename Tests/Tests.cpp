@@ -375,5 +375,36 @@ namespace Tests
 
       Assert::IsTrue(allIn);
     }
+
+    TEST_METHOD(KnightMovements)
+    {
+      KnightPiece knight(Player::WHITE, { File::F_D, Rank::R_5 });
+
+      auto knightMovement = knight.possibleMovements();
+
+      std::set<SquarePosition> expectedOut = {
+        { File::F_E, Rank::R_7 },
+        { File::F_F, Rank::R_6 },
+        { File::F_F, Rank::R_4 },
+        { File::F_E, Rank::R_3 },
+        { File::F_C, Rank::R_3 },
+        { File::F_B, Rank::R_4 },
+        { File::F_B, Rank::R_6 },
+        { File::F_C, Rank::R_7 },
+      };
+
+      bool allIn = true;
+
+      for (const auto& move : expectedOut)
+      {
+        if (knightMovement.find(move) == knightMovement.end())
+        {
+          allIn = false;
+          break;
+        }
+      }
+
+      Assert::IsTrue(allIn);
+    }
   };
 }

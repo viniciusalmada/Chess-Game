@@ -102,7 +102,16 @@ KnightPiece::KnightPiece(Player player, SquarePosition position) : Piece(PieceNa
 
 std::set<SquarePosition> KnightPiece::possibleMovements()
 {
-  return std::set<SquarePosition>();
+  int filesSteps[] = { 1, 2, 2, 1, -1, -2, -2, -1 };
+  int ranksSteps[] = { 2, 1, -1, -2, -2, -1, 1, 2 };
+  std::set<SquarePosition> moves;
+  for (int i = 0; i < 8; i++)
+  {
+    auto positionFromRelative = position.fromRelativePath(filesSteps[i], ranksSteps[i]);
+    if (positionFromRelative.isValid())
+      moves.insert(positionFromRelative);
+  }
+  return moves;
 }
 
 QueenPiece::QueenPiece(Player player, SquarePosition position) : Piece(PieceName::QUEEN, player, position)
