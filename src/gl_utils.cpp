@@ -122,7 +122,7 @@ void GlUtils::drawSquare(int x, int y, int squareSize)
 
 void GlUtils::draw2DTexture(int texId, int x, int y, int sq, Color color)
 {
-  glBindTexture(GL_TEXTURE_2D, 0);
+  //glBindTexture(GL_TEXTURE_2D, 0);
   glEnable(GL_TEXTURE_2D);
   glBindTexture(GL_TEXTURE_2D, texId);
   GlUtils::uglColor4f(color);

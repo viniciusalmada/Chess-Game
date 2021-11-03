@@ -138,8 +138,9 @@ void Board::drawPieces(const GameApp& game)
         GlUtils::draw2DTexture(tex.id, x, y, sq);
       else
       {
-        GlUtils::draw2DTexture(tex.id, x, y, sq, sHighlightPiece);
-        Log::logDebug("Piece " + piece.generateTitle() + " is selected");
+        //GlUtils::draw2DTexture(tex.id, x, y, sq, sHighlightPiece);
+        //GlUtils::draw2DTexture(tex.id, x, y, sq, sHighlightPiece);
+        //Log::logDebug("Piece " + piece.generateTitle() + " is selected");
       }
     });
 }
