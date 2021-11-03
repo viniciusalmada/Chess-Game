@@ -2,28 +2,36 @@
 
 void GameApp::checkSelectedPiece(SquarePosition pos)
 {
-  currentSelectedPiece = Piece();
-  for (const auto& piece : mPieces)
+  if (currentSelectedPiece != nullptr)
+    currentSelectedPiece->unselect();
+
+  currentSelectedPiece = nullptr;
+  for (Piece& piece : mPieces)
   {
     if (!piece.equalPosition(pos))
       continue;
-    currentSelectedPiece = piece;
+    currentSelectedPiece = &piece;
     break;
   }
 }
 
-bool GameApp::checkPieceOfCurrentPlayer()
+bool GameApp::checkPieceOfCurrentPlayer() const
 {
-  if (currentSelectedPiece.isUndefined()) return false;
+  if (currentSelectedPiece == nullptr) return false;
 
   if (currentPlayer == Player::BLACK)
   {
-    return currentSelectedPiece.isBlack();
+    return currentSelectedPiece->isBlack();
   }
   else
   {
-    return currentSelectedPiece.isWhite();
+    return currentSelectedPiece->isWhite();
   }
+}
+
+void GameApp::confirmPieceSelected()
+{
+  currentSelectedPiece->select();
 }
 
 GameApp::GameApp()
@@ -76,12 +84,15 @@ void GameApp::forEachPiece(const std::function<void(const Piece& p)>& fun) const
 bool GameApp::processAction(SquarePosition pos)
 {
   checkSelectedPiece(pos);
-  if (currentSelectedPiece.isUndefined())
+  if (currentSelectedPiece == nullptr)
     return false;
 
   bool toContinue = checkPieceOfCurrentPlayer();
   if (!toContinue)
     return false;
+
+  if (currentCommandType == CommandType::SHOW_OPTIONS)
+    confirmPieceSelected();
 
   return true;
 }

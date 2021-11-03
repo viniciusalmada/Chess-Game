@@ -1,5 +1,5 @@
 #pragma once
-#include <set>
+#include <array>
 #include <coordinate.h>
 #include <functional>
 #include "piece.h"
@@ -8,17 +8,19 @@ enum class CommandType { SHOW_OPTIONS, CONFIRM };
 
 class GameApp
 {
-  std::set<Piece> mPieces;
+  std::array<Piece, 32> mPieces;
 
   Player currentPlayer = Player::WHITE;
 
   CommandType currentCommandType = CommandType::SHOW_OPTIONS;
 
-  Piece currentSelectedPiece{};
+  Piece* currentSelectedPiece = nullptr;
 
   void checkSelectedPiece(SquarePosition pos);
 
-  bool checkPieceOfCurrentPlayer();
+  bool checkPieceOfCurrentPlayer() const;
+
+  void confirmPieceSelected(); 
 
 public:
 
