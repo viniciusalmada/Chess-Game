@@ -32,13 +32,13 @@ void MainWindow::init(Canvas& canvas)
   std::string newSizeStr = std::to_string(newX) + "x" + std::to_string(newY);
   IupHide(mDialog);
   IupSetAttribute(mDialog, "RASTERSIZE", newSizeStr.c_str());
+
+  canvas.initOGL();
 }
 
-void MainWindow::show(const Canvas& cnv) const
+void MainWindow::show() const
 {
   IupShowXY(mDialog, IUP_CENTER, IUP_CENTER);
-
-  cnv.initOGL();
 
   auto canvasHandle = IupGetHandle(Canvas::HANDLE_NAME.c_str());
   IupRedraw(canvasHandle, true);

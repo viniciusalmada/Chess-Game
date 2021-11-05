@@ -6,7 +6,7 @@ App* App::instance = nullptr;
 
 void App::show()
 {
-  instance->mMainWindow.show(instance->mCanvas);
+  instance->mMainWindow.show();
 }
 
 App::App()
