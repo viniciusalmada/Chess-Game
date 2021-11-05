@@ -11,5 +11,5 @@ public:
 
   void init(Canvas& canvas);
 
-  void show() const;
+  void show(const Canvas& cnv) const;
 };

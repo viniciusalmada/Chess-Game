@@ -34,9 +34,11 @@ void MainWindow::init(Canvas& canvas)
   IupSetAttribute(mDialog, "RASTERSIZE", newSizeStr.c_str());
 }
 
-void MainWindow::show() const
+void MainWindow::show(const Canvas& cnv) const
 {
   IupShowXY(mDialog, IUP_CENTER, IUP_CENTER);
+
+  cnv.initOGL();
 
   auto canvasHandle = IupGetHandle(Canvas::HANDLE_NAME.c_str());
   IupRedraw(canvasHandle, true);
