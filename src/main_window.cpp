@@ -20,6 +20,8 @@ void MainWindow::init(Canvas& canvas)
 
   IupShowXY(mDialog, IUP_CENTER, IUP_CENTER);
 
+  canvas.initOGL();
+
   int ndx, ndy;
   IupGetIntInt(mDialog, "NATURALSIZE", &ndx, &ndy);
   int cdx, cdy;
@@ -33,7 +35,6 @@ void MainWindow::init(Canvas& canvas)
   IupHide(mDialog);
   IupSetAttribute(mDialog, "RASTERSIZE", newSizeStr.c_str());
 
-  canvas.initOGL();
 }
 
 void MainWindow::show() const
