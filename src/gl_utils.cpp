@@ -1,6 +1,9 @@
 #include <GL/glew.h>
 #include "gl_utils.h"
 #include "numeric_utils.h"
+#include <fstream>
+#include <string>
+#include <sstream>
 
 Color GlUtils::RED = { 0xFF0000 };
 Color GlUtils::WHITE = { 0xFFFFFF };
@@ -137,4 +140,24 @@ void GlUtils::draw2DTexture(int texId, int x, int y, int sq, Color color)
   glTexCoord2f(0.0f, 0.0f); glVertex2i(x, y + sq);
   glEnd();
   glDisable(GL_TEXTURE_2D);
+}
+
+ShaderSources GlUtils::parseShaderString(const std::filesystem::path& path)
+{
+  std::array<std::string, 2> shaderNames = { {"vertex.glsl", "fragment.glsl"} };
+  std::stringstream ss[2];
+  for (int i = 0; i < 2; i++)
+  {
+    std::filesystem::path shader = std::filesystem::path{path}.append(shaderNames[i]);
+    std::fstream stream(shader.generic_string());
+    std::string line;
+    while (getline(stream, line))
+    {
+      ss[i] << line << std::endl;
+    }
+  }
+
+
+  return { ss[0].str(), ss[1].str() };
+
 }

@@ -1,7 +1,15 @@
 #pragma once
 #include <array>
+#include <string>
+#include <filesystem>
 #include <im/im.h>
 #include <im/im_image.h>
+
+struct ShaderSources
+{
+  std::string vertexSource;
+  std::string fragmentSource;
+};
 
 struct Color
 {
@@ -37,4 +45,6 @@ public:
   static void drawSquare(int x, int y, int squareSize);
 
   static void draw2DTexture(int texId, int x, int y, int sq, Color color = WHITE);
+
+  static ShaderSources parseShaderString(const std::filesystem::path&);
 };

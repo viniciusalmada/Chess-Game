@@ -18,6 +18,7 @@ class App
   Board mBoard;
 
   std::filesystem::path mImagesPath;
+  std::filesystem::path mShadersPath;
 
   static void show();
 
@@ -34,6 +35,8 @@ public:
   static void processLeftClick(int x, int y);
 
   static std::filesystem::path getImagePath(std::string imageFileName);
+  
+  static std::filesystem::path getShadersPath();
 
   App(App& other) = delete;
 

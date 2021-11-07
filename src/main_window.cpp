@@ -20,7 +20,6 @@ void MainWindow::init(Canvas& canvas)
 
   IupShowXY(mDialog, IUP_CENTER, IUP_CENTER);
 
-  canvas.initOGL();
 
   int ndx, ndy;
   IupGetIntInt(mDialog, "NATURALSIZE", &ndx, &ndy);

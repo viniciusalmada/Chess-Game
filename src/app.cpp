@@ -6,6 +6,7 @@ App* App::instance = nullptr;
 
 void App::show()
 {
+  instance->mCanvas.initOGL();
   instance->mMainWindow.show();
 }
 
@@ -13,11 +14,12 @@ App::App()
 {
   std::filesystem::path currentPath;
 #ifdef WORKING_DIR
-  currentPath = std::filesystem::path{WORKING_DIR};
+  currentPath = std::filesystem::path{ WORKING_DIR };
 #else
   currentPath = std::filesystem::current_path();
 #endif
-  this->mImagesPath = currentPath.append("images");
+  this->mImagesPath = std::filesystem::path{ currentPath }.append("res").append("images");
+  this->mShadersPath = std::filesystem::path{ currentPath }.append("res").append("shaders");
 
   mMainWindow.init(mCanvas);
 
@@ -48,4 +50,9 @@ std::filesystem::path App::getImagePath(std::string imageFileName)
 {
   auto imagesPath = instance->mImagesPath;
   return imagesPath.append(imageFileName);
+}
+
+std::filesystem::path App::getShadersPath()
+{
+  return instance->mShadersPath;
 }
