@@ -6,10 +6,10 @@
 #include <string>
 #include <sstream>
 
-Color GlUtils::RED = { 0xFF0000 };
-Color GlUtils::WHITE = { 0xFFFFFF };
+GlUtils::Color GlUtils::RED = { 0xFF0000 };
+GlUtils::Color GlUtils::WHITE = { 0xFFFFFF };
 
-std::array<float, 4> Color::getColorsF()
+std::array<float, 4> GlUtils::Color::getColorsF()
 {
   auto rgb = NumericUtils::hexTo3Dec(hexColor);
 
@@ -124,7 +124,7 @@ void GlUtils::drawSquare(int x, int y, int squareSize)
   glEnd();
 }
 
-void GlUtils::draw2DTexture(int texId, int x, int y, int sq, Color color)
+void GlUtils::draw2DTexture(int texId, int x, int y, int sq, GlUtils::Color color)
 {
   //glBindTexture(GL_TEXTURE_2D, 0);
   glEnable(GL_TEXTURE_2D);
@@ -143,7 +143,7 @@ void GlUtils::draw2DTexture(int texId, int x, int y, int sq, Color color)
   glDisable(GL_TEXTURE_2D);
 }
 
-ShaderSources GlUtils::parseShaderString(const std::filesystem::path& path)
+GlUtils::ShaderSources GlUtils::parseShaderString(const std::filesystem::path& path)
 {
   std::array<std::string, 2> shaderNames = { {"vertex.glsl", "fragment.glsl"} };
   std::stringstream ss[2];
@@ -202,4 +202,15 @@ unsigned int GlUtils::createProgram(const ShaderSources& sources)
   glDeleteShader(fs);
 
   return programId;
+}
+
+GlUtils::Program::Program(std::filesystem::path shadersPath)
+{
+  auto sources = parseShaderString(shadersPath);
+  this->id = createProgram(sources);
+}
+
+void GlUtils::Program::use() const
+{
+  glUseProgram(id);
 }

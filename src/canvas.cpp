@@ -82,8 +82,7 @@ void Canvas::initOGL() const
   glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(2 * sizeof(float)));
 
   auto shadersPath = App::getShadersPath();
-  auto shaders = GlUtils::parseShaderString(shadersPath);
 
-  unsigned int program = GlUtils::createProgram(shaders);
-  glUseProgram(program);
+  GlUtils::Program program(shadersPath);
+  program.use();
 }

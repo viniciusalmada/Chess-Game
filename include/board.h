@@ -1,11 +1,11 @@
 #pragma once
 #include <unordered_map>
-#include "gl_utils.h"
 #include <vector>
 #include <unordered_set>
 
 #include <hash_utl.h>
 #include "game_app.h"
+#include "gl_utils.h"
 
 class Board
 {
@@ -30,10 +30,10 @@ class Board
   void drawPieces(const GameApp& game);
 
 public:
-  static Color sBackgroundColor;
-  static Color sHouseDark;
-  static Color sHouseLight;
-  static Color sHighlightPiece;
+  static GlUtils::Color sBackgroundColor;
+  static GlUtils::Color sHouseDark;
+  static GlUtils::Color sHouseLight;
+  static GlUtils::Color sHighlightPiece;
 
   explicit Board(int sideSize = 600);
 

@@ -1,8 +1,8 @@
 #pragma once
-#include <iup/iup.h>
-#include <board.h>
 #include <string>
 #include <memory>
+#include <iup/iup.h>
+#include <board.h>
 
 class Canvas
 {

@@ -6,10 +6,10 @@
 #include <app.h>
 #include <log.h>
 
-Color Board::sBackgroundColor = { 0xE8E6E4 };
-Color Board::sHouseDark = { 0xB58863 };
-Color Board::sHouseLight = { 0xF0D9B5 };
-Color Board::sHighlightPiece = { 0xfc4d02 };
+GlUtils::Color Board::sBackgroundColor = { 0xE8E6E4 };
+GlUtils::Color Board::sHouseDark = { 0xB58863 };
+GlUtils::Color Board::sHouseLight = { 0xF0D9B5 };
+GlUtils::Color Board::sHighlightPiece = { 0xfc4d02 };
 
 static GlUtils::Texture _loadTexture(std::string str)
 {
