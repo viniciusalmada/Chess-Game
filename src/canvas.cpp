@@ -103,8 +103,11 @@ void Canvas::initOGL() const
   if (glewInit())
     std::cerr << "Error!" << std::endl;
 
+  std::cout << "GL_VERSION: " << glGetString(GL_VERSION) << std::endl;
+  std::cout << "GL_SHADING_LANGUAGE_VERSION: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
+
   std::string vshader = R"glsl(
-    #version 410 core
+    #version 330 core
     layout(location = 0) in vec4 position;
     layout(location = 1) in vec3 rgbColor;
     out vec4 fragColor;
@@ -115,7 +118,7 @@ void Canvas::initOGL() const
     }
     )glsl";
   std::string fshader = R"glsl(
-    #version 410 core
+    #version 330 core
     in vec4 fragColor;
     out vec4 color;
     void main()
