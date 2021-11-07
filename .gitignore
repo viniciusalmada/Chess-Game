@@ -433,3 +433,4 @@ out/
 cmake-build
 tmp
 enc_temp_folder
+build/

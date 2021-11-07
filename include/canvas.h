@@ -23,4 +23,6 @@ public:
   void init();
 
   Ihandle* handle() const { return mCnv; }
+
+  void initOGL() const;
 };

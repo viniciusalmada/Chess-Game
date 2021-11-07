@@ -1,123 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Header Files\utils">
-      <UniqueIdentifier>{de67b6eb-2465-4f34-8060-c36e0e1d4769}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\drawables">
-      <UniqueIdentifier>{c71904f6-5380-4551-86ae-3a5880746cc2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\utils">
-      <UniqueIdentifier>{f3003603-e066-4acc-a49a-67a8d49f8991}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\drawables">
-      <UniqueIdentifier>{b3ccb10b-69dc-41cc-8b22-679a1569ce85}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\ui">
-      <UniqueIdentifier>{dc5ec9dd-cf4c-49c0-8b57-20f3dcd3450b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\ui">
-      <UniqueIdentifier>{599b6e15-ac47-47fd-beb4-aeee5bf9e9ad}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\logic">
-      <UniqueIdentifier>{d2c13443-3d9c-496a-9641-a80b2756fefe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\domain">
-      <UniqueIdentifier>{6fa590d9-22d5-4ad3-8c61-f6c847d193a2}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="src\app.cpp" />
+    <ClCompile Include="src\board.cpp" />
+    <ClCompile Include="src\canvas.cpp" />
+    <ClCompile Include="src\coordinate.cpp" />
+    <ClCompile Include="src\game_app.cpp" />
+    <ClCompile Include="src\gl_utils.cpp" />
+    <ClCompile Include="src\image_loader.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\main_window.cpp" />
+    <ClCompile Include="src\numeric_utils.cpp" />
+    <ClCompile Include="src\piece.cpp" />
+    <ClCompile Include="src\sp_string.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\app.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gl_utils.cpp">
-      <Filter>Source Files\utils</Filter>
-    </ClCompile>
-    <ClCompile Include="src\image_loader.cpp">
-      <Filter>Source Files\utils</Filter>
-    </ClCompile>
-    <ClCompile Include="src\numeric_utils.cpp">
-      <Filter>Source Files\utils</Filter>
-    </ClCompile>
-    <ClCompile Include="src\board.cpp">
-      <Filter>Source Files\drawables</Filter>
-    </ClCompile>
-    <ClCompile Include="src\sp_string.cpp">
-      <Filter>Source Files\utils</Filter>
-    </ClCompile>
-    <ClCompile Include="src\main_window.cpp">
-      <Filter>Source Files\ui</Filter>
-    </ClCompile>
-    <ClCompile Include="src\canvas.cpp">
-      <Filter>Source Files\ui</Filter>
-    </ClCompile>
-    <ClCompile Include="src\game_app.cpp">
-      <Filter>Source Files\logic</Filter>
-    </ClCompile>
-    <ClCompile Include="src\coordinate.cpp">
-      <Filter>Source Files\logic</Filter>
-    </ClCompile>
-    <ClCompile Include="src\piece.cpp">
-      <Filter>Source Files\logic</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="include\app.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\numeric_utils.h">
-      <Filter>Header Files\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="include\image_loader.h">
-      <Filter>Header Files\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="include\gl_utils.h">
-      <Filter>Header Files\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="include\board.h">
-      <Filter>Header Files\drawables</Filter>
-    </ClInclude>
-    <ClInclude Include="include\sp_string.h">
-      <Filter>Header Files\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="include\main_window.h">
-      <Filter>Header Files\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\canvas.h">
-      <Filter>Header Files\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\game_app.h">
-      <Filter>Header Files\domain</Filter>
-    </ClInclude>
-    <ClInclude Include="include\coordinate.h">
-      <Filter>Header Files\domain</Filter>
-    </ClInclude>
-    <ClInclude Include="include\hash_utl.h">
-      <Filter>Header Files\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="include\log.h">
-      <Filter>Header Files\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="include\piece.h">
-      <Filter>Header Files\domain</Filter>
-    </ClInclude>
-    <ClInclude Include="include\player.h">
-      <Filter>Header Files\domain</Filter>
-    </ClInclude>
+    <ClInclude Include="include\app.h" />
+    <ClInclude Include="include\board.h" />
+    <ClInclude Include="include\canvas.h" />
+    <ClInclude Include="include\coordinate.h" />
+    <ClInclude Include="include\game_app.h" />
+    <ClInclude Include="include\gl_utils.h" />
+    <ClInclude Include="include\hash_utl.h" />
+    <ClInclude Include="include\image_loader.h" />
+    <ClInclude Include="include\log.h" />
+    <ClInclude Include="include\main_window.h" />
+    <ClInclude Include="include\numeric_utils.h" />
+    <ClInclude Include="include\piece.h" />
+    <ClInclude Include="include\player.h" />
+    <ClInclude Include="include\sp_string.h" />
   </ItemGroup>
 </Project>
