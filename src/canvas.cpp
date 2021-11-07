@@ -12,47 +12,6 @@ std::string Canvas::HANDLE_NAME = "CHESS_CANVAS_HANDLE_NAME";
 
 static Coordinate _mousePressedCoord;
 
-static unsigned int CompileShader(unsigned int type, const std::string& src)
-{
-  unsigned int id = glCreateShader(type);
-  auto sourceC = src.c_str();
-  glShaderSource(id, 1, &sourceC, nullptr);
-  glCompileShader(id);
-
-  int result;
-  glGetShaderiv(id, GL_COMPILE_STATUS, &result);
-  if (!result)
-  {
-    int len;
-    glGetShaderiv(id, GL_INFO_LOG_LENGTH, &len);
-    char* message = new char[len];
-    glGetShaderInfoLog(id, len, &len, message);
-    std::cout << message << std::endl;
-    glDeleteShader(id);
-    delete[] message;
-    return 0;
-  }
-
-  return id;
-}
-
-static unsigned int CreateProgram(const std::string& vertexShader, const std::string& fragShader)
-{
-  unsigned int programId = glCreateProgram();
-  unsigned int vs = CompileShader(GL_VERTEX_SHADER, vertexShader);
-  unsigned int fs = CompileShader(GL_FRAGMENT_SHADER, fragShader);
-
-  glAttachShader(programId, vs);
-  glAttachShader(programId, fs);
-  glLinkProgram(programId);
-  glValidateProgram(programId);
-
-  glDeleteShader(vs);
-  glDeleteShader(fs);
-
-  return programId;
-}
-
 int Canvas::actionCallback(Ihandle* cnv)
 {
   IupGLMakeCurrent(cnv);
@@ -125,6 +84,6 @@ void Canvas::initOGL() const
   auto shadersPath = App::getShadersPath();
   auto shaders = GlUtils::parseShaderString(shadersPath);
 
-  unsigned int program = CreateProgram(shaders.vertexSource, shaders.fragmentSource);
+  unsigned int program = GlUtils::createProgram(shaders);
   glUseProgram(program);
 }

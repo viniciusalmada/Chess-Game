@@ -1,6 +1,7 @@
 #include <GL/glew.h>
 #include "gl_utils.h"
 #include "numeric_utils.h"
+#include <iostream>
 #include <fstream>
 #include <string>
 #include <sstream>
@@ -160,4 +161,45 @@ ShaderSources GlUtils::parseShaderString(const std::filesystem::path& path)
 
   return { ss[0].str(), ss[1].str() };
 
+}
+
+unsigned int GlUtils::compileShader(unsigned int type, std::string src)
+{
+  unsigned int id = glCreateShader(type);
+  auto sourceC = src.c_str();
+  glShaderSource(id, 1, &sourceC, nullptr);
+  glCompileShader(id);
+
+  int result;
+  glGetShaderiv(id, GL_COMPILE_STATUS, &result);
+  if (!result)
+  {
+    int len;
+    glGetShaderiv(id, GL_INFO_LOG_LENGTH, &len);
+    char* message = new char[len];
+    glGetShaderInfoLog(id, len, &len, message);
+    std::cerr << message << std::endl;
+    glDeleteShader(id);
+    delete[] message;
+    return 0;
+  }
+
+  return id;
+}
+
+unsigned int GlUtils::createProgram(const ShaderSources& sources)
+{
+  unsigned int programId = glCreateProgram();
+  unsigned int vs = compileShader(GL_VERTEX_SHADER, sources.vertexSource);
+  unsigned int fs = compileShader(GL_FRAGMENT_SHADER, sources.fragmentSource);
+
+  glAttachShader(programId, vs);
+  glAttachShader(programId, fs);
+  glLinkProgram(programId);
+  glValidateProgram(programId);
+
+  glDeleteShader(vs);
+  glDeleteShader(fs);
+
+  return programId;
 }

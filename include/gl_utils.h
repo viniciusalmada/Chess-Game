@@ -47,4 +47,8 @@ public:
   static void draw2DTexture(int texId, int x, int y, int sq, Color color = WHITE);
 
   static ShaderSources parseShaderString(const std::filesystem::path&);
+
+  static unsigned int compileShader(unsigned int type, std::string source);
+  
+  static unsigned int createProgram(const ShaderSources& sources);
 };
