@@ -105,7 +105,7 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ChessWithIUP.vcxproj">
+    <ProjectReference Include="..\ChessGame.vcxproj">
       <Project>{0b899f12-d19f-405f-a233-dc238f716e35}</Project>
     </ProjectReference>
   </ItemGroup>
