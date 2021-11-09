@@ -1,51 +1,68 @@
-#include <iup/iup.h>
-#include <iup/iupgl.h>
+#include <GL/glew.h>
 #include <string>
 #include "main_window.h"
 #include <app.h>
+#include <iostream>
 
-void MainWindow::init(Canvas& canvas)
+void MainWindow::initOGL()
 {
-  IupOpen(nullptr, nullptr);
-  IupGLCanvasOpen();
+  glfwMakeContextCurrent(mDialog);
+  if (glewInit())
+    std::cerr << "Error!" << std::endl;
 
-  canvas.init();
+  std::cout << "GL_VERSION: " << glGetString(GL_VERSION) << std::endl;
+  std::cout << "GL_SHADING_LANGUAGE_VERSION: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
 
-  Ihandle* box = IupHbox(canvas.handle(), nullptr);
+  float positions[] = {
+    -0.75f, -0.75f, 1.0f, 1.0f, 0.0f,
+    0.0f, 0.75f, 1.0f, 1.0f, 0.0f,
+    0.75f, -0.75f, 1.0f, 1.0f, 0.0f,
 
-  mDialog = IupDialog(box);
-  IupSetAttribute(mDialog, IUP_TITLE, "Chess with IUP");
-  IupSetAttribute(mDialog, IUP_RASTERSIZE, "100x100");
-  IupSetAttribute(mDialog, IUP_RESIZE, IUP_NO);
+    -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,
+    0.0f, 0.5f, 1.0f, 0.0f, 0.0f,
+    0.5f, -0.5f, 1.0f, 0.0f, 0.0f,
+  };
 
-  IupShowXY(mDialog, IUP_CENTER, IUP_CENTER);
+  unsigned int bufferID;
+  glGenBuffers(1, &bufferID);
+  glBindBuffer(GL_ARRAY_BUFFER, bufferID);
+  glBufferData(GL_ARRAY_BUFFER, 30 * sizeof(float), positions, GL_STATIC_DRAW);
 
+  glEnableVertexAttribArray(0); // positions attribute
+  glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), 0);
+  glEnableVertexAttribArray(1);
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(2 * sizeof(float)));
 
-  int ndx, ndy;
-  IupGetIntInt(mDialog, "NATURALSIZE", &ndx, &ndy);
-  int cdx, cdy;
-  IupGetIntInt(mDialog, "CLIENTSIZE", &cdx, &cdy);
+  auto shadersPath = App::getShadersPath();
 
-  int dx = ndx - cdx;
-  int dy = ndy - cdy;
-  int newX = App::PREDEFINED_SIZE + dx;
-  int newY = App::PREDEFINED_SIZE + dy;
-  std::string newSizeStr = std::to_string(newX) + "x" + std::to_string(newY);
-  IupHide(mDialog);
-  IupSetAttribute(mDialog, "RASTERSIZE", newSizeStr.c_str());
-
+  GlUtils::Program program(shadersPath);
+  program.use();
 }
 
-void MainWindow::show(Canvas& canvas) const
+MainWindow::MainWindow()
 {
-  IupShowXY(mDialog, IUP_CENTER, IUP_CENTER);
-  canvas.initOGL();
+  if (!glfwInit())
+    return;
 
-  auto canvasHandle = IupGetHandle(Canvas::HANDLE_NAME.c_str());
-  IupRedraw(canvasHandle, true);
-  IupRedraw(canvasHandle, true);
+  mDialog = glfwCreateWindow(App::PREDEFINED_SIZE, App::PREDEFINED_SIZE, "Chess Game", nullptr, nullptr);
+}
 
-  IupMainLoop();
+MainWindow::~MainWindow()
+{
+  glfwDestroyWindow(mDialog);
+}
 
-  IupClose();
+void MainWindow::actionLoop(std::function<void()> action)
+{
+	while (!glfwWindowShouldClose(mDialog))
+	{
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+
+    glfwSwapBuffers(mDialog);
+
+    glfwPollEvents();
+		action();
+	}
 }

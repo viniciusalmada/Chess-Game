@@ -6,7 +6,9 @@ App* App::instance = nullptr;
 
 void App::show()
 {
-  instance->mMainWindow.show(instance->mCanvas);
+  instance->mMainWindow.initOGL();
+  instance->mMainWindow.actionLoop([]() {});
+  glfwTerminate();
 }
 
 App::App()
@@ -19,8 +21,6 @@ App::App()
 #endif
   this->mImagesPath = std::filesystem::path{ currentPath }.append("res").append("images");
   this->mShadersPath = std::filesystem::path{ currentPath }.append("res").append("shaders");
-
-  mMainWindow.init(mCanvas);
 
   mBoard = Board(600);
 }

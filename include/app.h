@@ -14,7 +14,6 @@ class App
 
   GameApp mGame;
   MainWindow mMainWindow;
-  Canvas mCanvas;
   Board mBoard;
 
   std::filesystem::path mImagesPath;
