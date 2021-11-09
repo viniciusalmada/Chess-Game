@@ -214,3 +214,9 @@ void GlUtils::Program::use() const
 {
   glUseProgram(id);
 }
+
+int GlUtils::BufferData::addSquare(SquareBufferData square)
+{
+  squares[counter] = square;
+  return counter++;
+}

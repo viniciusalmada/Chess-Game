@@ -1,14 +1,51 @@
 #pragma once
 #include <array>
 #include <string>
+#include <map>
 #include <filesystem>
 #include <im/im.h>
 #include <im/im_image.h>
+#include <coordinate.h>
 
 
 class GlUtils
 {
 public:
+
+  struct VertexAttribute
+  {
+    float x;
+    float y;
+    float red;
+    float green;
+    float blue;
+  };
+
+  struct Color
+  {
+    unsigned int hexColor = 0x0;
+    int alpha = 0xFF;
+
+    std::array<float, 4> getColorsF();
+  };
+
+  struct SquareBufferData
+  {
+    Coordinate topLeft;
+    Coordinate topRight;
+    Coordinate botRight;
+    Coordinate botLeft;
+    Color color;
+  };
+
+  struct BufferData
+  {
+    std::map<int, SquareBufferData> squares;
+
+    int addSquare(SquareBufferData square);
+  private:
+    int counter = 0;
+  };
 
   class Program
   {
@@ -24,14 +61,6 @@ public:
   {
     std::string vertexSource;
     std::string fragmentSource;
-  };
-
-  struct Color
-  {
-    unsigned int hexColor = 0x0;
-    int alpha = 0xFF;
-
-    std::array<float, 4> getColorsF();
   };
 
   struct Texture

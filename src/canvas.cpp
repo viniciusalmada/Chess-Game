@@ -17,7 +17,7 @@ int Canvas::actionCallback(Ihandle* cnv)
   IupGLMakeCurrent(cnv);
   glClear(GL_COLOR_BUFFER_BIT);
 
-  glDrawArrays(GL_TRIANGLES, 0, 3);
+  glDrawArrays(GL_TRIANGLES, 0, 6);
 
   IupGLSwapBuffers(cnv);
 
@@ -65,16 +65,23 @@ void Canvas::initOGL() const
   std::cout << "GL_VERSION: " << glGetString(GL_VERSION) << std::endl;
   std::cout << "GL_SHADING_LANGUAGE_VERSION: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
 
+  int w, h;
+  IupGetIntInt(mCnv, IUP_RASTERSIZE, &w, &h);
+
   float positions[] = {
+    -0.75f, -0.75f, 1.0f, 1.0f, 0.0f,
+    0.0f, 0.75f, 1.0f, 1.0f, 0.0f,
+    0.75f, -0.75f, 1.0f, 1.0f, 0.0f,
+
     -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,
-    0.0f, 0.5f, 0.0f, 1.0f, 0.0f,
-    0.5f, -0.5f, 0.0f, 0.0f, 1.0f,
+    0.0f, 0.5f, 1.0f, 0.0f, 0.0f,
+    0.5f, -0.5f, 1.0f, 0.0f, 0.0f,
   };
 
   unsigned int bufferID;
   glGenBuffers(1, &bufferID);
   glBindBuffer(GL_ARRAY_BUFFER, bufferID);
-  glBufferData(GL_ARRAY_BUFFER, 15 * sizeof(float), positions, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, 30 * sizeof(float), positions, GL_STATIC_DRAW);
 
   glEnableVertexAttribArray(0); // positions attribute
   glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), 0);

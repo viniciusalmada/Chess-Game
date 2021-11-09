@@ -14,7 +14,9 @@ class Board
 
   std::unordered_map<PieceName, GlUtils::Texture> mTexturesBlack;
   std::unordered_map<PieceName, GlUtils::Texture> mTexturesWhite;
-  std::unordered_map<SquarePosition, Coordinate, SquarePositionHash, SquarePositionEqual> mSquaresCoordinates;
+  std::unordered_map<SquarePosition, int, SquarePositionHash, SquarePositionEqual> mSquaresCoordinates;
+
+  GlUtils::BufferData mBufferData;
 
   void loadTextures();
 
@@ -25,14 +27,12 @@ class Board
 
   int getSideSize() const;
 
-  void drawSquares();
-  void drawBackground(const int& s);
-  void drawPieces(const GameApp& game);
+  void draw();
 
 public:
   static GlUtils::Color sBackgroundColor;
-  static GlUtils::Color sHouseDark;
-  static GlUtils::Color sHouseLight;
+  static GlUtils::Color sSquareDark;
+  static GlUtils::Color sSquareLight;
   static GlUtils::Color sHighlightPiece;
 
   explicit Board(int sideSize = 600);

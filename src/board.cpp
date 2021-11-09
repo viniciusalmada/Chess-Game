@@ -7,8 +7,8 @@
 #include <log.h>
 
 GlUtils::Color Board::sBackgroundColor = { 0xE8E6E4 };
-GlUtils::Color Board::sHouseDark = { 0xB58863 };
-GlUtils::Color Board::sHouseLight = { 0xF0D9B5 };
+GlUtils::Color Board::sSquareDark = { 0xB58863 };
+GlUtils::Color Board::sSquareLight = { 0xF0D9B5 };
 GlUtils::Color Board::sHighlightPiece = { 0xfc4d02 };
 
 static GlUtils::Texture _loadTexture(std::string str)
@@ -41,14 +41,30 @@ void Board::fillCoordinates()
 {
   if (!mSquaresCoordinates.empty()) return;
 
+  mBufferData.addSquare({
+    { 0, 0 },
+    { getSideSize(), 0 },
+    { getSideSize(), getSideSize() },
+    { 0, getSideSize() },
+    sBackgroundColor
+    });
+
+  bool useDark = true;
   for (int i = 0; i < 8; i++)
   {
-    for (int j = 0; j < 8; j++)
+    for (int j = 0; i < 8; i++)
     {
       int sq = innerBorder() / 8;
       int x = i * sq + mBorderSize;
       int y = j * sq + mBorderSize;
-      mSquaresCoordinates[{ i, 7 - j }] = { x, y };
+      Coordinate topLeft{ x, y };
+      Coordinate topRight{ x + sq, y };
+      Coordinate botRight{ x + sq, y + sq };
+      Coordinate botLeft{ x, y + sq };
+      auto color = useDark ? sSquareDark : sSquareLight;
+      int id = mBufferData.addSquare({ topLeft, topRight, botRight, botLeft, color });
+      mSquaresCoordinates[{i, 7 - j}] = id;
+      useDark = !useDark;
     }
   }
 }
@@ -68,13 +84,13 @@ void Board::drawBoard(const GameApp& game)
 
   fillCoordinates();
 
-  GlUtils::uglViewportAndOrtho(mSideSize);
+  glViewport(0, 0, mSideSize, mSideSize);
 
-  drawBackground(mSideSize);
+  draw();
 
-  drawSquares();
+  //drawSquares();
 
-  drawPieces(game);
+  //drawPieces(game);
 }
 
 SquarePosition Board::getSelectedSquare(int x, int y)
@@ -101,52 +117,7 @@ SquarePosition Board::getSelectedSquare(int x, int y)
   return SquarePosition(fileId, rankId);
 }
 
-void Board::drawSquares()
+void Board::draw()
 {
-  for (const auto& square : mSquaresCoordinates)
-  {
-    int i = square.first.rankId();
-    int j = square.first.fileId();
-
-    if ((i + j) % 2 == 0)
-      GlUtils::uglColor3f(sHouseDark);
-    else
-      GlUtils::uglColor3f(sHouseLight);
-
-    int x = square.second.x();
-    int y = square.second.y();
-
-    GlUtils::drawSquare(x, y, squareSize());
-  }
-}
-
-void Board::drawPieces(const GameApp& game)
-{
-  game.forEachPiece([this](const Piece& piece)
-    {
-      Coordinate coords = mSquaresCoordinates[piece.getPosition()];
-      GlUtils::Texture tex;
-      if (piece.isBlack())
-        tex = mTexturesBlack[piece.getName()];
-      else
-        tex = mTexturesWhite[piece.getName()];
-      int x = coords.x();
-      int y = coords.y();
-      int sq = squareSize();
-
-      if (!piece.isSelected())
-        GlUtils::draw2DTexture(tex.id, x, y, sq);
-      else
-      {
-        //GlUtils::draw2DTexture(tex.id, x, y, sq, sHighlightPiece);
-        //GlUtils::draw2DTexture(tex.id, x, y, sq, sHighlightPiece);
-        //Log::logDebug("Piece " + piece.generateTitle() + " is selected");
-      }
-    });
-}
-
-void Board::drawBackground(const int& s)
-{
-  GlUtils::uglColor3f(sBackgroundColor);
-  GlUtils::drawSquare(0, 0, s);
+  
 }

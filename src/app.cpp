@@ -6,8 +6,7 @@ App* App::instance = nullptr;
 
 void App::show()
 {
-  instance->mCanvas.initOGL();
-  instance->mMainWindow.show();
+  instance->mMainWindow.show(instance->mCanvas);
 }
 
 App::App()

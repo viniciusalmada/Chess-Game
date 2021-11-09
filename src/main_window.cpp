@@ -36,9 +36,10 @@ void MainWindow::init(Canvas& canvas)
 
 }
 
-void MainWindow::show() const
+void MainWindow::show(Canvas& canvas) const
 {
   IupShowXY(mDialog, IUP_CENTER, IUP_CENTER);
+  canvas.initOGL();
 
   auto canvasHandle = IupGetHandle(Canvas::HANDLE_NAME.c_str());
   IupRedraw(canvasHandle, true);
