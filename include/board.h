@@ -37,7 +37,7 @@ public:
 
   explicit Board(int sideSize = 600);
 
-  void drawBoard(const GameApp& game);
+  void drawBoard();
 
   SquarePosition getSelectedSquare(int x, int y);
 };

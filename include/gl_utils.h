@@ -12,15 +12,6 @@ class GlUtils
 {
 public:
 
-  struct VertexAttribute
-  {
-    float x;
-    float y;
-    float red;
-    float green;
-    float blue;
-  };
-
   struct Color
   {
     unsigned int hexColor = 0x0;
@@ -38,12 +29,52 @@ public:
     Color color;
   };
 
+
+  struct VertexAttributes
+  {
+    float x;
+    float y;
+    float red;
+    float green;
+    float blue;
+
+    void loadFromSquare(SquareBufferData& data, int index);
+  };
+
+  
+
+  struct VertexBufferObject
+  {
+    unsigned int id = 0;
+    std::vector<VertexAttributes> vertices;
+    void genBuffer();
+    void bindBuffer();
+    void addVertex(VertexAttributes va);
+    void populateBuffer();
+  };
+  
+  struct IndexBufferObject
+  {
+    unsigned int id = 0;
+    std::vector<unsigned int> indices;
+    void genBuffer();
+    void bindBuffer();
+    void populateBuffer();
+  };
+
   struct BufferData
   {
     std::map<int, SquareBufferData> squares;
 
     int addSquare(SquareBufferData square);
+
+    int getIndicesSize();
   private:
+    VertexBufferObject vbo;
+    IndexBufferObject ibo;
+
+    void loadBuffers();
+
     int counter = 0;
   };
 
@@ -85,7 +116,10 @@ public:
 
   static void drawSquare(int x, int y, int squareSize);
 
-  static void draw2DTexture(int texId, int x, int y, int sq, Color color = WHITE);
+  static void draw2DTexture(int texId, int x, int y, int sq, Color color = 
+    WHITE);
+
+  static void drawElements(int totalIndices);
 
 private:
   static ShaderSources parseShaderString(const std::filesystem::path&);

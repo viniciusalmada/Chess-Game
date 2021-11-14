@@ -7,7 +7,10 @@ App* App::instance = nullptr;
 void App::show()
 {
   instance->mMainWindow.initOGL();
-  instance->mMainWindow.actionLoop([]() {});
+  instance->mMainWindow.actionLoop([]()
+    {
+      instance->mBoard.drawBoard();
+    });
   glfwTerminate();
 }
 
@@ -35,7 +38,7 @@ void App::start()
 void App::updateBoard()
 {
   if (instance == nullptr) return;
-  instance->mBoard.drawBoard(instance->mGame);
+  instance->mBoard.drawBoard();
 }
 
 void App::processLeftClick(int x, int y)

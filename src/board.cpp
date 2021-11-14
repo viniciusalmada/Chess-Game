@@ -42,10 +42,10 @@ void Board::fillCoordinates()
   if (!mSquaresCoordinates.empty()) return;
 
   mBufferData.addSquare({
-    { 0, 0 },
-    { getSideSize(), 0 },
-    { getSideSize(), getSideSize() },
-    { 0, getSideSize() },
+    Coordinate{ 0, 0 },
+    Coordinate{ getSideSize(), 0 },
+    Coordinate{ getSideSize(), getSideSize() },
+    Coordinate{ 0, getSideSize() },
     sBackgroundColor
     });
 
@@ -71,6 +71,9 @@ void Board::fillCoordinates()
 
 Board::Board(int sideSize) : mSideSize(sideSize)
 {
+  loadTextures();
+
+  fillCoordinates();
 }
 
 int Board::getSideSize() const
@@ -78,12 +81,8 @@ int Board::getSideSize() const
   return mSideSize;
 }
 
-void Board::drawBoard(const GameApp& game)
+void Board::drawBoard()
 {
-  loadTextures();
-
-  fillCoordinates();
-
   glViewport(0, 0, mSideSize, mSideSize);
 
   draw();
@@ -119,5 +118,5 @@ SquarePosition Board::getSelectedSquare(int x, int y)
 
 void Board::draw()
 {
-  
+  GlUtils::drawElements(mBufferData.getIndicesSize());
 }

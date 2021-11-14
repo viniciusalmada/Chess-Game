@@ -9,6 +9,18 @@
 GlUtils::Color GlUtils::RED = { 0xFF0000 };
 GlUtils::Color GlUtils::WHITE = { 0xFFFFFF };
 
+static void _genBuffers(unsigned int& id)
+{
+  if (id == 0)
+  {
+    glGenBuffers(1, &id);
+    if (id == 0)
+    {
+      throw std::runtime_error("Error generating vertex buffer");
+    }
+  }
+}
+
 std::array<float, 4> GlUtils::Color::getColorsF()
 {
   auto rgb = NumericUtils::hexTo3Dec(hexColor);
@@ -143,13 +155,18 @@ void GlUtils::draw2DTexture(int texId, int x, int y, int sq, GlUtils::Color colo
   glDisable(GL_TEXTURE_2D);
 }
 
+void GlUtils::drawElements(int totalIndices)
+{
+  glDrawElements(GL_TRIANGLES, totalIndices, GL_UNSIGNED_INT, nullptr);
+}
+
 GlUtils::ShaderSources GlUtils::parseShaderString(const std::filesystem::path& path)
 {
   std::array<std::string, 2> shaderNames = { {"vertex.glsl", "fragment.glsl"} };
   std::stringstream ss[2];
   for (int i = 0; i < 2; i++)
   {
-    std::filesystem::path shader = std::filesystem::path{path}.append(shaderNames[i]);
+    std::filesystem::path shader = std::filesystem::path{ path }.append(shaderNames[i]);
     std::fstream stream(shader.generic_string());
     std::string line;
     while (getline(stream, line))
@@ -219,4 +236,101 @@ int GlUtils::BufferData::addSquare(SquareBufferData square)
 {
   squares[counter] = square;
   return counter++;
+}
+
+int GlUtils::BufferData::getIndicesSize()
+{
+  return static_cast<int>(ibo.indices.size());
+}
+
+void GlUtils::BufferData::loadBuffers()
+{
+  vbo.genBuffer();
+  ibo.genBuffer();
+
+  for (auto& squarePair : squares)
+  {
+    VertexAttributes vaTopLeft, vaTopRight;
+    VertexAttributes vaBotLeft, vaBotRight;
+    vaTopLeft.loadFromSquare(squarePair.second, 0);
+    vaTopRight.loadFromSquare(squarePair.second, 1);
+    vaBotRight.loadFromSquare(squarePair.second, 2);
+    vaBotLeft.loadFromSquare(squarePair.second, 3);
+    vbo.addVertex(vaTopLeft);
+    vbo.addVertex(vaTopRight);
+    vbo.addVertex(vaBotRight);
+    vbo.addVertex(vaBotLeft);
+
+    ibo.indices.push_back(squarePair.first * 4);
+    ibo.indices.push_back(squarePair.first * 4 + 1);
+    ibo.indices.push_back(squarePair.first * 4 + 2);
+    ibo.indices.push_back(squarePair.first * 4 + 3);
+  }
+  vbo.bindBuffer();
+  vbo.populateBuffer();
+
+  ibo.bindBuffer();
+  ibo.populateBuffer();
+}
+
+void GlUtils::VertexBufferObject::genBuffer()
+{
+  _genBuffers(id);
+}
+
+void GlUtils::VertexBufferObject::bindBuffer()
+{
+  glBindBuffer(GL_ARRAY_BUFFER, id);
+}
+
+void GlUtils::VertexBufferObject::addVertex(VertexAttributes va)
+{
+  vertices.push_back(va);
+}
+
+void GlUtils::VertexBufferObject::populateBuffer()
+{
+  int size = (int)vertices.size() * sizeof(VertexAttributes);
+  glBufferData(GL_ARRAY_BUFFER, size, vertices.data(), GL_STATIC_DRAW);
+
+  // TODO: remove attributes settings
+  glEnableVertexAttribArray(0);
+  glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(VertexAttributes), (void*)offsetof(VertexAttributes, x));
+  glEnableVertexAttribArray(1);
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(VertexAttributes), (void*)offsetof(VertexAttributes, red));
+}
+
+void GlUtils::IndexBufferObject::genBuffer()
+{
+  _genBuffers(id);
+}
+
+void GlUtils::IndexBufferObject::bindBuffer()
+{
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id);
+}
+
+void GlUtils::IndexBufferObject::populateBuffer()
+{
+  int size = (int)indices.size() * sizeof(unsigned int);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, indices.data(), GL_STATIC_DRAW);
+}
+
+void GlUtils::VertexAttributes::loadFromSquare(SquareBufferData& data, int index)
+{
+  Coordinate coord;
+  if (index == 0)
+    coord = data.topLeft;
+  else if (index == 1)
+    coord = data.topRight;
+  else if (index == 2)
+    coord = data.botRight;
+  else if (index == 3)
+    coord = data.botLeft;
+  x = coord.x();
+  y = coord.y();
+  auto colorsF = data.color.getColorsF();
+  red = colorsF[0];
+  green = colorsF[1];
+  blue = colorsF[2];
 }
