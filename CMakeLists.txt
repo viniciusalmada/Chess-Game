@@ -26,7 +26,7 @@ add_library(LibsModule
 	include/player.h
 )
 
-target_link_libraries(LibsModule iup iupgl im GLEW GL)
+target_link_libraries(LibsModule im png16 glfw GLEW GL)
 
 add_executable(Chess-Game 
 	src/main.cpp)

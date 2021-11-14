@@ -1,6 +1,7 @@
 #pragma once
 #include <array>
 #include <string>
+#include <vector>
 #include <map>
 #include <filesystem>
 #include <im/im.h>
