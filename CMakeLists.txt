@@ -14,7 +14,6 @@ add_compile_options(-Wall -Wextra -Wpedantic)
 add_library(LibsModule
 	include/app.h src/app.cpp
 	include/board.h src/board.cpp
-	include/canvas.h src/canvas.cpp
 	include/coordinate.h src/coordinate.cpp
 	include/game_app.h src/game_app.cpp
 	include/gl_utils.h src/gl_utils.cpp
