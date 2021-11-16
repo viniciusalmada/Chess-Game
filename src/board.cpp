@@ -71,7 +71,7 @@ void Board::fillCoordinates()
 
 Board::Board(int sideSize) : mSideSize(sideSize)
 {
-  loadTextures();
+  // loadTextures();
 
   fillCoordinates();
 }

@@ -14,17 +14,12 @@ void MainWindow::initOGL()
   std::cout << "GL_SHADING_LANGUAGE_VERSION: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
 
   float positions[] = {
-    -0.75f, -0.75f, 1.0f, 1.0f, 0.0f,
-    0.0f, 0.75f, 1.0f, 1.0f, 0.0f,
-    0.75f, -0.75f, 1.0f, 1.0f, 0.0f,
-
     -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,
-    0.0f, 0.5f, 1.0f, 0.0f, 0.0f,
-    0.5f, -0.5f, 1.0f, 0.0f, 0.0f,
+    0.0f, 0.5f, 1.0f, 1.0f, 0.0f,
+    0.5f, -0.5f, 1.0f, 0.0f, 1.0f,
   };
 
   unsigned int indices[] = {
-    3, 4, 5,
     0, 1, 2,
   };
 
@@ -70,7 +65,8 @@ void MainWindow::actionLoop(std::function<void()> drawAction)
   {
     glClear(GL_COLOR_BUFFER_BIT);
 
-    drawAction(); // glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+    //drawAction(); // 
+    glDrawElements(GL_LINE_STRIP, 6, GL_UNSIGNED_INT, nullptr);
 
     glfwSwapBuffers(mDialog);
 
