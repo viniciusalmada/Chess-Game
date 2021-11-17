@@ -72,8 +72,6 @@ void Board::fillCoordinates()
 
 Board::Board(int sideSize) : mSideSize(sideSize)
 {
-  // loadTextures();
-
   fillCoordinates();
 }
 
@@ -86,12 +84,9 @@ void Board::drawBoard()
 {
   glViewport(0, 0, mSideSize, mSideSize);
 
-  draw();
-
-  //drawSquares();
   mBufferData.loadBuffers(getSideSize());
 
-  //drawPieces(game);
+  draw();
 }
 
 SquarePosition Board::getSelectedSquare(int x, int y)
