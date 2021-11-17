@@ -254,19 +254,21 @@ void GlUtils::BufferData::loadBuffers(int sideSize)
   {
     VertexAttributes vaTopLeft, vaTopRight;
     VertexAttributes vaBotLeft, vaBotRight;
-    vaTopLeft.loadFromSquare(squarePair.second, 0);
-    vaTopRight.loadFromSquare(squarePair.second, 1);
-    vaBotRight.loadFromSquare(squarePair.second, 2);
-    vaBotLeft.loadFromSquare(squarePair.second, 3);
+    vaTopLeft.loadFromSquare(squarePair.second, 0, sideSize);
+    vaTopRight.loadFromSquare(squarePair.second, 1, sideSize);
+    vaBotRight.loadFromSquare(squarePair.second, 2, sideSize);
+    vaBotLeft.loadFromSquare(squarePair.second, 3, sideSize);
     vbo.addVertex(vaTopLeft);
     vbo.addVertex(vaTopRight);
     vbo.addVertex(vaBotRight);
     vbo.addVertex(vaBotLeft);
 
-    ibo.indices.push_back(squarePair.first * 4);
+    ibo.indices.push_back(squarePair.first * 4 + 0);
     ibo.indices.push_back(squarePair.first * 4 + 1);
     ibo.indices.push_back(squarePair.first * 4 + 2);
+    ibo.indices.push_back(squarePair.first * 4 + 2);
     ibo.indices.push_back(squarePair.first * 4 + 3);
+    ibo.indices.push_back(squarePair.first * 4 + 0);
   }
   vbo.bindBuffer();
   vbo.populateBuffer();
