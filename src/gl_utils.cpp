@@ -243,8 +243,10 @@ int GlUtils::BufferData::getIndicesSize()
   return static_cast<int>(ibo.indices.size());
 }
 
-void GlUtils::BufferData::loadBuffers()
+void GlUtils::BufferData::loadBuffers(int sideSize)
 {
+  if (vbo.id > 0 && ibo.id > 0)
+    return;
   vbo.genBuffer();
   ibo.genBuffer();
 
@@ -316,7 +318,7 @@ void GlUtils::IndexBufferObject::populateBuffer()
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, indices.data(), GL_STATIC_DRAW);
 }
 
-void GlUtils::VertexAttributes::loadFromSquare(SquareBufferData& data, int index)
+void GlUtils::VertexAttributes::loadFromSquare(SquareBufferData& data, int index, int sideSize)
 {
   Coordinate coord;
   if (index == 0)
@@ -327,8 +329,8 @@ void GlUtils::VertexAttributes::loadFromSquare(SquareBufferData& data, int index
     coord = data.botRight;
   else if (index == 3)
     coord = data.botLeft;
-  x = coord.x();
-  y = coord.y();
+  x = 2.0F * (float)coord.x() / (float)sideSize - 1.0F;
+  y = -2.0F * (float)coord.y() / (float)sideSize + 1.0F;
   auto colorsF = data.color.getColorsF();
   red = colorsF[0];
   green = colorsF[1];

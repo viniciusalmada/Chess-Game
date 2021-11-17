@@ -39,7 +39,7 @@ public:
     float green;
     float blue;
 
-    void loadFromSquare(SquareBufferData& data, int index);
+    void loadFromSquare(SquareBufferData& data, int index, int sideSize);
   };
 
   
@@ -70,11 +70,12 @@ public:
     int addSquare(SquareBufferData square);
 
     int getIndicesSize();
+
+    void loadBuffers(int sideSize);
   private:
     VertexBufferObject vbo;
     IndexBufferObject ibo;
 
-    void loadBuffers();
 
     int counter = 0;
   };
