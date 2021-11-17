@@ -52,7 +52,7 @@ void Board::fillCoordinates()
   bool useDark = true;
   for (int i = 0; i < 8; i++)
   {
-    for (int j = 0; i < 8; i++)
+    for (int j = 0; j < 8; j++)
     {
       int sq = innerBorder() / 8;
       int x = i * sq + mBorderSize;
@@ -66,6 +66,7 @@ void Board::fillCoordinates()
       mSquaresCoordinates[{i, 7 - j}] = id;
       useDark = !useDark;
     }
+    useDark = !useDark;
   }
 }
 
@@ -88,6 +89,7 @@ void Board::drawBoard()
   draw();
 
   //drawSquares();
+  mBufferData.loadBuffers(getSideSize());
 
   //drawPieces(game);
 }
