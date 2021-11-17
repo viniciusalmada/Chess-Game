@@ -2,59 +2,62 @@
 #include <game_app.h>
 #include <iostream>
 
-App* App::instance = nullptr;
+GameApp App::gameApp{};
+MainWindow App::mainWindow{};
+Board App::board{};
+std::filesystem::path App::imagesPath{};
+std::filesystem::path App::shadersPath{};
 
 void App::show()
 {
-  instance->mMainWindow.initOGL();
-  instance->mMainWindow.actionLoop([]()
+  mainWindow.initOGL();
+  mainWindow.actionLoop([]()
     {
-      instance->mBoard.drawBoard();
+      board.drawBoard();
     });
   glfwTerminate();
 }
 
 App::App()
 {
+
+}
+
+void App::start()
+{
+  auto app = App();
   std::filesystem::path currentPath;
 #ifdef WORKING_DIR
   currentPath = std::filesystem::path{ WORKING_DIR };
 #else
   currentPath = std::filesystem::current_path();
 #endif
-  this->mImagesPath = std::filesystem::path{ currentPath }.append("res").append("images");
-  this->mShadersPath = std::filesystem::path{ currentPath }.append("res").append("shaders");
-
-  mBoard = Board(600);
-}
-
-void App::start()
-{
-  if (instance == nullptr)
-    instance = new App();
-  show();
+  app.imagesPath = std::filesystem::path{ currentPath }.append("res").append("images");
+  app.shadersPath = std::filesystem::path{ currentPath }.append("res").append("shaders");
+  app.show();
 }
 
 void App::updateBoard()
 {
-  if (instance == nullptr) return;
-  instance->mBoard.drawBoard();
+  board.drawBoard();
 }
 
 void App::processLeftClick(int x, int y)
 {
-  SquarePosition squareSelected = instance->mBoard.getSelectedSquare(x, y);
-  bool toRedraw = instance->mGame.processAction(squareSelected);
+  SquarePosition squareSelected = board.getSelectedSquare(x, y);
+  bool toRedraw = gameApp.processAction(squareSelected);
   if (toRedraw) updateBoard();
 }
 
 std::filesystem::path App::getImagePath(std::string imageFileName)
 {
-  auto imagesPath = instance->mImagesPath;
+  App app{};
+  std::filesystem::path imagesPath = app.imagesPath;
   return imagesPath.append(imageFileName);
 }
 
 std::filesystem::path App::getShadersPath()
 {
-  return instance->mShadersPath;
+  App app{};
+  return app.shadersPath;
 }

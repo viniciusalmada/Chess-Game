@@ -10,16 +10,14 @@
 
 class App
 {
-  static App* instance;
+  static GameApp gameApp;
+  static MainWindow mainWindow;
+  static Board board;
 
-  GameApp mGame;
-  MainWindow mMainWindow;
-  Board mBoard;
+  static std::filesystem::path imagesPath;
+  static std::filesystem::path shadersPath;
 
-  std::filesystem::path mImagesPath;
-  std::filesystem::path mShadersPath;
-
-  static void show();
+  void show();
 
 public:
 
@@ -27,17 +25,11 @@ public:
 
   static void start();
 
-  const static int PREDEFINED_SIZE = 600;
+  void updateBoard();
 
-  static void updateBoard();
-
-  static void processLeftClick(int x, int y);
+  void processLeftClick(int x, int y);
 
   static std::filesystem::path getImagePath(std::string imageFileName);
   
   static std::filesystem::path getShadersPath();
-
-  App(App& other) = delete;
-
-  void operator=(const App& other) = delete;
 };

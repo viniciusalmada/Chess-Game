@@ -70,7 +70,7 @@ void Board::fillCoordinates()
   }
 }
 
-Board::Board(int sideSize) : mSideSize(sideSize)
+Board::Board() : mSideSize(PREDEFINED_SIZE)
 {
   fillCoordinates();
 }
@@ -82,8 +82,6 @@ int Board::getSideSize() const
 
 void Board::drawBoard()
 {
-  glViewport(0, 0, mSideSize, mSideSize);
-
   mBufferData.loadBuffers(getSideSize());
 
   draw();

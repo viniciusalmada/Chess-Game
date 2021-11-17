@@ -30,12 +30,14 @@ class Board
   void draw();
 
 public:
+  const static int PREDEFINED_SIZE = 600;
+
   static GlUtils::Color sBackgroundColor;
   static GlUtils::Color sSquareDark;
   static GlUtils::Color sSquareLight;
   static GlUtils::Color sHighlightPiece;
 
-  explicit Board(int sideSize = 600);
+  explicit Board();
 
   void drawBoard();
 
