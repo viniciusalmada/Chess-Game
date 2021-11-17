@@ -9,33 +9,30 @@
 
 class Board
 {
-  int mBorderSize = 10;
-  int mSideSize;
+  const static int BORDER_SIZE = 10;
 
-  std::unordered_map<PieceName, GlUtils::Texture> mTexturesBlack;
-  std::unordered_map<PieceName, GlUtils::Texture> mTexturesWhite;
-  std::unordered_map<SquarePosition, int, SquarePositionHash, SquarePositionEqual> mSquaresCoordinates;
+  std::unordered_map<PieceName, GlUtils::Texture> texturesBlack;
+  std::unordered_map<PieceName, GlUtils::Texture> texturesWhite;
+  std::unordered_map<SquarePosition, int, SquarePositionHash, SquarePositionEqual> squaresCoordinates;
 
-  GlUtils::BufferData mBufferData;
+  GlUtils::BufferData bufferData;
 
   void loadTextures();
 
   void fillCoordinates();
 
-  int innerBorder() { return mSideSize - 2 * mBorderSize; }
+  int innerBorder() { return WINDOW_SIZE - 2 * BORDER_SIZE; }
   int squareSize() { return innerBorder() / 8; }
-
-  int getSideSize() const;
 
   void draw();
 
 public:
-  const static int PREDEFINED_SIZE = 600;
+  const static int WINDOW_SIZE = 600;
 
-  static GlUtils::Color sBackgroundColor;
-  static GlUtils::Color sSquareDark;
-  static GlUtils::Color sSquareLight;
-  static GlUtils::Color sHighlightPiece;
+  static GlUtils::Color backgroundColor;
+  static GlUtils::Color squareDark;
+  static GlUtils::Color squareLight;
+  static GlUtils::Color highlightPiece;
 
   explicit Board();
 

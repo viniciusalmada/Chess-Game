@@ -6,10 +6,10 @@
 #include <app.h>
 #include <log.h>
 
-GlUtils::Color Board::sBackgroundColor = { 0xE8E6E4 };
-GlUtils::Color Board::sSquareDark = { 0xB58863 };
-GlUtils::Color Board::sSquareLight = { 0xF0D9B5 };
-GlUtils::Color Board::sHighlightPiece = { 0xfc4d02 };
+GlUtils::Color Board::backgroundColor = { 0xE8E6E4 };
+GlUtils::Color Board::squareDark = { 0xB58863 };
+GlUtils::Color Board::squareLight = { 0xF0D9B5 };
+GlUtils::Color Board::highlightPiece = { 0xfc4d02 };
 
 static GlUtils::Texture _loadTexture(std::string str)
 {
@@ -20,33 +20,33 @@ static GlUtils::Texture _loadTexture(std::string str)
 
 void Board::loadTextures()
 {
-  if (!mTexturesBlack.empty() && !mTexturesWhite.empty())
+  if (!texturesBlack.empty() && !texturesWhite.empty())
     return;
 
-  mTexturesBlack[PieceName::BISHOP] = _loadTexture("img_bishop_black.png");
-  mTexturesBlack[PieceName::KING] = _loadTexture("img_king_black.png");
-  mTexturesBlack[PieceName::KNIGHT] = _loadTexture("img_knight_black.png");
-  mTexturesBlack[PieceName::PAWN] = _loadTexture("img_pawn_black.png");
-  mTexturesBlack[PieceName::QUEEN] = _loadTexture("img_queen_black.png");
-  mTexturesBlack[PieceName::ROOK] = _loadTexture("img_rook_black.png");
-  mTexturesWhite[PieceName::BISHOP] = _loadTexture("img_bishop_white.png");
-  mTexturesWhite[PieceName::KING] = _loadTexture("img_king_white.png");
-  mTexturesWhite[PieceName::KNIGHT] = _loadTexture("img_knight_white.png");
-  mTexturesWhite[PieceName::PAWN] = _loadTexture("img_pawn_white.png");
-  mTexturesWhite[PieceName::QUEEN] = _loadTexture("img_queen_white.png");
-  mTexturesWhite[PieceName::ROOK] = _loadTexture("img_rook_white.png");
+  texturesBlack[PieceName::BISHOP] = _loadTexture("img_bishop_black.png");
+  texturesBlack[PieceName::KING] = _loadTexture("img_king_black.png");
+  texturesBlack[PieceName::KNIGHT] = _loadTexture("img_knight_black.png");
+  texturesBlack[PieceName::PAWN] = _loadTexture("img_pawn_black.png");
+  texturesBlack[PieceName::QUEEN] = _loadTexture("img_queen_black.png");
+  texturesBlack[PieceName::ROOK] = _loadTexture("img_rook_black.png");
+  texturesWhite[PieceName::BISHOP] = _loadTexture("img_bishop_white.png");
+  texturesWhite[PieceName::KING] = _loadTexture("img_king_white.png");
+  texturesWhite[PieceName::KNIGHT] = _loadTexture("img_knight_white.png");
+  texturesWhite[PieceName::PAWN] = _loadTexture("img_pawn_white.png");
+  texturesWhite[PieceName::QUEEN] = _loadTexture("img_queen_white.png");
+  texturesWhite[PieceName::ROOK] = _loadTexture("img_rook_white.png");
 }
 
 void Board::fillCoordinates()
 {
-  if (!mSquaresCoordinates.empty()) return;
+  if (!squaresCoordinates.empty()) return;
 
-  mBufferData.addSquare({
+  bufferData.addSquare({
     Coordinate{ 0, 0 },
-    Coordinate{ getSideSize(), 0 },
-    Coordinate{ getSideSize(), getSideSize() },
-    Coordinate{ 0, getSideSize() },
-    sBackgroundColor
+    Coordinate{ WINDOW_SIZE, 0 },
+    Coordinate{ WINDOW_SIZE, WINDOW_SIZE },
+    Coordinate{ 0, WINDOW_SIZE },
+    backgroundColor
     });
 
   bool useDark = true;
@@ -55,34 +55,29 @@ void Board::fillCoordinates()
     for (int j = 0; j < 8; j++)
     {
       int sq = innerBorder() / 8;
-      int x = i * sq + mBorderSize;
-      int y = j * sq + mBorderSize;
+      int x = i * sq + BORDER_SIZE;
+      int y = j * sq + BORDER_SIZE;
       Coordinate topLeft{ x, y };
       Coordinate topRight{ x + sq, y };
       Coordinate botRight{ x + sq, y + sq };
       Coordinate botLeft{ x, y + sq };
-      auto color = useDark ? sSquareDark : sSquareLight;
-      int id = mBufferData.addSquare({ topLeft, topRight, botRight, botLeft, color });
-      mSquaresCoordinates[{i, 7 - j}] = id;
+      auto color = useDark ? squareDark : squareLight;
+      int id = bufferData.addSquare({ topLeft, topRight, botRight, botLeft, color });
+      squaresCoordinates[{i, 7 - j}] = id;
       useDark = !useDark;
     }
     useDark = !useDark;
   }
 }
 
-Board::Board() : mSideSize(PREDEFINED_SIZE)
+Board::Board()
 {
   fillCoordinates();
 }
 
-int Board::getSideSize() const
-{
-  return mSideSize;
-}
-
 void Board::drawBoard()
 {
-  mBufferData.loadBuffers(getSideSize());
+  bufferData.loadBuffers(WINDOW_SIZE);
 
   draw();
 }
@@ -113,5 +108,5 @@ SquarePosition Board::getSelectedSquare(int x, int y)
 
 void Board::draw()
 {
-  GlUtils::drawElements(mBufferData.getIndicesSize());
+  GlUtils::drawElements(bufferData.getIndicesSize());
 }
