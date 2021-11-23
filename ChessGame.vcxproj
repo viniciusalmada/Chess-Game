@@ -92,6 +92,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\vertex_buffer_layout.cpp" />
+    <ClCompile Include="src\vertex_array.cpp" />
     <ClCompile Include="src\app.cpp" />
     <ClCompile Include="src\board.cpp" />
     <ClCompile Include="src\coordinate.cpp" />
@@ -121,7 +123,9 @@
     <ClInclude Include="include\numeric_utils.h" />
     <ClInclude Include="include\piece.h" />
     <ClInclude Include="include\sp_string.h" />
+    <ClInclude Include="include\vertex_array.h" />
     <ClInclude Include="include\vertex_buffer.h" />
+    <ClInclude Include="include\vertex_buffer_layout.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
