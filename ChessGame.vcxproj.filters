@@ -13,6 +13,7 @@
     <ClCompile Include="src\piece.cpp" />
     <ClCompile Include="src\sp_string.cpp" />
     <ClCompile Include="src\vertex_buffer.cpp" />
+    <ClCompile Include="src\index_buffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\app.h" />
@@ -29,5 +30,6 @@
     <ClInclude Include="include\player.h" />
     <ClInclude Include="include\sp_string.h" />
     <ClInclude Include="include\vertex_buffer.h" />
+    <ClInclude Include="include\index_buffer.h" />
   </ItemGroup>
 </Project>
