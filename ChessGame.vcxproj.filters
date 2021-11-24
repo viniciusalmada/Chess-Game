@@ -16,6 +16,7 @@
     <ClCompile Include="src\index_buffer.cpp" />
     <ClCompile Include="src\vertex_array.cpp" />
     <ClCompile Include="src\vertex_buffer_layout.cpp" />
+    <ClCompile Include="src\shader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\app.h" />
@@ -35,5 +36,6 @@
     <ClInclude Include="include\index_buffer.h" />
     <ClInclude Include="include\vertex_array.h" />
     <ClInclude Include="include\vertex_buffer_layout.h" />
+    <ClInclude Include="include\shader.h" />
   </ItemGroup>
 </Project>
