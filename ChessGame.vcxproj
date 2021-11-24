@@ -92,6 +92,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\renderer.cpp" />
     <ClCompile Include="src\shader.cpp" />
     <ClCompile Include="src\vertex_buffer_layout.cpp" />
     <ClCompile Include="src\vertex_array.cpp" />
@@ -123,6 +124,7 @@
     <ClInclude Include="include\main_window.h" />
     <ClInclude Include="include\numeric_utils.h" />
     <ClInclude Include="include\piece.h" />
+    <ClInclude Include="include\renderer.h" />
     <ClInclude Include="include\shader.h" />
     <ClInclude Include="include\sp_string.h" />
     <ClInclude Include="include\vertex_array.h" />
