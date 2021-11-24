@@ -4,7 +4,7 @@
 
 GameApp App::gameApp{};
 MainWindow App::mainWindow{};
-Board App::board{};
+BoardRenderer App::board{};
 std::filesystem::path App::imagesPath{};
 std::filesystem::path App::shadersPath{};
 

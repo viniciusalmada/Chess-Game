@@ -25,7 +25,7 @@ MainWindow::MainWindow()
   if (!glfwInit())
     return;
 
-  mDialog = glfwCreateWindow(Board::WINDOW_SIZE, Board::WINDOW_SIZE, "Chess Game", nullptr, nullptr);
+  mDialog = glfwCreateWindow(BoardRenderer::WINDOW_SIZE, BoardRenderer::WINDOW_SIZE, "Chess Game", nullptr, nullptr);
 }
 
 MainWindow::~MainWindow()

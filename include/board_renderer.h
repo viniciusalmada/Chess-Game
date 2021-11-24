@@ -7,7 +7,7 @@
 #include "game_app.h"
 #include "gl_utils.h"
 
-class Board
+class BoardRenderer
 {
   const static int BORDER_SIZE = 10;
 
@@ -34,7 +34,7 @@ public:
   static GlUtils::Color squareLight;
   static GlUtils::Color highlightPiece;
 
-  explicit Board();
+  explicit BoardRenderer();
 
   void drawBoard();
 

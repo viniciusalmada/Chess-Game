@@ -1,4 +1,4 @@
-#include "board.h"
+#include "board_renderer.h"
 #include <GL/glew.h>
 #include <gl_utils.h>
 #include <string>
@@ -6,10 +6,10 @@
 #include <app.h>
 #include <log.h>
 
-GlUtils::Color Board::backgroundColor = { 0xE8E6E4 };
-GlUtils::Color Board::squareDark = { 0xB58863 };
-GlUtils::Color Board::squareLight = { 0xF0D9B5 };
-GlUtils::Color Board::highlightPiece = { 0xfc4d02 };
+GlUtils::Color BoardRenderer::backgroundColor = { 0xE8E6E4 };
+GlUtils::Color BoardRenderer::squareDark = { 0xB58863 };
+GlUtils::Color BoardRenderer::squareLight = { 0xF0D9B5 };
+GlUtils::Color BoardRenderer::highlightPiece = { 0xfc4d02 };
 
 static GlUtils::Texture _loadTexture(std::string str)
 {
@@ -18,7 +18,7 @@ static GlUtils::Texture _loadTexture(std::string str)
   return GlUtils::createTexture2D(img);
 }
 
-void Board::loadTextures()
+void BoardRenderer::loadTextures()
 {
   if (!texturesBlack.empty() && !texturesWhite.empty())
     return;
@@ -37,7 +37,7 @@ void Board::loadTextures()
   texturesWhite[PieceName::ROOK] = _loadTexture("img_rook_white.png");
 }
 
-void Board::fillCoordinates()
+void BoardRenderer::fillCoordinates()
 {
   if (!squaresCoordinates.empty()) return;
 
@@ -70,19 +70,19 @@ void Board::fillCoordinates()
   }
 }
 
-Board::Board()
+BoardRenderer::BoardRenderer()
 {
   fillCoordinates();
 }
 
-void Board::drawBoard()
+void BoardRenderer::drawBoard()
 {
   bufferData.loadBuffers(WINDOW_SIZE);
 
   draw();
 }
 
-SquarePosition Board::getSelectedSquare(int x, int y)
+SquarePosition BoardRenderer::getSelectedSquare(int x, int y)
 {
   int fileId = 0;
   while (fileId < 8)
@@ -106,7 +106,7 @@ SquarePosition Board::getSelectedSquare(int x, int y)
   return SquarePosition(fileId, rankId);
 }
 
-void Board::draw()
+void BoardRenderer::draw()
 {
   GlUtils::drawElements(bufferData.getIndicesSize());
 }

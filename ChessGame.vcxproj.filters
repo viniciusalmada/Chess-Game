@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="src\app.cpp" />
-    <ClCompile Include="src\board.cpp" />
+    <ClCompile Include="src\board_renderer.cpp" />
     <ClCompile Include="src\coordinate.cpp" />
     <ClCompile Include="src\game_app.cpp" />
     <ClCompile Include="src\gl_utils.cpp" />
@@ -21,7 +21,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\app.h" />
-    <ClInclude Include="include\board.h" />
+    <ClInclude Include="include\board_renderer.h" />
     <ClInclude Include="include\coordinate.h" />
     <ClInclude Include="include\game_app.h" />
     <ClInclude Include="include\gl_utils.h" />

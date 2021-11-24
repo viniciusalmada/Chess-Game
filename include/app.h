@@ -6,13 +6,13 @@
 #include <sp_string.h>
 #include <main_window.h>
 #include <game_app.h>
-#include <board.h>
+#include <board_renderer.h>
 
 class App
 {
   static GameApp gameApp;
   static MainWindow mainWindow;
-  static Board board;
+  static BoardRenderer board;
 
   static std::filesystem::path imagesPath;
   static std::filesystem::path shadersPath;
