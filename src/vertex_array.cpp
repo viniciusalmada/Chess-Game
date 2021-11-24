@@ -1,17 +1,17 @@
 #include "vertex_array.h"
 #include <GL/glew.h>
 
-VertexArray::VertexArray()
+GLElements::VertexArray::VertexArray()
 {
   glGenVertexArrays(1, &rendererId);
 }
 
-VertexArray::~VertexArray()
+GLElements::VertexArray::~VertexArray()
 {
   glDeleteVertexArrays(1, &rendererId);
 }
 
-void VertexArray::addBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout)
+void GLElements::VertexArray::addBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout)
 {
   vb.bind();
   const auto& elements = layout.getElements();
@@ -25,12 +25,12 @@ void VertexArray::addBuffer(const VertexBuffer& vb, const VertexBufferLayout& la
   }
 }
 
-void VertexArray::bind() const
+void GLElements::VertexArray::bind() const
 {
   glBindVertexArray(rendererId);
 }
 
-void VertexArray::unbind() const
+void GLElements::VertexArray::unbind() const
 {
   glBindVertexArray(0);
 }

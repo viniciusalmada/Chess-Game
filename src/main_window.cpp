@@ -3,6 +3,7 @@
 #include "main_window.h"
 #include <app.h>
 #include <iostream>
+#include <shader.h>
 
 void MainWindow::initOGL()
 {
@@ -15,8 +16,8 @@ void MainWindow::initOGL()
 
   auto shadersPath = App::getShadersPath();
 
-  GlUtils::Program program(shadersPath);
-  program.use();
+  GLElements::Shader program(shadersPath);
+  program.bind();
 }
 
 MainWindow::MainWindow()

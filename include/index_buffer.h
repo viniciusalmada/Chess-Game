@@ -1,17 +1,20 @@
 #pragma once
 
-class IndexBuffer
+namespace GLElements
 {
-private:
-  unsigned int bufferId;
-  unsigned int count;
-   
-public:
-  IndexBuffer(const unsigned int* data, unsigned int count);
-  ~IndexBuffer();
+  class IndexBuffer
+  {
+  private:
+    unsigned int bufferId;
+    unsigned int count;
 
-  void bind(); 
-  void unbind();
+  public:
+    IndexBuffer(const unsigned int* data, unsigned int count);
+    ~IndexBuffer();
 
-  unsigned int getCount() const { return count; }
-};
+    void bind();
+    void unbind();
+
+    unsigned int getCount() const { return count; }
+  };
+}

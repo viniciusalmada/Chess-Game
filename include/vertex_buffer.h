@@ -1,14 +1,17 @@
 #pragma once
 
-class VertexBuffer
+namespace GLElements
 {
-private:
-  unsigned int bufferId;
+  class VertexBuffer
+  {
+  private:
+    unsigned int bufferId;
 
-public:
-  VertexBuffer(const void* data, unsigned int size);
-  ~VertexBuffer();
+  public:
+    VertexBuffer(const void* data, unsigned int size);
+    ~VertexBuffer();
 
-  void bind() const;
-  void unbind() const;
-};
+    void bind() const;
+    void unbind() const;
+  };
+}

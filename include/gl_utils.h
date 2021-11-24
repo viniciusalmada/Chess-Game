@@ -80,22 +80,6 @@ public:
     int counter = 0;
   };
 
-  class Program
-  {
-  public:
-    unsigned int id;
-
-    Program(std::filesystem::path shadersPath);
-
-    void use() const;
-  };
-
-  struct ShaderSources
-  {
-    std::string vertexSource;
-    std::string fragmentSource;
-  };
-
   struct Texture
   {
     int width;
@@ -122,11 +106,4 @@ public:
     WHITE);
 
   static void drawElements(int totalIndices);
-
-private:
-  static ShaderSources parseShaderString(const std::filesystem::path&);
-
-  static unsigned int compileShader(unsigned int type, std::string source);
-
-  static unsigned int createProgram(const ShaderSources& sources);
 };
