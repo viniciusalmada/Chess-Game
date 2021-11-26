@@ -7,8 +7,9 @@
 #include "game_app.h"
 #include "gl_utils.h"
 #include <renderer.h>
+#include <texture.h>
 
-class BoardRenderer
+class GameRenderer
 {
 private:
 
@@ -23,8 +24,7 @@ private:
 
   const static float BORDER_SIZE_RELATIVE;
 
-  std::unordered_map<PieceName, GlUtils::Texture> texturesBlack;
-  std::unordered_map<PieceName, GlUtils::Texture> texturesWhite;
+  std::unordered_map<PieceName, GLObj::Texture> textures;
   std::unordered_map<SquarePosition, SquareCoordinates, SquarePositionHash, SquarePositionEqual> squaresCoordinates;
 
   GLObj::Renderer renderer;
@@ -36,7 +36,7 @@ private:
   float innerBorder() const { return WINDOW_SIZE * BORDER_SIZE_RELATIVE / (WINDOW_SIZE / 2.0F); }
   float squareSize() const { return (2.0F - (2*innerBorder())) / 8.0F; }
 
-  void draw();
+  void drawBoard();
 
   GLObj::RendererData generateData(std::filesystem::path shadersPath);
 
@@ -48,9 +48,9 @@ public:
   static GlUtils::Color squareLight;
   static GlUtils::Color highlightPiece;
 
-  explicit BoardRenderer(std::filesystem::path shadersPath);
+  explicit GameRenderer(std::filesystem::path shadersPath);
 
-  void drawBoard();
+  void draw();
 
   SquarePosition getSelectedSquare(int x, int y);
 };

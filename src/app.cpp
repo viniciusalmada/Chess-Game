@@ -4,7 +4,7 @@
 
 void App::show()
 {
-  board.drawBoard();
+  board.draw();
 }
 
 std::filesystem::path App::getWorkingDir()
@@ -25,7 +25,7 @@ App::App() : board(getShadersPath())
 
 void App::updateBoard()
 {
-  board.drawBoard();
+  board.draw();
 }
 
 void App::processLeftClick(int x, int y)

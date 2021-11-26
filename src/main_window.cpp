@@ -10,7 +10,7 @@ MainWindow::MainWindow()
   if (!glfwInit())
     return;
 
-  mDialog = glfwCreateWindow(BoardRenderer::WINDOW_SIZE, BoardRenderer::WINDOW_SIZE, "Chess Game", nullptr, nullptr);
+  mDialog = glfwCreateWindow(GameRenderer::WINDOW_SIZE, GameRenderer::WINDOW_SIZE, "Chess Game", nullptr, nullptr);
 
   glfwMakeContextCurrent(mDialog);
   if (glewInit())

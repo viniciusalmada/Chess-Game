@@ -7,12 +7,12 @@
 #include <sp_string.h>
 #include <main_window.h>
 #include <game_app.h>
-#include <board_renderer.h>
+#include <game_renderer.h>
 
 class App
 {
   GameApp gameApp;
-  BoardRenderer board;
+  GameRenderer board;
 
   static std::filesystem::path getWorkingDir();
 

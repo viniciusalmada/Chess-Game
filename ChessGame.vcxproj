@@ -98,7 +98,7 @@
     <ClCompile Include="src\vertex_buffer_layout.cpp" />
     <ClCompile Include="src\vertex_array.cpp" />
     <ClCompile Include="src\app.cpp" />
-    <ClCompile Include="src\board_renderer.cpp" />
+    <ClCompile Include="src\game_renderer.cpp" />
     <ClCompile Include="src\coordinate.cpp" />
     <ClCompile Include="src\game_app.cpp" />
     <ClCompile Include="src\gl_utils.cpp" />
@@ -113,7 +113,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\app.h" />
-    <ClInclude Include="include\board_renderer.h" />
+    <ClInclude Include="include\game_renderer.h" />
     <ClInclude Include="include\index_buffer.h" />
     <ClInclude Include="include\player.h" />
     <ClInclude Include="include\coordinate.h" />

@@ -1,49 +1,42 @@
 #include <GL/glew.h>
-#include "board_renderer.h"
+#include "game_renderer.h"
 #include <gl_utils.h>
 #include <string>
 #include <image_loader.h>
 #include <app.h>
 #include <log.h>
 
-GlUtils::Color BoardRenderer::backgroundColor = { 0xE8E6E4 };
-GlUtils::Color BoardRenderer::squareDark = { 0xB58863 };
-GlUtils::Color BoardRenderer::squareLight = { 0xF0D9B5 };
-GlUtils::Color BoardRenderer::highlightPiece = { 0xfc4d02 };
+GlUtils::Color GameRenderer::backgroundColor = { 0xE8E6E4 };
+GlUtils::Color GameRenderer::squareDark = { 0xB58863 };
+GlUtils::Color GameRenderer::squareLight = { 0xF0D9B5 };
+GlUtils::Color GameRenderer::highlightPiece = { 0xfc4d02 };
 
-const float BoardRenderer::BORDER_SIZE_RELATIVE = 0.02F;
+const float GameRenderer::BORDER_SIZE_RELATIVE = 0.02F;
 
-static GlUtils::Texture _loadTexture(std::string str)
+static GLObj::Texture _loadTexture(std::string str, unsigned int slot)
 {
   std::string path = App::getImagePath(str).generic_string();
-  auto* img = ImageLoader::load(path);
-  return GlUtils::createTexture2D(img);
+  return { path, slot};
 }
 
-void BoardRenderer::loadTextures()
+void GameRenderer::loadTextures()
 {
-  if (!texturesBlack.empty() && !texturesWhite.empty())
+  if (!textures.empty())
     return;
 
-  texturesBlack[PieceName::BISHOP] = _loadTexture("img_bishop_black.png");
-  texturesBlack[PieceName::KING] = _loadTexture("img_king_black.png");
-  texturesBlack[PieceName::KNIGHT] = _loadTexture("img_knight_black.png");
-  texturesBlack[PieceName::PAWN] = _loadTexture("img_pawn_black.png");
-  texturesBlack[PieceName::QUEEN] = _loadTexture("img_queen_black.png");
-  texturesBlack[PieceName::ROOK] = _loadTexture("img_rook_black.png");
-  texturesWhite[PieceName::BISHOP] = _loadTexture("img_bishop_white.png");
-  texturesWhite[PieceName::KING] = _loadTexture("img_king_white.png");
-  texturesWhite[PieceName::KNIGHT] = _loadTexture("img_knight_white.png");
-  texturesWhite[PieceName::PAWN] = _loadTexture("img_pawn_white.png");
-  texturesWhite[PieceName::QUEEN] = _loadTexture("img_queen_white.png");
-  texturesWhite[PieceName::ROOK] = _loadTexture("img_rook_white.png");
+  textures[PieceName::BISHOP] = _loadTexture("img_bishop_black.png", GL_TEXTURE0);
+  textures[PieceName::KING] = _loadTexture("img_king_black.png", GL_TEXTURE1);
+  textures[PieceName::KNIGHT] = _loadTexture("img_knight_black.png", GL_TEXTURE2);
+  textures[PieceName::PAWN] = _loadTexture("img_pawn_black.png", GL_TEXTURE3);
+  textures[PieceName::QUEEN] = _loadTexture("img_queen_black.png", GL_TEXTURE4);
+  textures[PieceName::ROOK] = _loadTexture("img_rook_black.png", GL_TEXTURE5);
 }
 
-std::vector<BoardRenderer::SquareData> BoardRenderer::fillCoordinates()
+std::vector<GameRenderer::SquareData> GameRenderer::fillCoordinates()
 {
   //if (!squaresCoordinates.empty()) return;
 
-  std::vector<BoardRenderer::SquareData> coordinates{};
+  std::vector<GameRenderer::SquareData> coordinates{};
 
   bool useDark = false;
   float step = squareSize();
@@ -73,18 +66,18 @@ std::vector<BoardRenderer::SquareData> BoardRenderer::fillCoordinates()
   return coordinates;
 }
 
-BoardRenderer::BoardRenderer(std::filesystem::path shadersPath) : renderer(generateData(shadersPath))
+GameRenderer::GameRenderer(std::filesystem::path shadersPath) : renderer(generateData(shadersPath))
 {
 }
 
-void BoardRenderer::drawBoard()
+void GameRenderer::draw()
 {
   //bufferData.loadBuffers(WINDOW_SIZE);
 
-  draw();
+  drawBoard();
 }
 
-SquarePosition BoardRenderer::getSelectedSquare(int x, int y)
+SquarePosition GameRenderer::getSelectedSquare(int x, int y)
 {
   int fileId = 0;
   /* while (fileId < 8)
@@ -108,19 +101,19 @@ SquarePosition BoardRenderer::getSelectedSquare(int x, int y)
   return SquarePosition(fileId, rankId);
 }
 
-void BoardRenderer::draw()
+void GameRenderer::drawBoard()
 {
   this->renderer.draw();
   //GlUtils::drawElements(bufferData.getIndicesSize());
 }
 
-GLObj::RendererData BoardRenderer::generateData(std::filesystem::path shadersPath)
+GLObj::RendererData GameRenderer::generateData(std::filesystem::path shadersPath)
 {
   GLObj::VertexBufferLayout vbl{};
   vbl.pushFloat(2); // positions
   vbl.pushFloat(3); // colors
 
-  std::vector<BoardRenderer::SquareData> data = fillCoordinates();
+  std::vector<GameRenderer::SquareData> data = fillCoordinates();
   unsigned int totalSize = (int)data.size() * 5 * sizeof(float);
   GLObj::VertexBuffer vb{ data.data(), totalSize };
 
@@ -147,7 +140,7 @@ GLObj::RendererData BoardRenderer::generateData(std::filesystem::path shadersPat
   }
 
   GLObj::IndexBuffer ib{ indexData.data(), (unsigned int)indexData.size() };
-  
+
   //GLObj::VertexBufferLayout vbl{};
   //vbl.pushFloat(2); // positions
   //vbl.pushFloat(3); // colors
