@@ -13,7 +13,5 @@ public:
 
   ~MainWindow();
 
-  void initOGL();
-
   void actionLoop(std::function<void()> action);
 };

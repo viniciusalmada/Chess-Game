@@ -1,7 +1,13 @@
 #include "index_buffer.h"
 #include <GL/glew.h>
 
-GLElements::IndexBuffer::IndexBuffer(const unsigned int* data, unsigned int count)
+GLElements::IndexBuffer::IndexBuffer()
+{
+  this->count = 0;
+  this->bufferId = 0;
+}
+
+GLElements::IndexBuffer::IndexBuffer(const void* data, unsigned int count)
 {
   this->count = count;
   glGenBuffers(1, &bufferId);
@@ -9,7 +15,7 @@ GLElements::IndexBuffer::IndexBuffer(const unsigned int* data, unsigned int coun
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(unsigned int), data, GL_STATIC_DRAW);
 }
 
-GLElements::IndexBuffer::~IndexBuffer()
+void GLElements::IndexBuffer::freeBuffer()
 {
   glDeleteBuffers(1, &bufferId);
 }

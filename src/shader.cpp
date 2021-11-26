@@ -24,7 +24,7 @@ std::pair<std::string, std::string> GLElements::Shader::parseShaderString(const 
   std::stringstream ss[2];
   for (int i = 0; i < 2; i++)
   {
-    auto& shader = std::filesystem::path{ path }.append(shaderNames[i]);
+    std::filesystem::path shader = std::filesystem::path{ path }.append(shaderNames[i]);
     std::ifstream stream(shader);
     std::string line;
     while (getline(stream, line))
@@ -91,13 +91,18 @@ unsigned int GLElements::Shader::createProgram(const std::pair<std::string, std:
   return programId;
 }
 
+GLElements::Shader::Shader()
+{
+  programId = 0;
+}
+
 GLElements::Shader::Shader(const std::filesystem::path& shadersPath)
 {
   auto shadersSouce = parseShaderString(shadersPath);
   this->programId = createProgram(shadersSouce);
 }
 
-GLElements::Shader::~Shader()
+void GLElements::Shader::freeProgram()
 {
   glDeleteProgram(programId);
 }

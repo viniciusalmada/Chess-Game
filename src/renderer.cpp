@@ -1,15 +1,35 @@
 #include "renderer.h"
 
+GLElements::Renderer::Renderer()
+{
+}
+
+GLElements::Renderer::Renderer(RendererData data) : rendereData(data)
+{
+}
+
+GLElements::Renderer::~Renderer()
+{
+  rendereData.indexBuffer.freeBuffer();
+  rendereData.vertexArray.freeVertexArray();
+  rendereData.shader.freeProgram();
+}
+
 void GLElements::Renderer::clear() const
 {
   glClear(GL_COLOR_BUFFER_BIT);
+  GlUtils::uglClearColor(rendereData.clearColor);
 }
 
-void GLElements::Renderer::draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader) const
+void GLElements::Renderer::draw() const
 {
-  shader.bind();
-  va.bind();
-  ib.bind();
+  clear();
 
-  glDrawElements(GL_TRIANGLES, ib.getCount(), GL_UNSIGNED_INT, nullptr);
+  rendereData.shader.bind();
+  rendereData.vertexArray.bind();
+  rendereData.indexBuffer.bind();
+
+  glDrawElements(GL_TRIANGLES, rendereData.indexBuffer.getCount(), GL_UNSIGNED_INT, nullptr);
+
+
 }

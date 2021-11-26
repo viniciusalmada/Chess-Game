@@ -6,25 +6,39 @@
 #include <hash_utl.h>
 #include "game_app.h"
 #include "gl_utils.h"
+#include <renderer.h>
 
 class BoardRenderer
 {
-  const static int BORDER_SIZE = 10;
+private:
+
+  struct SquareData
+  {
+    float x;
+    float y;
+    float r;
+    float g;
+    float b;
+  };
+
+  const static float BORDER_SIZE_RELATIVE;
 
   std::unordered_map<PieceName, GlUtils::Texture> texturesBlack;
   std::unordered_map<PieceName, GlUtils::Texture> texturesWhite;
-  std::unordered_map<SquarePosition, int, SquarePositionHash, SquarePositionEqual> squaresCoordinates;
+  std::unordered_map<SquarePosition, SquareCoordinates, SquarePositionHash, SquarePositionEqual> squaresCoordinates;
 
-  GlUtils::BufferData bufferData;
+  GLElements::Renderer renderer;
 
   void loadTextures();
 
-  void fillCoordinates();
+  std::vector<SquareData> fillCoordinates();
 
-  int innerBorder() { return WINDOW_SIZE - 2 * BORDER_SIZE; }
-  int squareSize() { return innerBorder() / 8; }
+  float innerBorder() const { return WINDOW_SIZE * BORDER_SIZE_RELATIVE / (WINDOW_SIZE / 2.0F); }
+  float squareSize() const { return (2.0F - (2*innerBorder())) / 8.0F; }
 
   void draw();
+
+  GLElements::RendererData generateData(std::filesystem::path shadersPath);
 
 public:
   const static int WINDOW_SIZE = 600;
@@ -34,7 +48,7 @@ public:
   static GlUtils::Color squareLight;
   static GlUtils::Color highlightPiece;
 
-  explicit BoardRenderer();
+  explicit BoardRenderer(std::filesystem::path shadersPath);
 
   void drawBoard();
 

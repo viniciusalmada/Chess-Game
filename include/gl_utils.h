@@ -30,7 +30,6 @@ public:
     Color color;
   };
 
-
   struct VertexAttributes
   {
     float x;
@@ -40,44 +39,6 @@ public:
     float blue;
 
     void loadFromSquare(SquareBufferData& data, int index, int sideSize);
-  };
-
-  
-
-  struct VertexBufferObject
-  {
-    unsigned int id = 0;
-    std::vector<VertexAttributes> vertices;
-    void genBuffer();
-    void bindBuffer();
-    void addVertex(VertexAttributes va);
-    void populateBuffer();
-  };
-  
-  struct IndexBufferObject
-  {
-    unsigned int id = 0;
-    std::vector<unsigned int> indices;
-    void genBuffer();
-    void bindBuffer();
-    void populateBuffer();
-  };
-
-  struct BufferData
-  {
-    std::map<int, SquareBufferData> squares;
-
-    int addSquare(SquareBufferData square);
-
-    int getIndicesSize();
-
-    void loadBuffers(int sideSize);
-  private:
-    VertexBufferObject vbo;
-    IndexBufferObject ibo;
-
-
-    int counter = 0;
   };
 
   struct Texture

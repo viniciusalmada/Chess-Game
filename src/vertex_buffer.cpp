@@ -8,7 +8,7 @@ GLElements::VertexBuffer::VertexBuffer(const void* data, unsigned int size)
   glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
 }
 
-GLElements::VertexBuffer::~VertexBuffer()
+void GLElements::VertexBuffer::freeBuffer()
 {
   glDeleteBuffers(1, &bufferId);
 }

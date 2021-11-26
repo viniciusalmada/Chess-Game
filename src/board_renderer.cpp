@@ -1,5 +1,5 @@
-#include "board_renderer.h"
 #include <GL/glew.h>
+#include "board_renderer.h"
 #include <gl_utils.h>
 #include <string>
 #include <image_loader.h>
@@ -10,6 +10,8 @@ GlUtils::Color BoardRenderer::backgroundColor = { 0xE8E6E4 };
 GlUtils::Color BoardRenderer::squareDark = { 0xB58863 };
 GlUtils::Color BoardRenderer::squareLight = { 0xF0D9B5 };
 GlUtils::Color BoardRenderer::highlightPiece = { 0xfc4d02 };
+
+const float BoardRenderer::BORDER_SIZE_RELATIVE = 0.02F;
 
 static GlUtils::Texture _loadTexture(std::string str)
 {
@@ -37,47 +39,47 @@ void BoardRenderer::loadTextures()
   texturesWhite[PieceName::ROOK] = _loadTexture("img_rook_white.png");
 }
 
-void BoardRenderer::fillCoordinates()
+std::vector<BoardRenderer::SquareData> BoardRenderer::fillCoordinates()
 {
-  if (!squaresCoordinates.empty()) return;
+  //if (!squaresCoordinates.empty()) return;
 
-  bufferData.addSquare({
-    Coordinate{ 0, 0 },
-    Coordinate{ WINDOW_SIZE, 0 },
-    Coordinate{ WINDOW_SIZE, WINDOW_SIZE },
-    Coordinate{ 0, WINDOW_SIZE },
-    backgroundColor
-    });
+  std::vector<BoardRenderer::SquareData> coordinates{};
 
   bool useDark = true;
-  for (int i = 0; i < 8; i++)
+  float step = squareSize();
+  float startPos = -1.0F + innerBorder();
+  float endPos = 1.0F - innerBorder();
+  int count = 0;
+  for (float x = startPos; x < endPos; x += step)
   {
-    for (int j = 0; j < 8; j++)
+    for (float y = startPos; y < endPos; y += step)
     {
-      int sq = innerBorder() / 8;
-      int x = i * sq + BORDER_SIZE;
-      int y = j * sq + BORDER_SIZE;
       Coordinate topLeft{ x, y };
-      Coordinate topRight{ x + sq, y };
-      Coordinate botRight{ x + sq, y + sq };
-      Coordinate botLeft{ x, y + sq };
+      Coordinate topRight{ x + step, y };
+      Coordinate botRight{ x + step, y + step };
+      Coordinate botLeft{ x, y + step };
       auto color = useDark ? squareDark : squareLight;
-      int id = bufferData.addSquare({ topLeft, topRight, botRight, botLeft, color });
-      squaresCoordinates[{i, 7 - j}] = id;
+      auto colorsF = color.getColorsF();
+      coordinates.push_back({ topLeft.getX(), topLeft.getY(), colorsF[0], colorsF[1], colorsF[2] });
+      coordinates.push_back({ topRight.getX(), topRight.getY(), colorsF[0], colorsF[1], colorsF[2] });
+      coordinates.push_back({ botRight.getX(), botRight.getY(), colorsF[0], colorsF[1], colorsF[2] });
+      coordinates.push_back({ botLeft.getX(), botLeft.getY(), colorsF[0], colorsF[1], colorsF[2] });
       useDark = !useDark;
+      count++;
     }
     useDark = !useDark;
   }
+
+  return coordinates;
 }
 
-BoardRenderer::BoardRenderer()
+BoardRenderer::BoardRenderer(std::filesystem::path shadersPath) : renderer(generateData(shadersPath))
 {
-  fillCoordinates();
 }
 
 void BoardRenderer::drawBoard()
 {
-  bufferData.loadBuffers(WINDOW_SIZE);
+  //bufferData.loadBuffers(WINDOW_SIZE);
 
   draw();
 }
@@ -85,22 +87,22 @@ void BoardRenderer::drawBoard()
 SquarePosition BoardRenderer::getSelectedSquare(int x, int y)
 {
   int fileId = 0;
-  while (fileId < 8)
-  {
-    if (x < squareSize())
-      break;
-    x -= squareSize();
-    fileId++;
-  }
+  /* while (fileId < 8)
+   {
+     if (x < squareSize())
+       break;
+     x -= squareSize();
+     fileId++;
+   }*/
 
   int rankId = 0;
-  while (rankId < 8)
-  {
-    if (y < squareSize())
-      break;
-    y -= squareSize();
-    rankId++;
-  }
+  /* while (rankId < 8)
+   {
+     if (y < squareSize())
+       break;
+     y -= squareSize();
+     rankId++;
+   }*/
   rankId = 7 - rankId;
 
   return SquarePosition(fileId, rankId);
@@ -108,5 +110,64 @@ SquarePosition BoardRenderer::getSelectedSquare(int x, int y)
 
 void BoardRenderer::draw()
 {
-  GlUtils::drawElements(bufferData.getIndicesSize());
+  this->renderer.draw();
+  //GlUtils::drawElements(bufferData.getIndicesSize());
+}
+
+GLElements::RendererData BoardRenderer::generateData(std::filesystem::path shadersPath)
+{
+  GLElements::VertexBufferLayout vbl{};
+  vbl.pushFloat(2); // positions
+  vbl.pushFloat(3); // colors
+
+  std::vector<BoardRenderer::SquareData> data = fillCoordinates();
+  unsigned int totalSize = (int)data.size() * 5 * sizeof(float);
+  GLElements::VertexBuffer vb{ data.data(), totalSize };
+
+  GLElements::VertexArray va;
+  va.addBuffer(vb, vbl);
+
+  GLElements::Shader shader{ shadersPath };
+
+  unsigned int currentIndex = 0;
+  std::vector<unsigned int> indexData{};
+  for (int i = 0; i < 64; i++)
+  {
+    unsigned int i0 = currentIndex;
+    unsigned int i1 = currentIndex + 1;
+    unsigned int i2 = currentIndex + 2;
+    unsigned int i3 = currentIndex + 3;
+    indexData.push_back(i0);
+    indexData.push_back(i1);
+    indexData.push_back(i2);
+
+    indexData.push_back(i2);
+    indexData.push_back(i3);
+    indexData.push_back(i0);
+    currentIndex += 4;
+  }
+
+  GLElements::IndexBuffer ib{ indexData.data(), (unsigned int)indexData.size() };
+  
+  //GLElements::VertexBufferLayout vbl{};
+  //vbl.pushFloat(2); // positions
+  //vbl.pushFloat(3); // colors
+
+  //std::vector<float> positions = {
+  //   -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,
+  //  0.0f, 0.5f, 0.0f, 1.0f, 0.0f,
+  //  0.5f, -0.5f, 0.0f, 0.0f, 1.0f,
+  //};
+  //unsigned int totalSize = 3 * 5 * sizeof(float);
+  //GLElements::VertexBuffer vb{ positions.data(), totalSize };
+
+  //GLElements::VertexArray va;
+  //va.addBuffer(vb, vbl);
+
+  //GLElements::Shader shader{ shadersPath };
+
+  //std::vector<unsigned int> indexData = { 0, 1, 2 };
+  //GLElements::IndexBuffer ib{ indexData.data(), (unsigned int)indexData.size() };
+
+  return { backgroundColor, va, ib, shader };
 }

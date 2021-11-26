@@ -9,7 +9,7 @@ namespace GLElements
 
   public:
     VertexBuffer(const void* data, unsigned int size);
-    ~VertexBuffer();
+    void freeBuffer();
 
     void bind() const;
     void unbind() const;

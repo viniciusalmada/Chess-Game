@@ -9,8 +9,9 @@ namespace GLElements
     unsigned int count;
 
   public:
-    IndexBuffer(const unsigned int* data, unsigned int count);
-    ~IndexBuffer();
+    IndexBuffer();
+    IndexBuffer(const void* data, unsigned int count);
+    void freeBuffer();
 
     void bind() const;
     void unbind() const;

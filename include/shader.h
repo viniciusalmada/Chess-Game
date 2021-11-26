@@ -20,8 +20,9 @@ namespace GLElements
     unsigned int createProgram(const  std::pair<std::string, std::string>& sources);
 
   public:
+    Shader();
     Shader(const std::filesystem::path& shadersPath);
-    ~Shader();
+    void freeProgram();
 
     void bind() const;
     void unbind() const;

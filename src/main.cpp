@@ -5,7 +5,12 @@
 
 int main()
 {
-  App::start();
+  MainWindow mainWindow{};
+  App app{};
+  mainWindow.actionLoop([&]()
+    {
+      app.show();
+    });
 
   return 0;
 }
