@@ -2,11 +2,12 @@
 #include <GL/glew.h>
 #include <image_loader.h>
 
-GLObj::Texture::Texture(const std::string& path) : textureId(0), width(0), height(0)
+GLObj::Texture::Texture(const std::string& path, unsigned int slot) : textureId(0), slot(slot), width(0), height(0)
 {
   unsigned char* localBuffer = ImageLoader::loadTexture(path, width, height);
 
   glGenTextures(1, &textureId);
+  glActiveTexture(slot);
   glBindTexture(GL_TEXTURE_2D, textureId);
 
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -25,9 +26,9 @@ void GLObj::Texture::freeTexture()
   glDeleteTextures(1, &textureId);
 }
 
-void GLObj::Texture::bind(unsigned int slot) const
+void GLObj::Texture::bind() const
 {
-  glActiveTexture(GL_TEXTURE0 + slot);
+  glActiveTexture(slot);
   glBindTexture(GL_TEXTURE_2D, textureId);
 }
 

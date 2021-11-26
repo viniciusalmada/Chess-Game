@@ -7,14 +7,15 @@ namespace GLObj
   {
   private:
     unsigned int textureId;
+    unsigned int slot;
     int width;
     int height;
 
   public:
-    Texture(const std::string& path);
+    Texture(const std::string& path, unsigned int slot);
     void freeTexture();
 
-    void bind(unsigned int slot = 0) const;
+    void bind() const;
     void unbind() const;
 
     inline int getWidth() const { return width; }
