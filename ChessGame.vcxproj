@@ -127,6 +127,7 @@
     <ClInclude Include="include\renderer.h" />
     <ClInclude Include="include\shader.h" />
     <ClInclude Include="include\sp_string.h" />
+    <ClInclude Include="include\texture.h" />
     <ClInclude Include="include\vertex_array.h" />
     <ClInclude Include="include\vertex_buffer.h" />
     <ClInclude Include="include\vertex_buffer_layout.h" />

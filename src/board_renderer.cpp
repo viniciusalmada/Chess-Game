@@ -114,19 +114,19 @@ void BoardRenderer::draw()
   //GlUtils::drawElements(bufferData.getIndicesSize());
 }
 
-GLElements::RendererData BoardRenderer::generateData(std::filesystem::path shadersPath)
+GLObj::RendererData BoardRenderer::generateData(std::filesystem::path shadersPath)
 {
-  GLElements::VertexBufferLayout vbl{};
+  GLObj::VertexBufferLayout vbl{};
   vbl.pushFloat(2); // positions
   vbl.pushFloat(3); // colors
 
   std::vector<BoardRenderer::SquareData> data = fillCoordinates();
   unsigned int totalSize = (int)data.size() * 5 * sizeof(float);
-  GLElements::VertexBuffer vb{ data.data(), totalSize };
+  GLObj::VertexBuffer vb{ data.data(), totalSize };
 
-  GLElements::VertexArray va{ vb, vbl };
+  GLObj::VertexArray va{ vb, vbl };
 
-  GLElements::Shader shader{ shadersPath, "vertex.glsl", "fragment.glsl" };
+  GLObj::Shader shader{ shadersPath, "vertex.glsl", "fragment.glsl" };
 
   unsigned int currentIndex = 0;
   std::vector<unsigned int> indexData{};
@@ -146,9 +146,9 @@ GLElements::RendererData BoardRenderer::generateData(std::filesystem::path shade
     currentIndex += 4;
   }
 
-  GLElements::IndexBuffer ib{ indexData.data(), (unsigned int)indexData.size() };
+  GLObj::IndexBuffer ib{ indexData.data(), (unsigned int)indexData.size() };
   
-  //GLElements::VertexBufferLayout vbl{};
+  //GLObj::VertexBufferLayout vbl{};
   //vbl.pushFloat(2); // positions
   //vbl.pushFloat(3); // colors
 
@@ -158,15 +158,15 @@ GLElements::RendererData BoardRenderer::generateData(std::filesystem::path shade
   //  0.5f, -0.5f, 0.0f, 0.0f, 1.0f,
   //};
   //unsigned int totalSize = 3 * 5 * sizeof(float);
-  //GLElements::VertexBuffer vb{ positions.data(), totalSize };
+  //GLObj::VertexBuffer vb{ positions.data(), totalSize };
 
-  //GLElements::VertexArray va;
+  //GLObj::VertexArray va;
   //va.addBuffer(vb, vbl);
 
-  //GLElements::Shader shader{ shadersPath };
+  //GLObj::Shader shader{ shadersPath };
 
   //std::vector<unsigned int> indexData = { 0, 1, 2 };
-  //GLElements::IndexBuffer ib{ indexData.data(), (unsigned int)indexData.size() };
+  //GLObj::IndexBuffer ib{ indexData.data(), (unsigned int)indexData.size() };
 
   return { backgroundColor, va, ib, shader };
 }

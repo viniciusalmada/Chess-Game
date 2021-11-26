@@ -5,7 +5,7 @@
 #include <shader.h>
 #include <gl_utils.h>
 
-namespace GLElements
+namespace GLObj
 {
 	struct RendererData
 	{

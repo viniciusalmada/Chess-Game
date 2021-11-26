@@ -1,6 +1,6 @@
 #pragma once
 
-namespace GLElements
+namespace GLObj
 {
   class IndexBuffer
   {

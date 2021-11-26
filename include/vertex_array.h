@@ -2,7 +2,7 @@
 #include "vertex_buffer.h"
 #include "vertex_buffer_layout.h"
 
-namespace GLElements
+namespace GLObj
 {
   class VertexArray
   {

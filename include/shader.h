@@ -3,7 +3,7 @@
 #include <filesystem>
 #include <unordered_map>
 
-namespace GLElements
+namespace GLObj
 {
   class Shader
   {

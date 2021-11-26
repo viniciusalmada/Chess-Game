@@ -5,7 +5,7 @@
 #include <GL/glew.h>
 #include <iostream>
 
-unsigned int GLElements::Shader::getUniformLocation(const std::string& name)
+unsigned int GLObj::Shader::getUniformLocation(const std::string& name)
 {
   if (uniformLocations.find(name) != uniformLocations.end())
     return uniformLocations[name];
@@ -18,7 +18,7 @@ unsigned int GLElements::Shader::getUniformLocation(const std::string& name)
   return location;
 }
 
-std::pair<std::string, std::string> GLElements::Shader::parseShaderString(const std::filesystem::path& path, const std::string& vertexShaderName, const std::string& fragmentShaderName)
+std::pair<std::string, std::string> GLObj::Shader::parseShaderString(const std::filesystem::path& path, const std::string& vertexShaderName, const std::string& fragmentShaderName)
 {
   std::array<std::string, 2> shaderNames = { {vertexShaderName, fragmentShaderName} };
   std::stringstream ss[2];
@@ -37,7 +37,7 @@ std::pair<std::string, std::string> GLElements::Shader::parseShaderString(const 
   return { ss[0].str(), ss[1].str() };
 }
 
-unsigned int GLElements::Shader::compileShader(unsigned int type, std::string source)
+unsigned int GLObj::Shader::compileShader(unsigned int type, std::string source)
 {
   unsigned int id = glCreateShader(type);
   auto sourceC = source.c_str();
@@ -61,7 +61,7 @@ unsigned int GLElements::Shader::compileShader(unsigned int type, std::string so
   return id;
 }
 
-unsigned int GLElements::Shader::createProgram(const std::pair<std::string, std::string>& sources)
+unsigned int GLObj::Shader::createProgram(const std::pair<std::string, std::string>& sources)
 {
   unsigned int programId = glCreateProgram();
   unsigned int vs = compileShader(GL_VERTEX_SHADER, sources.first);
@@ -91,33 +91,33 @@ unsigned int GLElements::Shader::createProgram(const std::pair<std::string, std:
   return programId;
 }
 
-GLElements::Shader::Shader(const std::filesystem::path& path, const std::string& vertexShaderName, const std::string& fragmentShaderName)
+GLObj::Shader::Shader(const std::filesystem::path& path, const std::string& vertexShaderName, const std::string& fragmentShaderName)
 {
   auto shadersSouce = parseShaderString(path, vertexShaderName, fragmentShaderName);
   this->programId = createProgram(shadersSouce);
 }
 
-void GLElements::Shader::freeProgram()
+void GLObj::Shader::freeProgram()
 {
   glDeleteProgram(programId);
 }
 
-void GLElements::Shader::bind() const
+void GLObj::Shader::bind() const
 {
   glUseProgram(programId);
 }
 
-void GLElements::Shader::unbind() const
+void GLObj::Shader::unbind() const
 {
   glUseProgram(0);
 }
 
-void GLElements::Shader::setUniform1i(const std::string& name, int i)
+void GLObj::Shader::setUniform1i(const std::string& name, int i)
 {
   glUniform1i(getUniformLocation(name), i);
 }
 
-void GLElements::Shader::setUniform3f(const std::string& name, float f0, float f1, float f2)
+void GLObj::Shader::setUniform3f(const std::string& name, float f0, float f1, float f2)
 {
   glUniform3f(getUniformLocation(name), f0, f1, f2);
 }

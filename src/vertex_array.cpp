@@ -2,7 +2,7 @@
 #include <GL/glew.h>
 #include <GL/GL.h>
 
-GLElements::VertexArray::VertexArray(const VertexBuffer& vb, const VertexBufferLayout& layout) : vertexBuffer(vb), layout(layout)
+GLObj::VertexArray::VertexArray(const VertexBuffer& vb, const VertexBufferLayout& layout) : vertexBuffer(vb), layout(layout)
 {
   glGenVertexArrays(1, &rendererId);
   this->bind();
@@ -20,25 +20,25 @@ GLElements::VertexArray::VertexArray(const VertexBuffer& vb, const VertexBufferL
   unbind();
 }
 
-void GLElements::VertexArray::freeVertexArray()
+void GLObj::VertexArray::freeVertexArray()
 {
   vertexBuffer.freeBuffer();
   glDeleteVertexArrays(1, &rendererId);
 }
 
-void GLElements::VertexArray::updateBuffer(const void* data, unsigned int size)
+void GLObj::VertexArray::updateBuffer(const void* data, unsigned int size)
 {
   vertexBuffer.setData(data, size);
 }
 
 
-void GLElements::VertexArray::bind() const
+void GLObj::VertexArray::bind() const
 {
   glBindVertexArray(rendererId);
    vertexBuffer.bind();
 }
 
-void GLElements::VertexArray::unbind() const
+void GLObj::VertexArray::unbind() const
 {
   glBindVertexArray(0);
    vertexBuffer.unbind();

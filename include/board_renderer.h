@@ -27,7 +27,7 @@ private:
   std::unordered_map<PieceName, GlUtils::Texture> texturesWhite;
   std::unordered_map<SquarePosition, SquareCoordinates, SquarePositionHash, SquarePositionEqual> squaresCoordinates;
 
-  GLElements::Renderer renderer;
+  GLObj::Renderer renderer;
 
   void loadTextures();
 
@@ -38,7 +38,7 @@ private:
 
   void draw();
 
-  GLElements::RendererData generateData(std::filesystem::path shadersPath);
+  GLObj::RendererData generateData(std::filesystem::path shadersPath);
 
 public:
   const static int WINDOW_SIZE = 600;
