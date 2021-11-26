@@ -80,7 +80,7 @@ namespace Tests
         .append("img_king_black.png");
       std::string path = cp.generic_string();
 
-      auto img = ImageLoader::load(path);
+      auto img = ImageLoader::loadImage(path);
 
       Assert::IsTrue(img != nullptr);
     }

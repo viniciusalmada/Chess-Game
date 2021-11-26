@@ -4,6 +4,9 @@
 
 class ImageLoader
 {
+private:
+  static imImage* loadImage(std::string path);
+
 public:
-  static imImage* load(std::string path);
+  static unsigned char* loadTexture(const std::string& path, int& width, int& height);
 };
