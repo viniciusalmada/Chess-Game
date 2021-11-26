@@ -8,13 +8,14 @@ namespace GLElements
   {
   private:
     unsigned int rendererId;
-    std::vector<std::pair<VertexBuffer, VertexBufferLayout>> buffers;
+    VertexBuffer vertexBuffer;
+    VertexBufferLayout layout;
 
   public:
-    VertexArray();
+    VertexArray(const VertexBuffer& vb, const VertexBufferLayout& layout);
     void freeVertexArray();
 
-    void addBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout);
+    void updateBuffer(const void* data, unsigned int size);
 
     void bind() const;
     void unbind() const;

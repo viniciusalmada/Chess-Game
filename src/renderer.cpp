@@ -1,8 +1,5 @@
 #include "renderer.h"
-
-GLElements::Renderer::Renderer()
-{
-}
+#include <iostream>
 
 GLElements::Renderer::Renderer(RendererData data) : rendereData(data)
 {
@@ -30,6 +27,4 @@ void GLElements::Renderer::draw() const
   rendereData.indexBuffer.bind();
 
   glDrawElements(GL_TRIANGLES, rendereData.indexBuffer.getCount(), GL_UNSIGNED_INT, nullptr);
-
-
 }

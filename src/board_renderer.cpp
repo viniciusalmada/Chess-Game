@@ -45,7 +45,7 @@ std::vector<BoardRenderer::SquareData> BoardRenderer::fillCoordinates()
 
   std::vector<BoardRenderer::SquareData> coordinates{};
 
-  bool useDark = true;
+  bool useDark = false;
   float step = squareSize();
   float startPos = -1.0F + innerBorder();
   float endPos = 1.0F - innerBorder();
@@ -124,10 +124,9 @@ GLElements::RendererData BoardRenderer::generateData(std::filesystem::path shade
   unsigned int totalSize = (int)data.size() * 5 * sizeof(float);
   GLElements::VertexBuffer vb{ data.data(), totalSize };
 
-  GLElements::VertexArray va;
-  va.addBuffer(vb, vbl);
+  GLElements::VertexArray va{ vb, vbl };
 
-  GLElements::Shader shader{ shadersPath };
+  GLElements::Shader shader{ shadersPath, "vertex.glsl", "fragment.glsl" };
 
   unsigned int currentIndex = 0;
   std::vector<unsigned int> indexData{};

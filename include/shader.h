@@ -13,20 +13,20 @@ namespace GLElements
 
     unsigned int getUniformLocation(const std::string& name);
 
-    std::pair<std::string, std::string> parseShaderString(const std::filesystem::path& path);
+    std::pair<std::string, std::string> parseShaderString(const std::filesystem::path& path, const std::string& vertexShaderName, const std::string& fragmentShaderName);
 
     unsigned int compileShader(unsigned int type, std::string source);
 
     unsigned int createProgram(const  std::pair<std::string, std::string>& sources);
 
   public:
-    Shader();
-    Shader(const std::filesystem::path& shadersPath);
+    Shader(const std::filesystem::path& shadersPath, const std::string& vertexShaderName, const std::string& fragmentShaderName);
     void freeProgram();
 
     void bind() const;
     void unbind() const;
 
     void setUniform1i(const std::string& name, int i);
+    void setUniform3f(const std::string& name, float f0, float f1, float f2);
   };
 }

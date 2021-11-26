@@ -18,9 +18,9 @@ unsigned int GLElements::Shader::getUniformLocation(const std::string& name)
   return location;
 }
 
-std::pair<std::string, std::string> GLElements::Shader::parseShaderString(const std::filesystem::path& path)
+std::pair<std::string, std::string> GLElements::Shader::parseShaderString(const std::filesystem::path& path, const std::string& vertexShaderName, const std::string& fragmentShaderName)
 {
-  std::array<std::string, 2> shaderNames = { {"vertex.glsl", "fragment.glsl"} };
+  std::array<std::string, 2> shaderNames = { {vertexShaderName, fragmentShaderName} };
   std::stringstream ss[2];
   for (int i = 0; i < 2; i++)
   {
@@ -91,14 +91,9 @@ unsigned int GLElements::Shader::createProgram(const std::pair<std::string, std:
   return programId;
 }
 
-GLElements::Shader::Shader()
+GLElements::Shader::Shader(const std::filesystem::path& path, const std::string& vertexShaderName, const std::string& fragmentShaderName)
 {
-  programId = 0;
-}
-
-GLElements::Shader::Shader(const std::filesystem::path& shadersPath)
-{
-  auto shadersSouce = parseShaderString(shadersPath);
+  auto shadersSouce = parseShaderString(path, vertexShaderName, fragmentShaderName);
   this->programId = createProgram(shadersSouce);
 }
 
@@ -120,4 +115,9 @@ void GLElements::Shader::unbind() const
 void GLElements::Shader::setUniform1i(const std::string& name, int i)
 {
   glUniform1i(getUniformLocation(name), i);
+}
+
+void GLElements::Shader::setUniform3f(const std::string& name, float f0, float f1, float f2)
+{
+  glUniform3f(getUniformLocation(name), f0, f1, f2);
 }

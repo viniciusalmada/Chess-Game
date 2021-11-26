@@ -21,7 +21,6 @@ namespace GLElements
 		RendererData rendereData;
 
 	public:
-		Renderer();
 		Renderer(RendererData data);
 		~Renderer();
 
