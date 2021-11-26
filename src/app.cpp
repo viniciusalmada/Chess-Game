@@ -2,39 +2,25 @@
 #include <game_app.h>
 #include <iostream>
 
-GameApp App::gameApp{};
-MainWindow App::mainWindow{};
-BoardRenderer App::board{};
-std::filesystem::path App::imagesPath{};
-std::filesystem::path App::shadersPath{};
-
 void App::show()
 {
-  mainWindow.initOGL();
-  mainWindow.actionLoop([]()
-    {
-      board.drawBoard();
-    });
-  glfwTerminate();
+  board.drawBoard();
 }
 
-App::App()
+std::filesystem::path App::getWorkingDir()
 {
-
-}
-
-void App::start()
-{
-  auto app = App();
   std::filesystem::path currentPath;
 #ifdef WORKING_DIR
   currentPath = std::filesystem::path{ WORKING_DIR };
 #else
   currentPath = std::filesystem::current_path();
 #endif
-  app.imagesPath = std::filesystem::path{ currentPath }.append("res").append("images");
-  app.shadersPath = std::filesystem::path{ currentPath }.append("res").append("shaders");
-  app.show();
+  return currentPath;
+}
+
+App::App() : board(getShadersPath())
+{
+  
 }
 
 void App::updateBoard()
@@ -51,13 +37,12 @@ void App::processLeftClick(int x, int y)
 
 std::filesystem::path App::getImagePath(std::string imageFileName)
 {
-  App app{};
-  std::filesystem::path imagesPath = app.imagesPath;
-  return imagesPath.append(imageFileName);
+  auto currentPath = getWorkingDir();
+  return std::filesystem::path{ currentPath }.append("res").append("images");
 }
 
 std::filesystem::path App::getShadersPath()
 {
-  App app{};
-  return app.shadersPath;
+  auto currentPath = getWorkingDir();
+  return std::filesystem::path{ currentPath }.append("res").append("shaders");
 }

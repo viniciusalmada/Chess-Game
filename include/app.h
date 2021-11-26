@@ -1,4 +1,5 @@
 #pragma once
+#include <GL/glew.h>
 #include <filesystem>
 #include <string>
 #include <memory>
@@ -10,26 +11,21 @@
 
 class App
 {
-  static GameApp gameApp;
-  static MainWindow mainWindow;
-  static BoardRenderer board;
+  GameApp gameApp;
+  BoardRenderer board;
 
-  static std::filesystem::path imagesPath;
-  static std::filesystem::path shadersPath;
+  static std::filesystem::path getWorkingDir();
 
-  void show();
+  static std::filesystem::path getShadersPath();
 
 public:
-
   App();
 
-  static void start();
+  void show();
 
   void updateBoard();
 
   void processLeftClick(int x, int y);
 
   static std::filesystem::path getImagePath(std::string imageFileName);
-  
-  static std::filesystem::path getShadersPath();
 };
