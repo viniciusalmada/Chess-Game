@@ -12,6 +12,7 @@ namespace GLObj
     int height;
 
   public:
+    Texture() :textureId(0), slot(0), width(0), height(0) {};
     Texture(const std::string& path, unsigned int slot);
     void freeTexture();
 
