@@ -13,7 +13,10 @@ GLObj::VertexArray::VertexArray(const VertexBuffer& vb, const VertexBufferLayout
   {
     const auto& e = elements[i];
     glEnableVertexAttribArray(i);
-    glVertexAttribPointer(i, e.count, e.type, e.normalized, layout.getStride(), (void*)offset);
+    if (e.type == GL_FLOAT)
+      glVertexAttribPointer(i, e.count, e.type, e.normalized, layout.getStride(), (void*)offset);
+    if (e.type == GL_UNSIGNED_INT)
+      glVertexAttribIPointer(i, e.count, e.type, layout.getStride(), (void*)offset);
     offset += static_cast<unsigned long long>(e.count) * e.size;
   }
   vb.unbind();
@@ -35,11 +38,11 @@ void GLObj::VertexArray::updateBuffer(const void* data, unsigned int size)
 void GLObj::VertexArray::bind() const
 {
   glBindVertexArray(rendererId);
-   vertexBuffer.bind();
+  vertexBuffer.bind();
 }
 
 void GLObj::VertexArray::unbind() const
 {
   glBindVertexArray(0);
-   vertexBuffer.unbind();
+  vertexBuffer.unbind();
 }
