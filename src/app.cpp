@@ -38,7 +38,7 @@ void App::processLeftClick(int x, int y)
 std::filesystem::path App::getImagePath(std::string imageFileName)
 {
   auto currentPath = getWorkingDir();
-  return std::filesystem::path{ currentPath }.append("res").append("images");
+  return std::filesystem::path{ currentPath }.append("res").append("images").append(imageFileName);
 }
 
 std::filesystem::path App::getShadersPath()
