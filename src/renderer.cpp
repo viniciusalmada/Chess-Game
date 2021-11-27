@@ -12,16 +12,8 @@ GLObj::Renderer::~Renderer()
   rendereData.shader.freeProgram();
 }
 
-void GLObj::Renderer::clear() const
-{
-  glClear(GL_COLOR_BUFFER_BIT);
-  GlUtils::uglClearColor(rendereData.clearColor);
-}
-
 void GLObj::Renderer::draw() const
 {
-  clear();
-
   rendereData.shader.bind();
   rendereData.vertexArray.bind();
   rendereData.indexBuffer.bind();

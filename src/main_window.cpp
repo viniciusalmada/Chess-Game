@@ -30,6 +30,9 @@ void MainWindow::actionLoop(std::function<void()> drawAction)
 {
   while (!glfwWindowShouldClose(mDialog))
   {
+    glClear(GL_COLOR_BUFFER_BIT);
+    GlUtils::uglClearColor(GameRenderer::backgroundColor);
+
     drawAction();
 
     glfwSwapBuffers(mDialog);

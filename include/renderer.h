@@ -9,7 +9,6 @@ namespace GLObj
 {
 	struct RendererData
 	{
-		GlUtils::Color clearColor;
 		VertexArray vertexArray;
 		IndexBuffer indexBuffer;
 		Shader shader;
@@ -23,8 +22,6 @@ namespace GLObj
 	public:
 		Renderer(RendererData data);
 		~Renderer();
-
-		void clear() const;
 
 		void draw() const;
 	};
