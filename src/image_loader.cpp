@@ -1,4 +1,4 @@
-#include <GL/glew.h>
+#include <gl_headers.h>
 #include <im/im.h>
 #include <im/im_image.h>
 

@@ -2,8 +2,8 @@
 #include <array>
 #include <sstream>
 #include <fstream>
-#include <GL/glew.h>
 #include <iostream>
+#include <gl_headers.h>
 
 unsigned int GLObj::Shader::getUniformLocation(const std::string& name)
 {

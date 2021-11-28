@@ -1,4 +1,3 @@
-#include <GL/glew.h>
 #include "game_renderer.h"
 #include <gl_utils.h>
 #include <string>

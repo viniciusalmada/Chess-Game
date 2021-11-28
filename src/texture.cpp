@@ -1,5 +1,5 @@
 #include <texture.h>
-#include <GL/glew.h>
+#include <gl_headers.h>
 #include <image_loader.h>
 
 GLObj::Texture::Texture(const std::string& path, unsigned int slot) : textureId(0), slot(slot), width(0), height(0)

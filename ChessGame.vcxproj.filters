@@ -41,5 +41,6 @@
     <ClInclude Include="include\shader.h" />
     <ClInclude Include="include\renderer.h" />
     <ClInclude Include="include\texture.h" />
+    <ClInclude Include="include\gl_headers.h" />
   </ItemGroup>
 </Project>

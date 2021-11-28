@@ -1,6 +1,5 @@
 #include "vertex_array.h"
-#include <GL/glew.h>
-#include <GL/GL.h>
+#include <gl_headers.h>
 
 GLObj::VertexArray::VertexArray(const VertexBuffer& vb, const VertexBufferLayout& layout) : vertexBuffer(vb), layout(layout)
 {

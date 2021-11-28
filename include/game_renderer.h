@@ -5,7 +5,6 @@
 
 #include <hash_utl.h>
 #include "game_app.h"
-#include "gl_utils.h"
 #include <renderer.h>
 #include <texture.h>
 

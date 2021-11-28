@@ -1,9 +1,10 @@
 #pragma once
-#include "GL/glew.h"
+#include <gl_headers.h>
+#include <iostream>
 #include <vertex_array.h>
 #include <index_buffer.h>
-#include <shader.h>
 #include <gl_utils.h>
+#include <shader.h>
 
 namespace GLObj
 {

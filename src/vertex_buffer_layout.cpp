@@ -1,5 +1,5 @@
 #include "vertex_buffer_layout.h"
-#include <GL/glew.h>
+#include <gl_headers.h>
 
 void GLObj::VertexBufferLayout::pushFloat(unsigned int count)
 {

@@ -1,4 +1,3 @@
-#include <GL/glew.h>
 #include <string>
 #include "main_window.h"
 #include <app.h>

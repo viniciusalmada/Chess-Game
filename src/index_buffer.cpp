@@ -1,5 +1,5 @@
 #include "index_buffer.h"
-#include <GL/glew.h>
+#include <gl_headers.h>
 
 GLObj::IndexBuffer::IndexBuffer(const void* data, unsigned int count)
 {
