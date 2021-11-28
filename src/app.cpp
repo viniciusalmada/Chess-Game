@@ -18,7 +18,7 @@ std::filesystem::path App::getWorkingDir()
   return currentPath;
 }
 
-App::App() : board(getShadersPath())
+App::App() : gameApp(), board(getShadersPath())
 {
   
 }

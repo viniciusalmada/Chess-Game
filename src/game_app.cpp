@@ -1,12 +1,14 @@
 #include "game_app.h"
 
+std::array<Piece, 32> GameApp::piecesData{};
+
 void GameApp::checkSelectedPiece(SquarePosition pos)
 {
   if (currentSelectedPiece != nullptr)
     currentSelectedPiece->unselect();
 
   currentSelectedPiece = nullptr;
-  for (Piece& piece : mPieces)
+  for (Piece& piece : piecesData)
   {
     if (!piece.equalPosition(pos))
       continue;
@@ -36,7 +38,7 @@ void GameApp::confirmPieceSelected()
 
 GameApp::GameApp()
 {
-  mPieces =
+  piecesData =
   {
     RookPiece{ Player::BLACK, { File::F_A, Rank::R_8 } },
     KnightPiece{ Player::BLACK, { File::F_B, Rank::R_8 } },
@@ -73,9 +75,9 @@ GameApp::GameApp()
   };
 }
 
-void GameApp::forEachPiece(const std::function<void(const Piece& p)>& fun) const
+void GameApp::forEachPiece(const std::function<void(const Piece& p)>& fun)
 {
-  for (const auto& p : mPieces)
+  for (const auto& p : piecesData)
   {
     fun(p);
   }
