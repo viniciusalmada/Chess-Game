@@ -107,14 +107,3 @@ public:
   float getX() const { return x; }
   float getY() const { return y; }
 };
-
-class SquareCoordinates
-{
-private:
-  Coordinate topLeft;
-  Coordinate topRight;
-  Coordinate botRight;
-  Coordinate botLeft;
-public:
-  SquareCoordinates(Coordinate tl, Coordinate tr, Coordinate br, Coordinate bl);
-};

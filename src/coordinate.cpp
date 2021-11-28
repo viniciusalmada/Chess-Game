@@ -249,11 +249,3 @@ std::string SquarePosition::toString() const
 
   return str;
 }
-
-SquareCoordinates::SquareCoordinates(Coordinate tl, Coordinate tr, Coordinate br, Coordinate bl)
-{
-  this->topLeft = tl;
-  this->topRight = tr;
-  this->botRight = br;
-  this->botLeft = bl;
-}
