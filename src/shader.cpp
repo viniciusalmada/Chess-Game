@@ -114,7 +114,12 @@ void GLObj::Shader::unbind() const
 
 void GLObj::Shader::setUniform1i(const std::string& name, int i)
 {
-  glUniform1i(getUniformLocation(name), i);
+  GLCall(glUniform1i(getUniformLocation(name), i));
+}
+
+void GLObj::Shader::setUniform1iv(const std::string& name, int i, const int* data)
+{
+  glUniform1iv(getUniformLocation(name), i, data);
 }
 
 void GLObj::Shader::setUniform3f(const std::string& name, float f0, float f1, float f2)
