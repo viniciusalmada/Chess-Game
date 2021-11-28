@@ -17,6 +17,9 @@ MainWindow::MainWindow()
 
   std::cout << "GL_VERSION: " << glGetString(GL_VERSION) << std::endl;
   std::cout << "GL_SHADING_LANGUAGE_VERSION: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
+  // Enable blending
+  glEnable(GL_BLEND);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 MainWindow::~MainWindow()
