@@ -22,7 +22,7 @@ namespace GLObj
 
     void pushFloat(unsigned int count);
 
-    void pushUInt(unsigned int count);
+    void pushInt(unsigned int count);
 
     const std::vector<VertexBufferElement>& getElements() const { return elements; }
 

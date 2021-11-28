@@ -7,8 +7,8 @@ void GLObj::VertexBufferLayout::pushFloat(unsigned int count)
   stride += sizeof(float) * count;
 }
 
-void GLObj::VertexBufferLayout::pushUInt(unsigned int count)
+void GLObj::VertexBufferLayout::pushInt(unsigned int count)
 {
-  elements.push_back({ GL_UNSIGNED_INT, count, GL_FALSE, sizeof(unsigned int) });
+  elements.push_back({ GL_INT, count, GL_FALSE, sizeof(unsigned int) });
   stride += sizeof(unsigned int) * count;
 }

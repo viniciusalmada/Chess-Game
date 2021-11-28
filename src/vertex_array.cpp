@@ -14,7 +14,7 @@ GLObj::VertexArray::VertexArray(const VertexBuffer& vb, const VertexBufferLayout
     glEnableVertexAttribArray(i);
     if (e.type == GL_FLOAT)
       glVertexAttribPointer(i, e.count, e.type, e.normalized, layout.getStride(), (void*)offset);
-    if (e.type == GL_UNSIGNED_INT)
+    if (e.type == GL_INT)
       glVertexAttribIPointer(i, e.count, e.type, layout.getStride(), (void*)offset);
     offset += static_cast<unsigned long long>(e.count) * e.size;
   }
