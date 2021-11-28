@@ -1,7 +1,7 @@
 #include "vertex_buffer.h"
 #include <gl_headers.h>
 
-GLObj::VertexBuffer::VertexBuffer(const void* data, unsigned int size)
+GLObj::VertexBuffer::VertexBuffer(const void* data, unsigned int size) : size(size)
 {
   glGenBuffers(1, &bufferId);
   glBindBuffer(GL_ARRAY_BUFFER, bufferId);
@@ -14,7 +14,7 @@ void GLObj::VertexBuffer::freeBuffer()
   glDeleteBuffers(1, &bufferId);
 }
 
-void GLObj::VertexBuffer::setData(const void* data, unsigned int size)
+void GLObj::VertexBuffer::setData(const void* data)
 {
   glBindBuffer(GL_ARRAY_BUFFER, bufferId);
   glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);

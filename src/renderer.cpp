@@ -12,6 +12,11 @@ GLObj::Renderer::~Renderer()
   rendereData.shader.freeProgram();
 }
 
+void GLObj::Renderer::updateVertexBuffer(const void* data)
+{
+  rendereData.vertexArray.updateBuffer(data);
+}
+
 void GLObj::Renderer::draw() const
 {
   rendereData.shader.bind();

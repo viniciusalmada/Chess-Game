@@ -24,6 +24,8 @@ namespace GLObj
 		Renderer(RendererData data);
 		~Renderer();
 
+		void updateVertexBuffer(const void* data);
+
 		void draw() const;
 	};
 }

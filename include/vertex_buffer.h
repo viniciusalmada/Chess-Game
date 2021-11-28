@@ -6,12 +6,13 @@ namespace GLObj
   {
   private:
     unsigned int bufferId;
+    unsigned int size;
 
   public:
     VertexBuffer(const void* data, unsigned int size);
     void freeBuffer();
 
-    void setData(const void* data, unsigned int size);
+    void setData(const void* data);
 
     void bind() const;
     void unbind() const;
