@@ -65,5 +65,6 @@ unsigned char* ImageLoader::loadTexture(const std::string& path, int& width, int
     bufferAuxPtr[3] = img->has_alpha ? *(aplane++) : 0xFF;
     bufferAuxPtr += 4;
   }
+  imImageDestroy(img);
   return imageBuffer;
 }
