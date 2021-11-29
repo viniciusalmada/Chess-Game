@@ -8,7 +8,9 @@ enum class CommandType { SHOW_OPTIONS, CONFIRM };
 
 class GameApp
 {
-  std::array<Piece, 32> mPieces;
+  static std::array<Piece, 32> piecesData;
+
+  static bool gameChanged;
 
   Player currentPlayer = Player::WHITE;
 
@@ -26,7 +28,11 @@ public:
 
   GameApp();
 
-  void forEachPiece(const std::function<void(const Piece& p)>& fun) const;
+  static void forEachPiece(const std::function<void(const Piece& p)>& fun);
+
+  static bool getChanged();
+
+  static void setChanged(bool changed);
 
   bool processAction(SquarePosition pos);
 };

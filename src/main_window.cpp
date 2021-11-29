@@ -1,51 +1,44 @@
-#include <iup/iup.h>
-#include <iup/iupgl.h>
 #include <string>
 #include "main_window.h"
 #include <app.h>
+#include <iostream>
+#include <shader.h>
 
-void MainWindow::init(Canvas& canvas)
+MainWindow::MainWindow()
 {
-  IupOpen(nullptr, nullptr);
-  IupGLCanvasOpen();
+  if (!glfwInit())
+    return;
 
-  canvas.init();
+  mDialog = glfwCreateWindow(GameRenderer::WINDOW_SIZE, GameRenderer::WINDOW_SIZE, "Chess Game", nullptr, nullptr);
 
-  Ihandle* box = IupHbox(canvas.handle(), nullptr);
+  glfwMakeContextCurrent(mDialog);
+  if (glewInit())
+    std::cerr << "Error!" << std::endl;
 
-  mDialog = IupDialog(box);
-  IupSetAttribute(mDialog, IUP_TITLE, "Chess with IUP");
-  IupSetAttribute(mDialog, IUP_RASTERSIZE, "100x100");
-  IupSetAttribute(mDialog, IUP_RESIZE, IUP_NO);
-
-  IupShowXY(mDialog, IUP_CENTER, IUP_CENTER);
-
-  canvas.initOGL();
-
-  int ndx, ndy;
-  IupGetIntInt(mDialog, "NATURALSIZE", &ndx, &ndy);
-  int cdx, cdy;
-  IupGetIntInt(mDialog, "CLIENTSIZE", &cdx, &cdy);
-
-  int dx = ndx - cdx;
-  int dy = ndy - cdy;
-  int newX = App::PREDEFINED_SIZE + dx;
-  int newY = App::PREDEFINED_SIZE + dy;
-  std::string newSizeStr = std::to_string(newX) + "x" + std::to_string(newY);
-  IupHide(mDialog);
-  IupSetAttribute(mDialog, "RASTERSIZE", newSizeStr.c_str());
-
+  std::cout << "GL_VERSION: " << glGetString(GL_VERSION) << std::endl;
+  std::cout << "GL_SHADING_LANGUAGE_VERSION: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
+  // Enable blending
+  glEnable(GL_BLEND);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
-void MainWindow::show() const
+MainWindow::~MainWindow()
 {
-  IupShowXY(mDialog, IUP_CENTER, IUP_CENTER);
+  glfwTerminate();
+  glfwDestroyWindow(mDialog);
+}
 
-  auto canvasHandle = IupGetHandle(Canvas::HANDLE_NAME.c_str());
-  IupRedraw(canvasHandle, true);
-  IupRedraw(canvasHandle, true);
+void MainWindow::actionLoop(std::function<void()> drawAction)
+{
+  while (!glfwWindowShouldClose(mDialog))
+  {
+    glClear(GL_COLOR_BUFFER_BIT);
+    GlUtils::uglClearColor(GameRenderer::backgroundColor);
 
-  IupMainLoop();
+    drawAction();
 
-  IupClose();
+    glfwSwapBuffers(mDialog);
+
+    glfwPollEvents();
+  }
 }

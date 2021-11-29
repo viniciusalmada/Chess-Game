@@ -3,7 +3,7 @@
 #include <set>
 #include <string>
 
-enum Direction
+enum class Direction
 {
   N, E, W, S, NE, SE, SW, NW
 };
@@ -93,16 +93,17 @@ public:
 
 class Coordinate
 {
-  std::pair<int, int> pair;
+  float x;
+  float y;
 
 public:
 
   Coordinate();
 
-  Coordinate(int a, int b);
+  Coordinate(float x, float y);
 
   bool operator!=(const Coordinate& other) const;
 
-  int x() const { return pair.first; };
-  int y() const { return pair.second; };
+  float getX() const { return x; }
+  float getY() const { return y; }
 };

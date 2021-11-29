@@ -6,36 +6,25 @@
 #include <sp_string.h>
 #include <main_window.h>
 #include <game_app.h>
-#include <board.h>
+#include <game_renderer.h>
 
 class App
 {
-  static App* instance;
+  GameApp gameApp;
+  GameRenderer board;
 
-  GameApp mGame;
-  MainWindow mMainWindow;
-  Canvas mCanvas;
-  Board mBoard;
+  static std::filesystem::path getWorkingDir();
 
-  std::filesystem::path mImagesPath;
-
-  static void show();
+  static std::filesystem::path getShadersPath();
 
 public:
-
   App();
 
-  static void start();
+  void show();
 
-  const static int PREDEFINED_SIZE = 600;
+  void updateBoard();
 
-  static void updateBoard();
-
-  static void processLeftClick(int x, int y);
+  void processLeftClick(int x, int y);
 
   static std::filesystem::path getImagePath(std::string imageFileName);
-
-  App(App& other) = delete;
-
-  void operator=(const App& other) = delete;
 };

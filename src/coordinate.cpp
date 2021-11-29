@@ -2,17 +2,19 @@
 
 Coordinate::Coordinate()
 {
-  pair = { 0,0 };
+  this->x = 0.0f;
+  this->y = 0.0f;
 }
 
-Coordinate::Coordinate(int a, int b)
+Coordinate::Coordinate(float x, float y)
 {
-  pair = { a, b };
+  this->x = x;
+  this->y = y;
 }
 
 bool Coordinate::operator!=(const Coordinate& other) const
 {
-  return x() != other.x() && y() != other.y();
+  return getX() != other.getX() && getY() != other.getY();
 }
 
 SquarePosition::SquarePosition()
@@ -63,21 +65,21 @@ SquarePosition SquarePosition::neighbor(Direction direction) const
 {
   switch (direction)
   {
-  case N:
+  case Direction::N:
     return neighborN();
-  case E:
+  case Direction::E:
     return neighborE();
-  case W:
+  case Direction::W:
     return neighborW();
-  case S:
+  case Direction::S:
     return neighborS();
-  case NE:
+  case Direction::NE:
     return neighborNE();
-  case SE:
+  case Direction::SE:
     return neighborSE();
-  case SW:
+  case Direction::SW:
     return neighborSW();
-  case NW:
+  case Direction::NW:
     return neighborNW();
   }
   return SquarePosition();

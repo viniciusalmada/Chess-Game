@@ -1,11 +1,27 @@
-#include <GL/glew.h>
+#include <gl_headers.h>
 #include "gl_utils.h"
 #include "numeric_utils.h"
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <sstream>
 
-Color GlUtils::RED = { 0xFF0000 };
-Color GlUtils::WHITE = { 0xFFFFFF };
+GlUtils::Color GlUtils::RED = { 0xFF0000 };
+GlUtils::Color GlUtils::WHITE = { 0xFFFFFF };
 
-std::array<float, 4> Color::getColorsF()
+static void _genBuffers(unsigned int& id)
+{
+  if (id == 0)
+  {
+    glGenBuffers(1, &id);
+    if (id == 0)
+    {
+      throw std::runtime_error("Error generating vertex buffer");
+    }
+  }
+}
+
+std::array<float, 4> GlUtils::Color::getColorsF()
 {
   auto rgb = NumericUtils::hexTo3Dec(hexColor);
 
@@ -37,72 +53,6 @@ void GlUtils::uglColor4f(Color color)
   glColor4f(rgba[0], rgba[1], rgba[2], rgba[3]);
 }
 
-GlUtils::Texture GlUtils::createTexture2D(imImage* img)
-{
-  int data_type = 0;
-  switch (img->data_type)
-  {
-  case IM_BYTE:
-    data_type = GL_UNSIGNED_BYTE;
-    break;
-  case IM_FLOAT:
-    data_type = GL_FLOAT;
-    break;
-  }
-
-  /*
-  * Get the data planes
-  * --------------[imImage->data]------------
-  * |RRR...RRR|GGG...GGG|BBB...BBB|AAA...AAA|
-  * |   Red   |  Green  |   Blue  |  Alpha  |
-  * |planesize|planesize|planesize|planesize|
-  *
-  * Each entry (R,G,B or A) of this data array has a single byte (unsigned char)
-  * of color/alpha intensity varying from 0x00 to 0xFF	*/
-  unsigned char* rplane = ((unsigned char**)(img->data))[0];
-  unsigned char* gplane = ((unsigned char**)(img->data))[0] + 1 * (long long)img->plane_size;
-  unsigned char* bplane = ((unsigned char**)(img->data))[0] + 2 * (long long)img->plane_size;
-  unsigned char* aplane = ((unsigned char**)(img->data))[0] + 3 * (long long)img->plane_size;
-
-  /*
-  * To compound a OpenGL texture, the colors must be placed in following order:
-  * |RGBA|RGBA|RGBA|....
-  * | 1px| 1px| 1px|
-  */
-  int pixelsCount = img->width * img->height;
-
-  unsigned char* imageBuffer = new unsigned char[(long long)pixelsCount * 4];
-
-  unsigned char* bufferAuxPtr = imageBuffer;
-
-  for (int i = 0; i < pixelsCount; i++)
-  {
-    bufferAuxPtr[0] = *(rplane++);
-    bufferAuxPtr[1] = *(gplane++);
-    bufferAuxPtr[2] = *(bplane++);
-    bufferAuxPtr[3] = img->has_alpha ? *(aplane++) : 0xFF;
-    bufferAuxPtr += 4;
-  }
-
-  unsigned int textureId = 0;
-  glGenTextures(1, &textureId);
-
-  glBindTexture(GL_TEXTURE_2D, textureId);
-
-  glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-  glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-  glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, img->width, img->height, 0, GL_RGBA, data_type, imageBuffer);
-
-  GlUtils::Texture tex{ img->width, img->height, textureId };
-
-  delete[] imageBuffer;
-  imImageDestroy(img);
-
-  return tex;
-}
-
 void GlUtils::uglViewportAndOrtho(int s)
 {
   glViewport(0, 0, s, s);
@@ -120,7 +70,7 @@ void GlUtils::drawSquare(int x, int y, int squareSize)
   glEnd();
 }
 
-void GlUtils::draw2DTexture(int texId, int x, int y, int sq, Color color)
+void GlUtils::draw2DTexture(int texId, int x, int y, int sq, GlUtils::Color color)
 {
   //glBindTexture(GL_TEXTURE_2D, 0);
   glEnable(GL_TEXTURE_2D);
@@ -137,4 +87,9 @@ void GlUtils::draw2DTexture(int texId, int x, int y, int sq, Color color)
   glTexCoord2f(0.0f, 0.0f); glVertex2i(x, y + sq);
   glEnd();
   glDisable(GL_TEXTURE_2D);
+}
+
+void GlUtils::drawElements(int totalIndices)
+{
+  glDrawElements(GL_TRIANGLES, totalIndices, GL_UNSIGNED_INT, nullptr);
 }

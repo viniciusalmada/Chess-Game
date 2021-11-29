@@ -1,15 +1,17 @@
 #pragma once
-#include <iup/iup.h>
-#include <canvas.h>
+#include <gl_headers.h>
+#include <memory>
+#include <functional>
 
 class MainWindow
 {
-  Ihandle* mDialog = nullptr;
+  GLFWwindow* mDialog = nullptr;
+
 
 public:
-  MainWindow() {};
+  MainWindow();
 
-  void init(Canvas& canvas);
+  ~MainWindow();
 
-  void show() const;
+  void actionLoop(std::function<void()> action);
 };
