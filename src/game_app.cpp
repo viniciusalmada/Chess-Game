@@ -1,6 +1,7 @@
 #include "game_app.h"
 
 std::array<Piece, 32> GameApp::piecesData{};
+bool GameApp::gameChanged = true;
 
 void GameApp::checkSelectedPiece(SquarePosition pos)
 {
@@ -81,6 +82,16 @@ void GameApp::forEachPiece(const std::function<void(const Piece& p)>& fun)
   {
     fun(p);
   }
+}
+
+bool GameApp::getChanged()
+{
+    return gameChanged;
+}
+
+void GameApp::setChanged(bool changed)
+{
+  gameChanged = changed;
 }
 
 bool GameApp::processAction(SquarePosition pos)

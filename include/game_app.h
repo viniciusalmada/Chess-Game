@@ -10,6 +10,8 @@ class GameApp
 {
   static std::array<Piece, 32> piecesData;
 
+  static bool gameChanged;
+
   Player currentPlayer = Player::WHITE;
 
   CommandType currentCommandType = CommandType::SHOW_OPTIONS;
@@ -27,6 +29,10 @@ public:
   GameApp();
 
   static void forEachPiece(const std::function<void(const Piece& p)>& fun);
+
+  static bool getChanged();
+
+  static void setChanged(bool changed);
 
   bool processAction(SquarePosition pos);
 };

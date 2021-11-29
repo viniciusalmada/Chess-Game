@@ -233,6 +233,8 @@ GLObj::RendererData GameRenderer::generatePiecesRendererData(std::filesystem::pa
 
 void GameRenderer::updatePieces()
 {
+  if (!GameApp::getChanged()) return;
+
   std::vector<PieceVertexData> data;
   GameApp::forEachPiece([&](const Piece& piece)
     {
@@ -243,6 +245,6 @@ void GameRenderer::updatePieces()
       data.push_back({ piecePosition.botRight, {0.0f, 1.0f},  textures[piece.getName()].id, piece.isBlack() });
       data.push_back({ piecePosition.botLeft, {1.0f, 1.0f},  textures[piece.getName()].id, piece.isBlack() });
     });
-
+  GameApp::setChanged(false);
   piecesRenderer.updateVertexBuffer(data.data());
 }
