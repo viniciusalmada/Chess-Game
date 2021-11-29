@@ -7,6 +7,7 @@
 #include "game_app.h"
 #include <renderer.h>
 #include <texture.h>
+#include <color.h>
 
 class GameRenderer
 {
@@ -16,13 +17,6 @@ private:
   {
     float x;
     float y;
-  };
-
-  struct Color
-  {
-    float red;
-    float green;
-    float blue;
   };
 
   struct TexCoords
@@ -109,10 +103,10 @@ private:
 public:
   const static int WINDOW_SIZE = 600;
 
-  static GlUtils::Color backgroundColor;
-  static GlUtils::Color squareDark;
-  static GlUtils::Color squareLight;
-  static GlUtils::Color highlightPiece;
+  static Color backgroundColor;
+  static Color squareDark;
+  static Color squareLight;
+  static Color highlightPiece;
 
   explicit GameRenderer(std::filesystem::path shadersPath);
 

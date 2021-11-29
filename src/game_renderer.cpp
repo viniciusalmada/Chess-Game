@@ -1,15 +1,14 @@
 #include "game_renderer.h"
-#include <gl_utils.h>
 #include <string>
 #include <image_loader.h>
 #include <app.h>
 #include <log.h>
 #include <numeric_utils.h>
 
-GlUtils::Color GameRenderer::backgroundColor = { 0xE8E6E4 };
-GlUtils::Color GameRenderer::squareDark = { 0xB58863 };
-GlUtils::Color GameRenderer::squareLight = { 0xF0D9B5 };
-GlUtils::Color GameRenderer::highlightPiece = { 0xfc4d02 };
+Color GameRenderer::backgroundColor = { 0xE8, 0xE6, 0xE4 };
+Color GameRenderer::squareDark = { 0xB5, 0x88, 0x63 };
+Color GameRenderer::squareLight = { 0xF0, 0xD9, 0xB5 };
+Color GameRenderer::highlightPiece = { 0xfc, 0x4d, 0x02 };
 
 const std::string GameRenderer::TEX_NAME_BISHOP = "bishopTex";
 const std::string GameRenderer::TEX_NAME_KING = "kingTex";
@@ -60,7 +59,7 @@ std::vector<GameRenderer::SquareData> GameRenderer::fillCoordinates()
       Coordinate botRight{ x + step, y + step };
       Coordinate botLeft{ x, y + step };
       auto color = useDark ? squareDark : squareLight;
-      auto colorsF = color.getColorsF();
+      auto colorsF = color.getColorsNormalized();
       Color colorRGB{ colorsF[0], colorsF[1], colorsF[2] };
 
       SquareVertexData vTopLeft{ topLeft, colorRGB };

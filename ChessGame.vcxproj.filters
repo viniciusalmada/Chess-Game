@@ -19,6 +19,7 @@
     <ClCompile Include="src\shader.cpp" />
     <ClCompile Include="src\renderer.cpp" />
     <ClCompile Include="src\texture.cpp" />
+    <ClCompile Include="src\color.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\app.h" />
@@ -42,5 +43,6 @@
     <ClInclude Include="include\renderer.h" />
     <ClInclude Include="include\texture.h" />
     <ClInclude Include="include\gl_headers.h" />
+    <ClInclude Include="include\color.h" />
   </ItemGroup>
 </Project>

@@ -30,10 +30,15 @@ MainWindow::~MainWindow()
 
 void MainWindow::actionLoop(std::function<void()> drawAction)
 {
+  auto clearColors = GameRenderer::backgroundColor.getColorsNormalized();
+  float red = clearColors[0];
+  float green = clearColors[1];
+  float blue = clearColors[2];
+  float alpha = clearColors[3];
   while (!glfwWindowShouldClose(mDialog))
   {
     glClear(GL_COLOR_BUFFER_BIT);
-    GlUtils::uglClearColor(GameRenderer::backgroundColor);
+    glClearColor(red, green, blue, alpha);
 
     drawAction();
 
