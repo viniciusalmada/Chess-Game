@@ -44,5 +44,6 @@
     <ClInclude Include="include\texture.h" />
     <ClInclude Include="include\gl_headers.h" />
     <ClInclude Include="include\color.h" />
+    <ClInclude Include="include\countable.h" />
   </ItemGroup>
 </Project>

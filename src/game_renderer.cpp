@@ -59,13 +59,13 @@ std::vector<GameRenderer::SquareData> GameRenderer::fillCoordinates()
       Coordinate botRight{ x + step, y + step };
       Coordinate botLeft{ x, y + step };
       auto color = useDark ? squareDark : squareLight;
-      auto colorsF = color.getColorsNormalized();
-      Color colorRGB{ colorsF[0], colorsF[1], colorsF[2] };
+      //auto colorsF = color.getColorsNormalized();
+      //Color colorRGB{ colorsF[0], colorsF[1], colorsF[2] };
 
-      SquareVertexData vTopLeft{ topLeft, colorRGB };
-      SquareVertexData vTopRight{ topRight, colorRGB };
-      SquareVertexData vBotRight{ botRight, colorRGB };
-      SquareVertexData vBotLeft{ botLeft, colorRGB };
+      SquareVertexData vTopLeft{ topLeft, color };
+      SquareVertexData vTopRight{ topRight, color };
+      SquareVertexData vBotRight{ botRight, color };
+      SquareVertexData vBotLeft{ botLeft, color };
 
       SquarePosition position{ fileId, rankId };
       SquareData square{ vTopLeft, vTopRight, vBotRight, vBotLeft };

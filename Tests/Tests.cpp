@@ -7,6 +7,7 @@
 #include <string>
 #include <filesystem>
 #include "piece.h"
+#include "color.h"
 #include <algorithm>
 #include <iterator>
 
@@ -488,6 +489,16 @@ namespace Tests
       };
 
       Assert::IsTrue(checkExpectedInsideMovements(pawnMovement, expectedOut));
+    }
+  };
+
+  TEST_CLASS(ColorTests)
+  {
+    TEST_METHOD(ColorSize)
+    {
+      auto colorSize = Color{}.getBytesCount();
+
+      Assert::IsTrue(colorSize == 4 * 4);
     }
   };
 }

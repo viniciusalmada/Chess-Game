@@ -115,6 +115,7 @@
   <ItemGroup>
     <ClInclude Include="include\app.h" />
     <ClInclude Include="include\color.h" />
+    <ClInclude Include="include\countable.h" />
     <ClInclude Include="include\game_renderer.h" />
     <ClInclude Include="include\index_buffer.h" />
     <ClInclude Include="include\gl_headers.h" />
