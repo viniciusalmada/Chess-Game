@@ -18,7 +18,7 @@ std::array<float, 4> Color::getColorsNormalized() const
   return { r, g, b, a };
 }
 
-int Color::getBytesCount()
+int Color::getBytesCount() const
 {
   return sizeof(float) * 4;
 }

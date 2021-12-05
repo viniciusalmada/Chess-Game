@@ -17,6 +17,19 @@ bool Coordinate::operator!=(const Coordinate& other) const
   return getX() != other.getX() && getY() != other.getY();
 }
 
+Coordinate& Coordinate::operator+=(const Coordinate& rhs)
+{
+  this->x += rhs.getX();
+  this->y += rhs.getY();
+
+  return *this;
+}
+
+int Coordinate::getBytesCount() const
+{
+  return sizeof(x) + sizeof(y);
+}
+
 SquarePosition::SquarePosition()
 {
   file = File::F_UNDEF;

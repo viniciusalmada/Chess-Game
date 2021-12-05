@@ -3,5 +3,5 @@
 class Countable
 {
 public:
-  virtual int getBytesCount() = 0;
+  virtual int getBytesCount() const = 0;
 };

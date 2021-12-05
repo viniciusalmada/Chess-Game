@@ -17,5 +17,5 @@ public:
 
   std::array<float, 4> getColorsNormalized() const;
 
-  int getBytesCount() override;
+  int getBytesCount() const override;
 };

@@ -2,6 +2,7 @@
 #include <utility>
 #include <set>
 #include <string>
+#include "countable.h"
 
 enum class Direction
 {
@@ -91,7 +92,7 @@ public:
   std::string toString() const;
 };
 
-class Coordinate
+class Coordinate : public Countable
 {
   float x;
   float y;
@@ -104,6 +105,10 @@ public:
 
   bool operator!=(const Coordinate& other) const;
 
+  Coordinate& operator+=(const Coordinate& rhs);
+
   float getX() const { return x; }
   float getY() const { return y; }
+
+  int getBytesCount() const override;
 };
