@@ -18,4 +18,9 @@ public:
   std::array<float, 4> getColorsNormalized() const;
 
   int getBytesCount() const override;
+
+  float redF() const { return red / (float)0xFF; };
+  float greenF() const { return green / (float)0xFF; };
+  float blueF() const { return blue / (float)0xFF; };
+  float alphaF() const { return alpha / (float)0xFF; };
 };
