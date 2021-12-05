@@ -31,6 +31,8 @@ public:
   GameApp();
 
   static void forEachPiece(const std::function<void(const Piece& p)>& fun);
+  
+  static void forEachSquare(const std::function<void(const SquarePosition& p)>& fun);
 
   static bool getChanged();
 

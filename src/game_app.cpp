@@ -84,9 +84,20 @@ void GameApp::forEachPiece(const std::function<void(const Piece& p)>& fun)
   }
 }
 
+void GameApp::forEachSquare(const std::function<void(const SquarePosition& p)>& fun)
+{
+  for (int fileId = (int)File::F_A; fileId < 8; fileId++)
+  {
+    for (int rankId = (int)Rank::R_1; rankId < 8; rankId++)
+    {
+      fun({ fileId, rankId });
+    }
+  }
+}
+
 bool GameApp::getChanged()
 {
-    return gameChanged;
+  return gameChanged;
 }
 
 void GameApp::setChanged(bool changed)
