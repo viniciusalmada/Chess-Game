@@ -4,11 +4,15 @@
 
 class SquareData : public Countable
 {
+private:
   Coordinate topLeft;
   Coordinate topRight;
   Coordinate botRight;
   Coordinate botLeft;
   Color color;
+
+public:
+  SquareData(Coordinate tl, Coordinate tr, Coordinate br, Coordinate bl, Color color);
 
   void setMargin(float size)
   {
