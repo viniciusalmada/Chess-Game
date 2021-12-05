@@ -3,30 +3,30 @@
 
 GLObj::VertexBuffer::VertexBuffer(const void* data, unsigned int size) : size(size)
 {
-  glGenBuffers(1, &bufferId);
-  glBindBuffer(GL_ARRAY_BUFFER, bufferId);
-  glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
+  GLCall(glGenBuffers(1, &bufferId));
+  GLCall(glBindBuffer(GL_ARRAY_BUFFER, bufferId));
+  GLCall(glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW));
   unbind();
 }
 
 void GLObj::VertexBuffer::freeBuffer()
 {
-  glDeleteBuffers(1, &bufferId);
+  GLCall(glDeleteBuffers(1, &bufferId));
 }
 
 void GLObj::VertexBuffer::setData(const void* data)
 {
-  glBindBuffer(GL_ARRAY_BUFFER, bufferId);
-  glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
+  GLCall(glBindBuffer(GL_ARRAY_BUFFER, bufferId));
+  GLCall(glBufferSubData(GL_ARRAY_BUFFER, 0, size, data));
   unbind();
 }
 
 void GLObj::VertexBuffer::bind() const
 {
-  glBindBuffer(GL_ARRAY_BUFFER, bufferId);
+  GLCall(glBindBuffer(GL_ARRAY_BUFFER, bufferId));
 }
 
 void GLObj::VertexBuffer::unbind() const
 {
-  glBindBuffer(GL_ARRAY_BUFFER, 0);
+  GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
 }

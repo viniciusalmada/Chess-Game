@@ -23,5 +23,5 @@ void GLObj::Renderer::draw() const
   rendereData.vertexArray.bind();
   rendereData.indexBuffer.bind();
 
-  glDrawElements(GL_TRIANGLES, rendereData.indexBuffer.getCount(), GL_UNSIGNED_INT, nullptr);
+  GLCall(glDrawElements(GL_TRIANGLES, rendereData.indexBuffer.getCount(), GL_UNSIGNED_INT, nullptr));
 }

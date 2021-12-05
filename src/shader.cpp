@@ -10,7 +10,7 @@ unsigned int GLObj::Shader::getUniformLocation(const std::string& name)
   if (uniformLocations.find(name) != uniformLocations.end())
     return uniformLocations[name];
 
-  int location = glGetUniformLocation(programId, name.c_str());
+  GLCall(int location = glGetUniformLocation(programId, name.c_str()));
   if (location == -1)
     std::cout << "W: uniform " << name << " doesn't being used!" << std::endl;
 
@@ -39,21 +39,21 @@ std::pair<std::string, std::string> GLObj::Shader::parseShaderString(const std::
 
 unsigned int GLObj::Shader::compileShader(unsigned int type, std::string source)
 {
-  unsigned int id = glCreateShader(type);
+  GLCall(unsigned int id = glCreateShader(type));
   auto sourceC = source.c_str();
-  glShaderSource(id, 1, &sourceC, nullptr);
-  glCompileShader(id);
+  GLCall(glShaderSource(id, 1, &sourceC, nullptr));
+  GLCall(glCompileShader(id));
 
   int result;
-  glGetShaderiv(id, GL_COMPILE_STATUS, &result);
+  GLCall(glGetShaderiv(id, GL_COMPILE_STATUS, &result));
   if (!result)
   {
     int len;
-    glGetShaderiv(id, GL_INFO_LOG_LENGTH, &len);
+    GLCall(glGetShaderiv(id, GL_INFO_LOG_LENGTH, &len));
     char* message = new char[len];
-    glGetShaderInfoLog(id, len, &len, message);
+    GLCall(glGetShaderInfoLog(id, len, &len, message));
     std::cerr << message << std::endl;
-    glDeleteShader(id);
+    GLCall(glDeleteShader(id));
     delete[] message;
     return 0;
   }
@@ -63,30 +63,30 @@ unsigned int GLObj::Shader::compileShader(unsigned int type, std::string source)
 
 unsigned int GLObj::Shader::createProgram(const std::pair<std::string, std::string>& sources)
 {
-  unsigned int programId = glCreateProgram();
-  unsigned int vs = compileShader(GL_VERTEX_SHADER, sources.first);
-  unsigned int fs = compileShader(GL_FRAGMENT_SHADER, sources.second);
+  GLCall(unsigned int programId = glCreateProgram());
+  GLCall(unsigned int vs = compileShader(GL_VERTEX_SHADER, sources.first));
+  GLCall(unsigned int fs = compileShader(GL_FRAGMENT_SHADER, sources.second));
 
-  glAttachShader(programId, vs);
-  glAttachShader(programId, fs);
-  glLinkProgram(programId);
+  GLCall(glAttachShader(programId, vs));
+  GLCall(glAttachShader(programId, fs));
+  GLCall(glLinkProgram(programId));
   int result;
-  glGetProgramiv(programId, GL_LINK_STATUS, &result);
+  GLCall(glGetProgramiv(programId, GL_LINK_STATUS, &result));
   if (!result)
   {
     int len;
-    glGetProgramiv(programId, GL_INFO_LOG_LENGTH, &len);
+    GLCall(glGetProgramiv(programId, GL_INFO_LOG_LENGTH, &len));
     char* message = new char[len];
-    glGetProgramInfoLog(programId, len, &len, message);
+    GLCall(glGetProgramInfoLog(programId, len, &len, message));
     std::cerr << message << std::endl;
-    glDeleteProgram(programId);
+    GLCall(glDeleteProgram(programId));
     programId = 0;
     delete[] message;
   }
   //glValidateProgram(programId);
 
-  glDeleteShader(vs);
-  glDeleteShader(fs);
+  GLCall(glDeleteShader(vs));
+  GLCall(glDeleteShader(fs));
 
   return programId;
 }
@@ -99,17 +99,17 @@ GLObj::Shader::Shader(const std::filesystem::path& path, const std::string& vert
 
 void GLObj::Shader::freeProgram()
 {
-  glDeleteProgram(programId);
+  GLCall(glDeleteProgram(programId));
 }
 
 void GLObj::Shader::bind() const
 {
-  glUseProgram(programId);
+  GLCall(glUseProgram(programId));
 }
 
 void GLObj::Shader::unbind() const
 {
-  glUseProgram(0);
+  GLCall(glUseProgram(0));
 }
 
 void GLObj::Shader::setUniform1i(const std::string& name, int i)
@@ -119,10 +119,10 @@ void GLObj::Shader::setUniform1i(const std::string& name, int i)
 
 void GLObj::Shader::setUniform1iv(const std::string& name, int i, const int* data)
 {
-  glUniform1iv(getUniformLocation(name), i, data);
+  GLCall(glUniform1iv(getUniformLocation(name), i, data));
 }
 
 void GLObj::Shader::setUniform3f(const std::string& name, float f0, float f1, float f2)
 {
-  glUniform3f(getUniformLocation(name), f0, f1, f2);
+  GLCall(glUniform3f(getUniformLocation(name), f0, f1, f2));
 }

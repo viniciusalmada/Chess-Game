@@ -3,7 +3,7 @@
 
 GLObj::VertexArray::VertexArray(const VertexBuffer& vb, const VertexBufferLayout& layout) : vertexBuffer(vb), layout(layout)
 {
-  glGenVertexArrays(1, &rendererId);
+  GLCall(glGenVertexArrays(1, &rendererId));
   this->bind();
   vb.bind();
   const auto& elements = layout.getElements();
@@ -11,11 +11,15 @@ GLObj::VertexArray::VertexArray(const VertexBuffer& vb, const VertexBufferLayout
   for (unsigned int i = 0; i < elements.size(); i++)
   {
     const auto& e = elements[i];
-    glEnableVertexAttribArray(i);
+    GLCall(glEnableVertexAttribArray(i));
     if (e.type == GL_FLOAT)
-      glVertexAttribPointer(i, e.count, e.type, e.normalized, layout.getStride(), (void*)offset);
+    {
+      GLCall(glVertexAttribPointer(i, e.count, e.type, e.normalized, layout.getStride(), (void*)offset));
+    }
     if (e.type == GL_INT)
-      glVertexAttribIPointer(i, e.count, e.type, layout.getStride(), (void*)offset);
+    {
+      GLCall(glVertexAttribIPointer(i, e.count, e.type, layout.getStride(), (void*)offset));
+    }
     offset += static_cast<unsigned long long>(e.count) * e.size;
   }
   vb.unbind();
@@ -25,7 +29,7 @@ GLObj::VertexArray::VertexArray(const VertexBuffer& vb, const VertexBufferLayout
 void GLObj::VertexArray::freeVertexArray()
 {
   vertexBuffer.freeBuffer();
-  glDeleteVertexArrays(1, &rendererId);
+  GLCall(glDeleteVertexArrays(1, &rendererId));
 }
 
 void GLObj::VertexArray::updateBuffer(const void* data)
@@ -36,12 +40,12 @@ void GLObj::VertexArray::updateBuffer(const void* data)
 
 void GLObj::VertexArray::bind() const
 {
-  glBindVertexArray(rendererId);
+  GLCall(glBindVertexArray(rendererId));
   vertexBuffer.bind();
 }
 
 void GLObj::VertexArray::unbind() const
 {
-  glBindVertexArray(0);
+  GLCall(glBindVertexArray(0));
   vertexBuffer.unbind();
 }
