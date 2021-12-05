@@ -15,8 +15,8 @@ void GLObj::VertexBufferLayout::pushInt(unsigned int count)
 
 unsigned int GLObj::VertexBufferLayout::getBytesCount() const
 {
-  unsigned int count = 0;
+  unsigned int bytesCount = 0;
   for (const auto& el : elements)
-    count += el.count;
-  return count;
+    bytesCount += el.size * el.count;
+  return bytesCount;
 }
