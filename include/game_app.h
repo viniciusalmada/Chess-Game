@@ -25,6 +25,8 @@ class GameApp
   void confirmPieceSelected(); 
 
 public:
+  const static int SQUARES_COUNT = 64;
+  const static int PIECES_COUNT = 32;
 
   GameApp();
 
