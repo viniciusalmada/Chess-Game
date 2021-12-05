@@ -12,3 +12,11 @@ void GLObj::VertexBufferLayout::pushInt(unsigned int count)
   elements.push_back({ GL_INT, count, GL_FALSE, sizeof(unsigned int) });
   stride += sizeof(unsigned int) * count;
 }
+
+unsigned int GLObj::VertexBufferLayout::getBytesCount() const
+{
+  unsigned int count = 0;
+  for (const auto& el : elements)
+    count += el.count;
+  return count;
+}
