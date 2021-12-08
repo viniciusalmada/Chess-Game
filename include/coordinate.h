@@ -92,23 +92,68 @@ public:
   std::string toString() const;
 };
 
+template<typename T>
 class Coordinate : public Countable
 {
-  float x;
-  float y;
+  T x;
+  T y;
 
 public:
 
+  static double distance(const Coordinate& rhs, const Coordinate& lhs);
+
   Coordinate();
 
-  Coordinate(float x, float y);
+  Coordinate(T x, T y);
 
   bool operator!=(const Coordinate& other) const;
 
   Coordinate& operator+=(const Coordinate& rhs);
 
-  float getX() const { return x; }
-  float getY() const { return y; }
+  T getX() const { return x; }
+  T getY() const { return y; }
 
   int getBytesCount() const override;
 };
+
+template<typename T>
+inline double Coordinate<T>::distance(const Coordinate& rhs, const Coordinate& lhs)
+{
+  double squareX2X1 = (lhs.getX() - rhs.getX()) * (lhs.getX() - rhs.getX());
+  double squareY2Y1 = (lhs.getY() - rhs.getY()) * (lhs.getY() - rhs.getY());
+  return sqrt(squareX2X1 + squareY2Y1);
+}
+
+template<typename T>
+inline Coordinate<T>::Coordinate() : x(), y()
+{
+}
+
+template<typename T>
+Coordinate<T>::Coordinate(T x, T y) : x(x), y(y)
+{
+};
+
+template<typename T>
+bool Coordinate<T>::operator!=(const Coordinate& other) const
+{
+  return getX() != other.getX() && getY() != other.getY();
+}
+
+template<typename T>
+Coordinate<T>& Coordinate<T>::operator+=(const Coordinate& rhs)
+{
+  this->x += rhs.getX();
+  this->y += rhs.getY();
+
+  return *this;
+}
+
+template<typename T>
+int Coordinate<T>::getBytesCount() const
+{
+  return sizeof(x) + sizeof(y);
+}
+
+using CoordinateI = Coordinate<int>;
+using CoordinateF = Coordinate<float>;

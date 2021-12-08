@@ -1,6 +1,6 @@
 #include "square_data.h"
 
-Square::Square(Coordinate tl, Coordinate tr, Coordinate br, Coordinate bl, Color color)
+Square::Square(CoordinateF tl, CoordinateF tr, CoordinateF br, CoordinateF bl, Color color)
   :topLeft(tl), topRight(tr), botRight(br), botLeft(bl), color(color)
 {
 }

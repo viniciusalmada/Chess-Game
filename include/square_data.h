@@ -28,15 +28,15 @@ public:
   };
 
 private:
-  Coordinate topLeft;
-  Coordinate topRight;
-  Coordinate botRight;
-  Coordinate botLeft;
+  CoordinateF topLeft;
+  CoordinateF topRight;
+  CoordinateF botRight;
+  CoordinateF botLeft;
   Color color;
 
 public:
   Square() {}
-  Square(Coordinate tl, Coordinate tr, Coordinate br, Coordinate bl, Color color);
+  Square(CoordinateF tl, CoordinateF tr, CoordinateF br, CoordinateF bl, Color color);
 
   void setMargin(float size)
   {

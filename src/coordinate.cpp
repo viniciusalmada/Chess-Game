@@ -1,35 +1,5 @@
 #include "coordinate.h"
 
-Coordinate::Coordinate()
-{
-  this->x = 0.0f;
-  this->y = 0.0f;
-}
-
-Coordinate::Coordinate(float x, float y)
-{
-  this->x = x;
-  this->y = y;
-}
-
-bool Coordinate::operator!=(const Coordinate& other) const
-{
-  return getX() != other.getX() && getY() != other.getY();
-}
-
-Coordinate& Coordinate::operator+=(const Coordinate& rhs)
-{
-  this->x += rhs.getX();
-  this->y += rhs.getY();
-
-  return *this;
-}
-
-int Coordinate::getBytesCount() const
-{
-  return sizeof(x) + sizeof(y);
-}
-
 SquarePosition::SquarePosition()
 {
   file = File::F_UNDEF;
