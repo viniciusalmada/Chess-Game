@@ -4,7 +4,7 @@
 
 void App::show()
 {
-  board.draw();
+  gameRenderer.draw();
 }
 
 std::filesystem::path App::getWorkingDir()
@@ -18,19 +18,19 @@ std::filesystem::path App::getWorkingDir()
   return currentPath;
 }
 
-App::App() : gameApp(), board(getShadersPath())
+App::App() : gameApp(), gameRenderer(getShadersPath())
 {
   
 }
 
 void App::updateBoard()
 {
-  board.draw();
+  gameRenderer.draw();
 }
 
 void App::processLeftClick(int x, int y)
 {
-  SquarePosition squareSelected = board.getSelectedSquare(x, y);
+  SquarePosition squareSelected = gameRenderer.getSelectedSquare(position);
   bool toRedraw = gameApp.processAction(squareSelected);
   if (toRedraw) updateBoard();
 }

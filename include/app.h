@@ -4,14 +4,13 @@
 #include <memory>
 
 #include <sp_string.h>
-#include <main_window.h>
 #include <game_app.h>
 #include <game_renderer.h>
 
 class App
 {
   GameApp gameApp;
-  GameRenderer board;
+  GameRenderer gameRenderer;
 
   static std::filesystem::path getWorkingDir();
 
