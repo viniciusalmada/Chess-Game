@@ -5,6 +5,11 @@
 #include <log.h>
 #include <numeric_utils.h>
 
+static float _normalize(const int& num)
+{
+  return (num * 2.0F) / static_cast<float>(GameRenderer::WINDOW_SIZE);
+}
+
 const int GameRenderer::POSITION_NUM_COUNT = 2;
 const int GameRenderer::COLOR_NUM_COUNT = 4;
 const int GameRenderer::TEXTURE_NUM_COUNT = 2;
