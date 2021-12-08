@@ -23,7 +23,7 @@ public:
 
   void updateBoard();
 
-  void processLeftClick(int x, int y);
+  void processLeftClick(CoordinateI position);
 
   static std::filesystem::path getImagePath(std::string imageFileName);
 };

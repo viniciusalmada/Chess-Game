@@ -28,7 +28,7 @@ void App::updateBoard()
   gameRenderer.draw();
 }
 
-void App::processLeftClick(int x, int y)
+void App::processLeftClick(CoordinateI position)
 {
   SquarePosition squareSelected = gameRenderer.getSelectedSquare(position);
   bool toRedraw = gameApp.processAction(squareSelected);

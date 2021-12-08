@@ -65,6 +65,6 @@ public:
 
   void draw();
 
-  SquarePosition getSelectedSquare(int x, int y);
+  SquarePosition getSelectedSquare(CoordinateI position);
 };
 

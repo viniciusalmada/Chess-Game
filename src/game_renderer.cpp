@@ -89,25 +89,29 @@ void GameRenderer::draw()
   drawPieces();
 }
 
-SquarePosition GameRenderer::getSelectedSquare(int x, int y)
+SquarePosition GameRenderer::getSelectedSquare(CoordinateI position)
 {
+  float x = _normalize(position.getX());
+  float y = _normalize(position.getY());
+  float ss = squareSize();
+
   int fileId = 0;
-  /* while (fileId < 8)
-   {
-     if (x < squareSize())
-       break;
-     x -= squareSize();
-     fileId++;
-   }*/
+  while (fileId < 8)
+  {
+    if (x < ss)
+      break;
+    x -= ss;
+    fileId++;
+  }
 
   int rankId = 0;
-  /* while (rankId < 8)
-   {
-     if (y < squareSize())
-       break;
-     y -= squareSize();
-     rankId++;
-   }*/
+  while (rankId < 8)
+  {
+    if (y < ss)
+      break;
+    y -= ss;
+    rankId++;
+  }
   rankId = 7 - rankId;
 
   return SquarePosition(fileId, rankId);
