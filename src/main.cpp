@@ -7,6 +7,7 @@ int main()
 {
   MainWindow mainWindow{};
   App app{};
+  mainWindow.setApp(&app);
   mainWindow.actionLoop([&]()
     {
       app.show();

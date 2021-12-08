@@ -1,8 +1,9 @@
 #include <string>
 #include "main_window.h"
-#include <app.h>
 #include <iostream>
 #include <shader.h>
+
+static App* appPtr = nullptr;
 
 MainWindow::MainWindow()
 {
@@ -26,6 +27,11 @@ MainWindow::~MainWindow()
 {
   glfwTerminate();
   glfwDestroyWindow(mDialog);
+}
+
+void MainWindow::setApp(App* app)
+{
+  appPtr = app;
 }
 
 void MainWindow::actionLoop(std::function<void()> drawAction)
