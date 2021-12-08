@@ -21,6 +21,7 @@
     <ClCompile Include="src\texture.cpp" />
     <ClCompile Include="src\color.cpp" />
     <ClCompile Include="src\square_data.cpp" />
+    <ClCompile Include="src\texture_data.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\app.h" />
@@ -47,5 +48,6 @@
     <ClInclude Include="include\color.h" />
     <ClInclude Include="include\countable.h" />
     <ClInclude Include="include\square_data.h" />
+    <ClInclude Include="include\texture_data.h" />
   </ItemGroup>
 </Project>

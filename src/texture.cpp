@@ -5,6 +5,8 @@
 GLObj::Texture::Texture(const std::string& path) : textureId(0), width(0), height(0)
 {
   unsigned char* localBuffer = ImageLoader::loadTexture(path, width, height);
+  if (!localBuffer)
+    return;
 
   GLCall(glGenTextures(1, &textureId));
   GLCall(glBindTexture(GL_TEXTURE_2D, textureId));

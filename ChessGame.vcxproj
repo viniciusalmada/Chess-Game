@@ -97,6 +97,7 @@
     <ClCompile Include="src\texture.cpp" />
     <ClCompile Include="src\renderer.cpp" />
     <ClCompile Include="src\shader.cpp" />
+    <ClCompile Include="src\texture_data.cpp" />
     <ClCompile Include="src\vertex_buffer_layout.cpp" />
     <ClCompile Include="src\vertex_array.cpp" />
     <ClCompile Include="src\app.cpp" />
@@ -135,6 +136,7 @@
     <ClInclude Include="include\sp_string.h" />
     <ClInclude Include="include\square_data.h" />
     <ClInclude Include="include\texture.h" />
+    <ClInclude Include="include\texture_data.h" />
     <ClInclude Include="include\vertex_array.h" />
     <ClInclude Include="include\vertex_buffer.h" />
     <ClInclude Include="include\vertex_buffer_layout.h" />

@@ -11,7 +11,8 @@ imImage* ImageLoader::loadImage(std::string path)
   imImage* img = imFileImageLoad(path.c_str(), 0, &error);
   if (error)
   {
-    throw std::runtime_error("Error loading image from path \"" + path + "\"");
+    std::cerr << "Error loading image from path \"" + path + "\"" << std::endl;
+    return nullptr;
   }
   return img;
 }
@@ -19,6 +20,9 @@ imImage* ImageLoader::loadImage(std::string path)
 unsigned char* ImageLoader::loadTexture(const std::string& path, int& width, int& height)
 {
   imImage* img = loadImage(path);
+  if (!img)
+    return nullptr;
+
   int data_type = 0;
   switch (img->data_type)
   {
