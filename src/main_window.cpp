@@ -5,12 +5,41 @@
 
 static App* appPtr = nullptr;
 
+static CoordinateI _positionPressed{};
+
+CoordinateI _getGLFWCursorPos(GLFWwindow* win)
+{
+  double xpos, ypos;
+  glfwGetCursorPos(win, &xpos, &ypos);
+  int xi = static_cast<int>(floor(xpos));
+  int yi = static_cast<int>(floor(ypos));
+  return { xi, yi };
+}
+
 MainWindow::MainWindow()
 {
   if (!glfwInit())
     return;
 
   mDialog = glfwCreateWindow(GameRenderer::WINDOW_SIZE, GameRenderer::WINDOW_SIZE, "Chess Game", nullptr, nullptr);
+
+  glfwSetMouseButtonCallback(mDialog, [](GLFWwindow* w, int b, int a, int m)
+    {
+      if (b == GLFW_MOUSE_BUTTON_LEFT && a == GLFW_PRESS)
+      {
+        _positionPressed = _getGLFWCursorPos(w);
+        return;
+      }
+
+      if (b == GLFW_MOUSE_BUTTON_LEFT && a == GLFW_RELEASE)
+      {
+        auto currentPos = _getGLFWCursorPos(w);
+        if (CoordinateI::distance(currentPos, _positionPressed) < 0.02 * GameRenderer::WINDOW_SIZE)
+        {
+          onLeftMouseClicked(currentPos);
+        }
+      }
+    });
 
   glfwMakeContextCurrent(mDialog);
   if (glewInit())
@@ -50,6 +79,14 @@ void MainWindow::actionLoop(std::function<void()> drawAction)
 
     glfwSwapBuffers(mDialog);
 
-    glfwPollEvents();
+    glfwWaitEvents();
   }
+}
+
+void MainWindow::onLeftMouseClicked(CoordinateI position)
+{
+  if (!appPtr)
+    return;
+
+  appPtr->processLeftClick(position);
 }
