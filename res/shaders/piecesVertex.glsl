@@ -1,6 +1,6 @@
 #version 330 core
 layout(location = 0) in vec4 position;
-layout(location = 1) in vec3 vertexColor;
+layout(location = 1) in vec4 vertexColor;
 layout(location = 2) in vec2 texCoord;
 layout(location = 3) in int texId;
 layout(location = 4) in int isBlack;
@@ -13,7 +13,7 @@ flat out int fragIsBlack;
 void main()
 {
   gl_Position = position;
-  fragColor = vec4(vertexColor.rgb, 1.0);
+  fragColor = vertexColor;
   fragTexCoord = texCoord;
   fragTexId = texId;
   fragIsBlack = isBlack;
