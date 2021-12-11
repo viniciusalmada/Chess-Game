@@ -76,7 +76,7 @@ vec4 getPieceSelectedOption(vec4 currentColor, int selectedOption)
       case TEX_FILTER_SELECTED:
         return currentColor * vec4(0.23, 0.68, 0.28, 1.0);
       case TEX_FILTER_OPTION:
-        return vec4(currentColor.rgb, currentColor.a * 0.5);
+        return vec4(currentColor.rgb, currentColor.a * 0.4);
     }
   return currentColor;
 }
