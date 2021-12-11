@@ -38,8 +38,8 @@ void GameRenderer::loadTextures()
   if (!textures.empty())
     return;
   std::unordered_map<PieceName, TextureData> _textures({
-    { PieceName::BISHOP, { "img_king.png", TEX_NAME_BISHOP, 1 } },
-    { PieceName::KING, { "img_bishop.png", TEX_NAME_KING, 2 } },
+    { PieceName::BISHOP, { "img_bishop.png", TEX_NAME_BISHOP, 1 } },
+    { PieceName::KING, { "img_king.png", TEX_NAME_KING, 2 } },
     { PieceName::KNIGHT, { "img_knight.png", TEX_NAME_KNIGHT, 3 } },
     { PieceName::PAWN, { "img_pawn.png", TEX_NAME_PAWN, 4 } },
     { PieceName::QUEEN, { "img_queen.png", TEX_NAME_QUEEN, 5 } },
