@@ -19,6 +19,7 @@ private:
   const static int TEXTURE_NUM_COUNT;
   const static int TEXTURE_ID_NUM_COUNT;
   const static int PIECE_COLOR_NUM_COUNT;
+  const static int PIECE_SELECTED_OPTION_NUM_COUNT;
   const static int POSITIONS_PER_SQUARE;
 
   const static float BORDER_SIZE_RELATIVE;
@@ -30,9 +31,7 @@ private:
   const static std::string TEX_NAME_PAWN;
   const static std::string TEX_NAME_QUEEN;
   const static std::string TEX_NAME_ROOK;
-  const static std::string TEX_NAME_MOVEMENT_OPTION;
 
-  TextureData movementOptionTexture;
   std::unordered_map<PieceName, TextureData> textures;
   std::unordered_map<SquarePosition, Square, SquarePositionHash, SquarePositionEqual> squaresCoordinates;
 

@@ -31,18 +31,18 @@ Square::VertexData Square::getSquareVertexData(Corner corner) const
   }
 }
 
-Square::TextureData Square::getSquareTextureData(Corner corner, int id, bool isBlack) const
+Square::TextureData Square::getSquareTextureData(Corner corner, int id, TexFilter pieceColor, TexFilter selectedOption) const
 {
   switch (corner)
   {
   case Corner::TOP_LEFT:
-    return { getSquareVertexData(corner), 0.0f, 1.0f, id, isBlack };
+    return { getSquareVertexData(corner), 0.0f, 1.0f, id, pieceColor, selectedOption };
   case Corner::TOP_RIGHT:
-    return { getSquareVertexData(corner), 1.0f, 1.0f, id, isBlack };
+    return { getSquareVertexData(corner), 1.0f, 1.0f, id,  pieceColor, selectedOption };
   case Corner::BOT_LEFT:
-    return { getSquareVertexData(corner), 0.0f, 0.0f, id, isBlack };
+    return { getSquareVertexData(corner), 0.0f, 0.0f, id,  pieceColor, selectedOption };
   case Corner::BOT_RIGHT:
-    return { getSquareVertexData(corner), 1.0f, 0.0f, id, isBlack };
+    return { getSquareVertexData(corner), 1.0f, 0.0f, id,  pieceColor, selectedOption };
   default:
     return {};
   }

@@ -15,6 +15,7 @@ const int GameRenderer::COLOR_NUM_COUNT = 4;
 const int GameRenderer::TEXTURE_NUM_COUNT = 2;
 const int GameRenderer::TEXTURE_ID_NUM_COUNT = 1;
 const int GameRenderer::PIECE_COLOR_NUM_COUNT = 1;
+const int GameRenderer::PIECE_SELECTED_OPTION_NUM_COUNT = 1;
 const int GameRenderer::POSITIONS_PER_SQUARE = 4;
 
 const float GameRenderer::BORDER_SIZE_RELATIVE = 0.02F;
@@ -26,7 +27,6 @@ const std::string GameRenderer::TEX_NAME_KNIGHT = "knightTex";
 const std::string GameRenderer::TEX_NAME_PAWN = "pawnTex";
 const std::string GameRenderer::TEX_NAME_QUEEN = "queenTex";
 const std::string GameRenderer::TEX_NAME_ROOK = "rookTex";
-const std::string GameRenderer::TEX_NAME_MOVEMENT_OPTION = "movementOptionTex";
 
 Color GameRenderer::backgroundColor = { 0xE8, 0xE6, 0xE4 };
 Color GameRenderer::squareDark = { 0xB5, 0x88, 0x63 };
@@ -45,7 +45,6 @@ void GameRenderer::loadTextures()
     { PieceName::QUEEN, { "img_queen.png", TEX_NAME_QUEEN, 5 } },
     { PieceName::ROOK, { "img_rook.png", TEX_NAME_ROOK, 6 } }
     });
-  movementOptionTexture = { "img_movement_option.png", TEX_NAME_MOVEMENT_OPTION, 7 };
   textures = std::move(_textures);
 }
 
@@ -167,6 +166,7 @@ GLObj::RendererData GameRenderer::generatePiecesRendererData(std::filesystem::pa
     .pushFloat(TEXTURE_NUM_COUNT)
     .pushInt(TEXTURE_ID_NUM_COUNT)
     .pushInt(PIECE_COLOR_NUM_COUNT)
+    .pushInt(PIECE_SELECTED_OPTION_NUM_COUNT)
     .getLayout();
 
   ASSERT(vbl.getBytesCount() == sizeof(Square::TextureData));
@@ -190,7 +190,6 @@ GLObj::RendererData GameRenderer::generatePiecesRendererData(std::filesystem::pa
   textures[PieceName::PAWN].bindTexture(GL_TEXTURE3);
   textures[PieceName::QUEEN].bindTexture(GL_TEXTURE4);
   textures[PieceName::ROOK].bindTexture(GL_TEXTURE5);
-  movementOptionTexture.bindTexture(GL_TEXTURE6);
 
   shader.bind();
   shader.setUniform1i(TEX_NAME_BISHOP, 0);
@@ -199,7 +198,6 @@ GLObj::RendererData GameRenderer::generatePiecesRendererData(std::filesystem::pa
   shader.setUniform1i(TEX_NAME_PAWN, 3);
   shader.setUniform1i(TEX_NAME_QUEEN, 4);
   shader.setUniform1i(TEX_NAME_ROOK, 5);
-  shader.setUniform1i(TEX_NAME_MOVEMENT_OPTION, 6);
   shader.unbind();
 
   return { va, ib, shader };
@@ -230,20 +228,21 @@ void GameRenderer::updatePieces()
       Square piecePosition = squaresCoordinates[piece.getPosition()];
       piecePosition.setMargin(PIECE_MARGIN);
       int texId = textures[piece.getName()].getId();
-      bool isBlack = piece.isBlack();
-      data.push_back(piecePosition.getSquareTextureData(Corner::TOP_LEFT, texId, isBlack));
-      data.push_back(piecePosition.getSquareTextureData(Corner::TOP_RIGHT, texId, isBlack));
-      data.push_back(piecePosition.getSquareTextureData(Corner::BOT_RIGHT, texId, isBlack));
-      data.push_back(piecePosition.getSquareTextureData(Corner::BOT_LEFT, texId, isBlack));
+      Square::TexFilter colorFilter = piece.isBlack() ? Square::TexFilter::BLACK : Square::TexFilter::WHITE;
+      Square::TexFilter selectedOptionFilter = piece.isSelected() ? Square::TexFilter::SELECTED : Square::TexFilter::NO_SELECTED;
+      data.push_back(piecePosition.getSquareTextureData(Corner::TOP_LEFT, texId, colorFilter, selectedOptionFilter));
+      data.push_back(piecePosition.getSquareTextureData(Corner::TOP_RIGHT, texId, colorFilter, selectedOptionFilter));
+      data.push_back(piecePosition.getSquareTextureData(Corner::BOT_RIGHT, texId, colorFilter, selectedOptionFilter));
+      data.push_back(piecePosition.getSquareTextureData(Corner::BOT_LEFT, texId, colorFilter, selectedOptionFilter));
 
       for (SquarePosition option : options)
       {
-        texId = movementOptionTexture.getId();
         Square opPosition = squaresCoordinates[option];
-        data.push_back(opPosition.getSquareTextureData(Corner::TOP_LEFT, texId, true));
-        data.push_back(opPosition.getSquareTextureData(Corner::TOP_RIGHT, texId, true));
-        data.push_back(opPosition.getSquareTextureData(Corner::BOT_RIGHT, texId, true));
-        data.push_back(opPosition.getSquareTextureData(Corner::BOT_LEFT, texId, true));
+        opPosition.setMargin(PIECE_MARGIN);
+        data.push_back(opPosition.getSquareTextureData(Corner::TOP_LEFT, texId, colorFilter, Square::TexFilter::OPTION));
+        data.push_back(opPosition.getSquareTextureData(Corner::TOP_RIGHT, texId, colorFilter, Square::TexFilter::OPTION));
+        data.push_back(opPosition.getSquareTextureData(Corner::BOT_RIGHT, texId, colorFilter, Square::TexFilter::OPTION));
+        data.push_back(opPosition.getSquareTextureData(Corner::BOT_LEFT, texId, colorFilter, Square::TexFilter::OPTION));
         piecesAndOptionsCount++;
       }
       piecesAndOptionsCount++;

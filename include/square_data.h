@@ -8,6 +8,8 @@ enum class Corner { TOP_LEFT, TOP_RIGHT, BOT_LEFT, BOT_RIGHT };
 class Square : public Countable
 {
 public:
+  enum class TexFilter { BLACK = 0, WHITE = 1, SELECTED = 2, OPTION = 3, NO_SELECTED = 4 };
+
   struct VertexData
   {
     float x;
@@ -24,7 +26,8 @@ public:
     float s;
     float t;
     int texId;
-    int isBlack;
+    TexFilter texPieceColor;
+    TexFilter texSelectedOption;
   };
 
 private:
@@ -49,6 +52,6 @@ public:
   int getBytesCount() const override;
 
   VertexData getSquareVertexData(Corner corner) const;
-  TextureData getSquareTextureData(Corner corner, int id, bool isBlack) const;
+  TextureData getSquareTextureData(Corner corner, int id, TexFilter pieceColor, TexFilter selectedOption) const;
 };
 
