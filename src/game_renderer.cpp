@@ -26,6 +26,7 @@ const std::string GameRenderer::TEX_NAME_KNIGHT = "knightTex";
 const std::string GameRenderer::TEX_NAME_PAWN = "pawnTex";
 const std::string GameRenderer::TEX_NAME_QUEEN = "queenTex";
 const std::string GameRenderer::TEX_NAME_ROOK = "rookTex";
+const std::string GameRenderer::TEX_NAME_MOVEMENT_OPTION = "movementOptionTex";
 
 Color GameRenderer::backgroundColor = { 0xE8, 0xE6, 0xE4 };
 Color GameRenderer::squareDark = { 0xB5, 0x88, 0x63 };
@@ -44,6 +45,7 @@ void GameRenderer::loadTextures()
     { PieceName::QUEEN, { "img_queen.png", TEX_NAME_QUEEN, 5 } },
     { PieceName::ROOK, { "img_rook.png", TEX_NAME_ROOK, 6 } }
     });
+  movementOptionTexture = { "img_movement_option.png", TEX_NAME_MOVEMENT_OPTION, 7 };
   textures = std::move(_textures);
 }
 
@@ -167,6 +169,8 @@ GLObj::RendererData GameRenderer::generatePiecesRendererData(std::filesystem::pa
     .pushInt(PIECE_COLOR_NUM_COUNT)
     .getLayout();
 
+  ASSERT(vbl.getBytesCount() == sizeof(Square::TextureData));
+
 
   const unsigned int vbSize = GameApp::PIECES_COUNT * POSITIONS_PER_SQUARE * vbl.getBytesCount();
 
@@ -186,6 +190,7 @@ GLObj::RendererData GameRenderer::generatePiecesRendererData(std::filesystem::pa
   textures[PieceName::PAWN].bindTexture(GL_TEXTURE3);
   textures[PieceName::QUEEN].bindTexture(GL_TEXTURE4);
   textures[PieceName::ROOK].bindTexture(GL_TEXTURE5);
+  movementOptionTexture.bindTexture(GL_TEXTURE6);
 
   shader.bind();
   shader.setUniform1i(TEX_NAME_BISHOP, 0);
@@ -194,6 +199,7 @@ GLObj::RendererData GameRenderer::generatePiecesRendererData(std::filesystem::pa
   shader.setUniform1i(TEX_NAME_PAWN, 3);
   shader.setUniform1i(TEX_NAME_QUEEN, 4);
   shader.setUniform1i(TEX_NAME_ROOK, 5);
+  shader.setUniform1i(TEX_NAME_MOVEMENT_OPTION, 6);
   shader.unbind();
 
   return { va, ib, shader };
@@ -218,7 +224,8 @@ void GameRenderer::updatePieces()
   if (!GameApp::getChanged()) return;
 
   std::vector<Square::TextureData> data;
-  GameApp::forEachPiece([&](const Piece& piece)
+  unsigned int piecesAndOptionsCount = 0;
+  GameApp::forEachPiece([&](const Piece& piece, const std::set<SquarePosition>& options)
     {
       Square piecePosition = squaresCoordinates[piece.getPosition()];
       piecePosition.setMargin(PIECE_MARGIN);
@@ -228,7 +235,22 @@ void GameRenderer::updatePieces()
       data.push_back(piecePosition.getSquareTextureData(Corner::TOP_RIGHT, texId, isBlack));
       data.push_back(piecePosition.getSquareTextureData(Corner::BOT_RIGHT, texId, isBlack));
       data.push_back(piecePosition.getSquareTextureData(Corner::BOT_LEFT, texId, isBlack));
+
+      for (SquarePosition option : options)
+      {
+        texId = movementOptionTexture.getId();
+        Square opPosition = squaresCoordinates[option];
+        data.push_back(opPosition.getSquareTextureData(Corner::TOP_LEFT, texId, true));
+        data.push_back(opPosition.getSquareTextureData(Corner::TOP_RIGHT, texId, true));
+        data.push_back(opPosition.getSquareTextureData(Corner::BOT_RIGHT, texId, true));
+        data.push_back(opPosition.getSquareTextureData(Corner::BOT_LEFT, texId, true));
+        piecesAndOptionsCount++;
+      }
+      piecesAndOptionsCount++;
     });
   GameApp::setChanged(false);
-  piecesRenderer.updateVertexBuffer(data.data());
+  unsigned int newSize = static_cast<unsigned int>(data.size()) * sizeof(Square::TextureData);
+  piecesRenderer.updateVertexBuffer(data.data(), newSize);
+  std::vector<unsigned int> indexData = NumericUtils::genIndices(piecesAndOptionsCount);
+  piecesRenderer.updateIndexBuffer(indexData.data(), static_cast<unsigned int>(indexData.size()));
 }

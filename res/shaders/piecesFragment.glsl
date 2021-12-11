@@ -13,6 +13,7 @@ uniform sampler2D knightTex;
 uniform sampler2D pawnTex;
 uniform sampler2D queenTex; 
 uniform sampler2D rookTex;
+uniform sampler2D movementOptionTex;
 
 vec4 invertColor(vec4 color)
 {
@@ -41,6 +42,9 @@ void main()
       break;
     case 6:
       color = texture(rookTex, fragTexCoord);
+      break;
+    case 7:
+      color = texture(movementOptionTex, fragTexCoord);
       break;
     default:
       color = vec4(1.0, 0.0, 0.0, 1.0);

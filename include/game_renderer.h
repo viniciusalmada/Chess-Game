@@ -30,7 +30,9 @@ private:
   const static std::string TEX_NAME_PAWN;
   const static std::string TEX_NAME_QUEEN;
   const static std::string TEX_NAME_ROOK;
+  const static std::string TEX_NAME_MOVEMENT_OPTION;
 
+  TextureData movementOptionTexture;
   std::unordered_map<PieceName, TextureData> textures;
   std::unordered_map<SquarePosition, Square, SquarePositionHash, SquarePositionEqual> squaresCoordinates;
 
