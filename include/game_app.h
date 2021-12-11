@@ -30,13 +30,15 @@ public:
 
   GameApp();
 
-  static void forEachPiece(const std::function<void(const Piece& p)>& fun);
+  static void forEachPiece(const std::function<void(const Piece&, const std::set<SquarePosition>&)>& fun);
   
   static void forEachSquare(const std::function<void(const SquarePosition& p)>& fun);
 
   static bool getChanged();
 
   static void setChanged(bool changed);
+
+  static std::set<SquarePosition> getOptions(const Piece& piece);
 
   bool processAction(SquarePosition pos);
 };

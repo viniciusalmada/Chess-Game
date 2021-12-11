@@ -1,4 +1,5 @@
 #include "game_app.h"
+#include <algorithm>
 
 std::array<Piece, 32> GameApp::piecesData{};
 bool GameApp::gameChanged = true;
@@ -35,52 +36,56 @@ bool GameApp::checkPieceOfCurrentPlayer() const
 void GameApp::confirmPieceSelected()
 {
   currentSelectedPiece->select();
+  setChanged(true);
 }
 
 GameApp::GameApp()
 {
   piecesData =
   {
-    RookPiece{ Player::BLACK, { File::F_A, Rank::R_8 } },
-    KnightPiece{ Player::BLACK, { File::F_B, Rank::R_8 } },
-    BishopPiece{ Player::BLACK, { File::F_C, Rank::R_8 } },
-    QueenPiece{ Player::BLACK, { File::F_D, Rank::R_8 } },
-    KingPiece{ Player::BLACK, { File::F_E, Rank::R_8 } },
-    BishopPiece{ Player::BLACK, { File::F_F, Rank::R_8 } },
-    KnightPiece{ Player::BLACK, { File::F_G, Rank::R_8 } },
-    RookPiece{ Player::BLACK, { File::F_H, Rank::R_8 } },
-    PawnPiece{ Player::BLACK, { File::F_A, Rank::R_7 } },
-    PawnPiece{ Player::BLACK, { File::F_B, Rank::R_7 } },
-    PawnPiece{ Player::BLACK, { File::F_C, Rank::R_7 } },
-    PawnPiece{ Player::BLACK, { File::F_D, Rank::R_7 } },
-    PawnPiece{ Player::BLACK, { File::F_E, Rank::R_7 } },
-    PawnPiece{ Player::BLACK, { File::F_F, Rank::R_7 } },
-    PawnPiece{ Player::BLACK, { File::F_G, Rank::R_7 } },
-    PawnPiece{ Player::BLACK, { File::F_H, Rank::R_7 } },
-    RookPiece{ Player::WHITE, { File::F_A, Rank::R_1 } },
-    KnightPiece{ Player::WHITE, { File::F_B, Rank::R_1 } },
-    BishopPiece{ Player::WHITE, { File::F_C, Rank::R_1 } },
-    QueenPiece{ Player::WHITE, { File::F_D, Rank::R_1 } },
-    KingPiece{ Player::WHITE, { File::F_E, Rank::R_1 } },
-    BishopPiece{ Player::WHITE, { File::F_F, Rank::R_1 } },
-    KnightPiece{ Player::WHITE, { File::F_G, Rank::R_1 } },
-    RookPiece{ Player::WHITE, { File::F_H, Rank::R_1 } },
-    PawnPiece{ Player::WHITE, { File::F_A, Rank::R_2 } },
-    PawnPiece{ Player::WHITE, { File::F_B, Rank::R_2 } },
-    PawnPiece{ Player::WHITE, { File::F_C, Rank::R_2 } },
-    PawnPiece{ Player::WHITE, { File::F_D, Rank::R_2 } },
-    PawnPiece{ Player::WHITE, { File::F_E, Rank::R_2 } },
-    PawnPiece{ Player::WHITE, { File::F_F, Rank::R_2 } },
-    PawnPiece{ Player::WHITE, { File::F_G, Rank::R_2 } },
-    PawnPiece{ Player::WHITE, { File::F_H, Rank::R_2 } },
+    Piece{ PieceName::ROOK, Player::BLACK, { File::F_A, Rank::R_8 } },
+    Piece{ PieceName::KNIGHT, Player::BLACK, { File::F_B, Rank::R_8 } },
+    Piece{ PieceName::BISHOP, Player::BLACK, { File::F_C, Rank::R_8 } },
+    Piece{ PieceName::QUEEN, Player::BLACK, { File::F_D, Rank::R_8 } },
+    Piece{ PieceName::KING, Player::BLACK, { File::F_E, Rank::R_8 } },
+    Piece{ PieceName::BISHOP, Player::BLACK, { File::F_F, Rank::R_8 } },
+    Piece{ PieceName::KNIGHT, Player::BLACK, { File::F_G, Rank::R_8 } },
+    Piece{ PieceName::ROOK, Player::BLACK, { File::F_H, Rank::R_8 } },
+    Piece{ PieceName::PAWN, Player::BLACK, { File::F_A, Rank::R_7 } },
+    Piece{ PieceName::PAWN, Player::BLACK, { File::F_B, Rank::R_7 } },
+    Piece{ PieceName::PAWN, Player::BLACK, { File::F_C, Rank::R_7 } },
+    Piece{ PieceName::PAWN, Player::BLACK, { File::F_D, Rank::R_7 } },
+    Piece{ PieceName::PAWN, Player::BLACK, { File::F_E, Rank::R_7 } },
+    Piece{ PieceName::PAWN, Player::BLACK, { File::F_F, Rank::R_7 } },
+    Piece{ PieceName::PAWN, Player::BLACK, { File::F_G, Rank::R_7 } },
+    Piece{ PieceName::PAWN, Player::BLACK, { File::F_H, Rank::R_7 } },
+    Piece{ PieceName::ROOK, Player::WHITE, { File::F_A, Rank::R_1 } },
+    Piece{ PieceName::KNIGHT, Player::WHITE, { File::F_B, Rank::R_1 } },
+    Piece{ PieceName::BISHOP, Player::WHITE, { File::F_C, Rank::R_1 } },
+    Piece{ PieceName::QUEEN, Player::WHITE, { File::F_D, Rank::R_1 } },
+    Piece{ PieceName::KING, Player::WHITE, { File::F_E, Rank::R_1 } },
+    Piece{ PieceName::BISHOP, Player::WHITE, { File::F_F, Rank::R_1 } },
+    Piece{ PieceName::KNIGHT, Player::WHITE, { File::F_G, Rank::R_1 } },
+    Piece{ PieceName::ROOK, Player::WHITE, { File::F_H, Rank::R_1 } },
+    Piece{ PieceName::PAWN, Player::WHITE, { File::F_A, Rank::R_2 } },
+    Piece{ PieceName::PAWN, Player::WHITE, { File::F_B, Rank::R_2 } },
+    Piece{ PieceName::PAWN, Player::WHITE, { File::F_C, Rank::R_2 } },
+    Piece{ PieceName::PAWN, Player::WHITE, { File::F_D, Rank::R_2 } },
+    Piece{ PieceName::PAWN, Player::WHITE, { File::F_E, Rank::R_2 } },
+    Piece{ PieceName::PAWN, Player::WHITE, { File::F_F, Rank::R_2 } },
+    Piece{ PieceName::PAWN, Player::WHITE, { File::F_G, Rank::R_2 } },
+    Piece{ PieceName::PAWN, Player::WHITE, { File::F_H, Rank::R_2 } },
   };
 }
 
-void GameApp::forEachPiece(const std::function<void(const Piece& p)>& fun)
+void GameApp::forEachPiece(const std::function<void(const Piece&, const std::set<SquarePosition>&)>& fun)
 {
   for (const auto& p : piecesData)
   {
-    fun(p);
+    std::set<SquarePosition> options{};
+    if (p.isSelected())
+      options = getOptions(p);
+    fun(p, options);
   }
 }
 
@@ -103,6 +108,27 @@ bool GameApp::getChanged()
 void GameApp::setChanged(bool changed)
 {
   gameChanged = changed;
+}
+
+std::set<SquarePosition> GameApp::getOptions(const Piece& piece)
+{
+  if (!piece.isSelected())
+    return {};
+
+  std::set<SquarePosition> movementOptionsFromPiece = piece.possibleMovements();
+  std::set<SquarePosition> freeMovementOptions{};
+  for (const SquarePosition& movementOp : movementOptionsFromPiece)
+  {
+    auto result = std::find_if(piecesData.cbegin(), piecesData.cend(), [movementOp](const Piece piece) 
+      { 
+        return piece.equalPosition(movementOp); 
+      });
+
+    if (result == piecesData.end())
+      freeMovementOptions.insert(movementOp);
+  }
+
+  return freeMovementOptions;
 }
 
 bool GameApp::processAction(SquarePosition pos)

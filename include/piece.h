@@ -23,10 +23,18 @@ protected:
   SquarePosition position;
   bool selected;
 
-  Piece(PieceName name, Player player, SquarePosition position);
+
+  std::set<SquarePosition> rookPossibleMovements() const;
+  std::set<SquarePosition> bishopPossibleMovements() const;
+  std::set<SquarePosition> knightPossibleMovements() const;
+  std::set<SquarePosition> queenPossibleMovements() const;
+  std::set<SquarePosition> kingPossibleMovements() const;
+  std::set<SquarePosition> pawnPossibleMovements() const;
 
 public:
   Piece();
+
+  Piece(PieceName name, Player player, SquarePosition position);
 
   bool operator<(const Piece& other) const;
 
@@ -50,55 +58,8 @@ public:
 
   void unselect() { selected = false; }
 
-  virtual std::set<SquarePosition> possibleMovements();
+  virtual std::set<SquarePosition> possibleMovements() const;
 
   std::string generateTitle() const;
 };
 
-class RookPiece : public Piece
-{
-public:
-  RookPiece(Player player, SquarePosition position);
-
-  std::set<SquarePosition> possibleMovements() override;
-};
-
-class BishopPiece : public Piece
-{
-public:
-  BishopPiece(Player player, SquarePosition position);
-
-  std::set<SquarePosition> possibleMovements() override;
-};
-
-class KnightPiece : public Piece
-{
-public:
-  KnightPiece(Player player, SquarePosition position);
-
-  std::set<SquarePosition> possibleMovements() override;
-};
-
-class QueenPiece : public Piece
-{
-public:
-  QueenPiece(Player player, SquarePosition position);
-
-  std::set<SquarePosition> possibleMovements() override;
-};
-
-class KingPiece : public Piece
-{
-public:
-  KingPiece(Player player, SquarePosition position);
-
-  std::set<SquarePosition> possibleMovements() override;
-};
-
-class PawnPiece : public Piece
-{
-public:
-  PawnPiece(Player player, SquarePosition position);
-
-  std::set<SquarePosition> possibleMovements() override;
-};
