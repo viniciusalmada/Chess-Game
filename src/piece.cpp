@@ -84,6 +84,8 @@ std::set<SquarePosition> Piece::pawnPossibleMovements() const
 {
   std::set<SquarePosition> moves;
   moves.insert(position.neighborN());
+  if (name == PieceName::PAWN && isFirstPawnMovement)
+    moves.insert(position.neighborN().neighborN());
   moves.erase(position);
   return moves;
 }

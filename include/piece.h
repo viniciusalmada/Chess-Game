@@ -22,7 +22,7 @@ protected:
   Player player;
   SquarePosition position;
   bool selected;
-
+  bool isFirstPawnMovement = true;
 
   std::set<SquarePosition> rookPossibleMovements() const;
   std::set<SquarePosition> bishopPossibleMovements() const;
