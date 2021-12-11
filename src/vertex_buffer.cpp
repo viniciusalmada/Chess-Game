@@ -14,10 +14,11 @@ void GLObj::VertexBuffer::freeBuffer()
   GLCall(glDeleteBuffers(1, &bufferId));
 }
 
-void GLObj::VertexBuffer::setData(const void* data)
+void GLObj::VertexBuffer::setData(const void* data, unsigned int newSize)
 {
-  GLCall(glBindBuffer(GL_ARRAY_BUFFER, bufferId));
-  GLCall(glBufferSubData(GL_ARRAY_BUFFER, 0, size, data));
+  if (newSize != 0) size = newSize;
+  bind();
+  GLCall(glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW));
   unbind();
 }
 

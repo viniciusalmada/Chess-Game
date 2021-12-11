@@ -16,5 +16,7 @@ namespace GLObj
     void unbind() const;
 
     unsigned int getCount() const { return count; }
+
+    void updateBuffer(const void* data, unsigned int count);
   };
 }

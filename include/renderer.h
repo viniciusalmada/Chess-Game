@@ -24,7 +24,9 @@ namespace GLObj
 		Renderer(RendererData data);
 		~Renderer();
 
-		void updateVertexBuffer(const void* data);
+		void updateVertexBuffer(const void* data, unsigned int newSize = 0);
+		
+		void updateIndexBuffer(const unsigned int* data, unsigned int newSize = 0);
 
 		void draw() const;
 	};

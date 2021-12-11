@@ -12,7 +12,7 @@ namespace GLObj
     VertexBuffer(const void* data, unsigned int size);
     void freeBuffer();
 
-    void setData(const void* data);
+    void setData(const void* data, unsigned int newSize);
 
     void bind() const;
     void unbind() const;

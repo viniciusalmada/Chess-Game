@@ -32,9 +32,9 @@ void GLObj::VertexArray::freeVertexArray()
   GLCall(glDeleteVertexArrays(1, &rendererId));
 }
 
-void GLObj::VertexArray::updateBuffer(const void* data)
+void GLObj::VertexArray::updateBuffer(const void* data, unsigned int newSize)
 {
-  vertexBuffer.setData(data);
+  vertexBuffer.setData(data, newSize);
 }
 
 

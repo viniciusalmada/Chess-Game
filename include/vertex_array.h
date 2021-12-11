@@ -15,7 +15,7 @@ namespace GLObj
     VertexArray(const VertexBuffer& vb, const VertexBufferLayout& layout);
     void freeVertexArray();
 
-    void updateBuffer(const void* data);
+    void updateBuffer(const void* data, unsigned int newSize);
 
     void bind() const;
     void unbind() const;

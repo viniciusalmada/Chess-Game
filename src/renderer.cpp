@@ -12,9 +12,14 @@ GLObj::Renderer::~Renderer()
   rendereData.shader.freeProgram();
 }
 
-void GLObj::Renderer::updateVertexBuffer(const void* data)
+void GLObj::Renderer::updateVertexBuffer(const void* data, unsigned int newSize)
 {
-  rendereData.vertexArray.updateBuffer(data);
+  rendereData.vertexArray.updateBuffer(data, newSize);
+}
+
+void GLObj::Renderer::updateIndexBuffer(const unsigned int* data, unsigned int newSize)
+{
+  rendereData.indexBuffer.updateBuffer(data, newSize);
 }
 
 void GLObj::Renderer::draw() const
