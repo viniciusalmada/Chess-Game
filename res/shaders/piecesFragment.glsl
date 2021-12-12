@@ -63,7 +63,6 @@ vec4 getPieceColorized(vec4 currentColor, int texColor)
     case TEX_FILTER_WHITE:
       return invertColor(currentColor);
   }
-
   return vec4(1.0, 0.0, 0.0, 1.0);
 }
 
