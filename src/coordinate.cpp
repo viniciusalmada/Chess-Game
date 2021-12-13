@@ -1,5 +1,7 @@
 #include "coordinate.h"
 
+const static int TOTAL_SQUARES_SIDE = 8;
+
 SquarePosition::SquarePosition()
 {
   file = File::F_UNDEF;
@@ -119,7 +121,7 @@ SquarePosition SquarePosition::neighborNW() const
 std::set<SquarePosition> SquarePosition::getAllOnFile() const
 {
   std::set<SquarePosition> squares;
-  for (int i = 0; i < 8; i++)
+  for (int i = 0; i < TOTAL_SQUARES_SIDE; i++)
   {
     squares.insert({ getFile(), (Rank)i });
   }
@@ -129,7 +131,7 @@ std::set<SquarePosition> SquarePosition::getAllOnFile() const
 std::set<SquarePosition> SquarePosition::getAllOnRank() const
 {
   std::set<SquarePosition> squares;
-  for (int i = 0; i < 8; i++)
+  for (int i = 0; i < TOTAL_SQUARES_SIDE; i++)
   {
     squares.insert({ (File)(i), getRank() });
   }
@@ -147,7 +149,7 @@ std::set<SquarePosition> SquarePosition::getAllOnSWtoNE() const
   std::set<SquarePosition> allOnSWtoNE;
   SquarePosition auxPositionNE = *this;
   SquarePosition auxPositionSW = *this;
-  for (int i = 0; i < 4; i++)
+  for (int i = 0; i < TOTAL_SQUARES_SIDE; i++)
   {
     auxPositionNE = auxPositionNE.neighborNE();
     auxPositionSW = auxPositionSW.neighborSW();
@@ -169,7 +171,7 @@ std::set<SquarePosition> SquarePosition::getAllOnNWtoSE() const
   std::set<SquarePosition> allOnNWtoSE;
   SquarePosition auxPositionNW = *this;
   SquarePosition auxPositionSE = *this;
-  for (int i = 0; i < 4; i++)
+  for (int i = 0; i < TOTAL_SQUARES_SIDE; i++)
   {
     auxPositionNW = auxPositionNW.neighborNW();
     auxPositionSE = auxPositionSE.neighborSE();

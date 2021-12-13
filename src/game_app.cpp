@@ -116,17 +116,35 @@ std::set<SquarePosition> GameApp::getOptions(const Piece& piece)
     return {};
 
   std::set<SquarePosition> movementOptionsFromPiece = piece.possibleMovements();
+  std::set<SquarePosition> lockedSquaresFromPiece = piece.lockedSquares();
+
+  for (const SquarePosition& lockedSquare : lockedSquaresFromPiece)
+  {
+    auto resultLockedSquare = std::find_if(piecesData.cbegin(), piecesData.cend(), [lockedSquare](const Piece p)
+      {
+        return p.equalPosition(lockedSquare);
+      });
+    bool isBlockedBySomePiece = resultLockedSquare == piecesData.end();
+
+    if (isFreeSquare)
+      freeMovementOptions.insert(movementOp);
+  }
+
+
   std::set<SquarePosition> freeMovementOptions{};
   for (const SquarePosition& movementOp : movementOptionsFromPiece)
   {
-    auto result = std::find_if(piecesData.cbegin(), piecesData.cend(), [movementOp](const Piece piece) 
-      { 
-        return piece.equalPosition(movementOp); 
+    auto resultFreeSquare = std::find_if(piecesData.cbegin(), piecesData.cend(), [movementOp](const Piece p) 
+      {
+        return p.equalPosition(movementOp); 
       });
+    bool isFreeSquare = resultFreeSquare == piecesData.end();
 
-    if (result == piecesData.end())
+    if (isFreeSquare)
       freeMovementOptions.insert(movementOp);
   }
+
+  
 
   return freeMovementOptions;
 }

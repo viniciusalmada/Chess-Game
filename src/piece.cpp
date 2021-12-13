@@ -90,6 +90,72 @@ std::set<SquarePosition> Piece::pawnPossibleMovements() const
   return moves;
 }
 
+std::set<SquarePosition> Piece::rookLockedSquares() const
+{
+  std::set<SquarePosition> lockedSquares;
+  lockedSquares.insert(position.neighborN());
+  lockedSquares.insert(position.neighborE());
+  lockedSquares.insert(position.neighborS());
+  lockedSquares.insert(position.neighborW());
+  lockedSquares.erase(position);
+  return lockedSquares;
+}
+
+std::set<SquarePosition> Piece::bishopLockedSquares() const
+{
+  std::set<SquarePosition> lockedSquares;
+  lockedSquares.insert(position.neighborNE());
+  lockedSquares.insert(position.neighborSE());
+  lockedSquares.insert(position.neighborSW());
+  lockedSquares.insert(position.neighborSE());
+  lockedSquares.erase(position);
+  return lockedSquares;
+}
+
+std::set<SquarePosition> Piece::knightLockedSquares() const
+{
+  return knightPossibleMovements();
+}
+
+std::set<SquarePosition> Piece::queenLockedSquares() const
+{
+  std::set<SquarePosition> lockedSquares;
+  lockedSquares.insert(position.neighborN());
+  lockedSquares.insert(position.neighborE());
+  lockedSquares.insert(position.neighborS());
+  lockedSquares.insert(position.neighborW());
+  lockedSquares.insert(position.neighborNE());
+  lockedSquares.insert(position.neighborSE());
+  lockedSquares.insert(position.neighborSW());
+  lockedSquares.insert(position.neighborSE());
+  lockedSquares.erase(position);
+  return lockedSquares;
+}
+
+std::set<SquarePosition> Piece::kingLockedSquares() const
+{
+  std::set<SquarePosition> lockedSquares;
+  lockedSquares.insert(position.neighborN());
+  lockedSquares.insert(position.neighborE());
+  lockedSquares.insert(position.neighborS());
+  lockedSquares.insert(position.neighborW());
+  lockedSquares.insert(position.neighborNE());
+  lockedSquares.insert(position.neighborSE());
+  lockedSquares.insert(position.neighborSW());
+  lockedSquares.insert(position.neighborSE());
+  lockedSquares.erase(position);
+  return lockedSquares;
+}
+
+std::set<SquarePosition> Piece::pawnLockedSquares() const
+{
+  std::set<SquarePosition> lockedSquares;
+  lockedSquares.insert(position.neighborN());
+  lockedSquares.insert(position.neighborN().neighborN());
+  lockedSquares.erase(position);
+  return lockedSquares;
+}
+
 bool Piece::operator<(const Piece& other) const
 {
   return this->position < other.getPosition();
@@ -151,10 +217,26 @@ std::set<SquarePosition> Piece::possibleMovements() const
     return kingPossibleMovements();
   case PieceName::PAWN:
     return pawnPossibleMovements();
-  case PieceName::UNDEFINED:
-    break;
-  default:
-    break;
+  }
+  return std::set<SquarePosition>();
+}
+
+std::set<SquarePosition> Piece::lockedSquares() const
+{
+  switch (name)
+  {
+  case PieceName::ROOK:
+    return rookLockedSquares();
+  case PieceName::BISHOP:
+    return bishopLockedSquares();
+  case PieceName::KNIGHT:
+    return knightLockedSquares();
+  case PieceName::QUEEN:
+    return queenLockedSquares();
+  case PieceName::KING:
+    return kingLockedSquares();
+  case PieceName::PAWN:
+    return pawnLockedSquares();
   }
   return std::set<SquarePosition>();
 }

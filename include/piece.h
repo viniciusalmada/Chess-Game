@@ -31,6 +31,13 @@ protected:
   std::set<SquarePosition> kingPossibleMovements() const;
   std::set<SquarePosition> pawnPossibleMovements() const;
 
+  std::set<SquarePosition> rookLockedSquares() const;
+  std::set<SquarePosition> bishopLockedSquares() const;
+  std::set<SquarePosition> knightLockedSquares() const;
+  std::set<SquarePosition> queenLockedSquares() const;
+  std::set<SquarePosition> kingLockedSquares() const;
+  std::set<SquarePosition> pawnLockedSquares() const;
+
 public:
   Piece();
 
@@ -58,7 +65,9 @@ public:
 
   void unselect() { selected = false; }
 
-  virtual std::set<SquarePosition> possibleMovements() const;
+  std::set<SquarePosition> possibleMovements() const;
+  
+  std::set<SquarePosition> lockedSquares() const;
 
   std::string generateTitle() const;
 };

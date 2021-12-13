@@ -335,7 +335,7 @@ namespace Tests
     }
     TEST_METHOD(RookMovements)
     {
-      RookPiece rook(Player::WHITE, { File::F_D, Rank::R_4 });
+      Piece rook(PieceName::ROOK, Player::WHITE, { File::F_D, Rank::R_4 });
 
       auto rookMovement = rook.possibleMovements();
 
@@ -361,7 +361,7 @@ namespace Tests
 
     TEST_METHOD(BishopMovements)
     {
-      BishopPiece bishop(Player::WHITE, { File::F_D, Rank::R_4 });
+      Piece bishop(PieceName::BISHOP, Player::WHITE, { File::F_F, Rank::R_1 });
 
       auto bishopMovement = bishop.possibleMovements();
 
@@ -386,7 +386,7 @@ namespace Tests
 
     TEST_METHOD(KnightMovements)
     {
-      KnightPiece knight(Player::WHITE, { File::F_D, Rank::R_5 });
+      Piece knight(PieceName::KNIGHT, Player::WHITE, { File::F_D, Rank::R_5 });
 
       auto knightMovement = knight.possibleMovements();
 
@@ -406,7 +406,7 @@ namespace Tests
 
     TEST_METHOD(QueenMovements)
     {
-      QueenPiece queen(Player::WHITE, { File::F_D, Rank::R_4 });
+      Piece queen(PieceName::QUEEN, Player::WHITE, { File::F_D, Rank::R_4 });
 
       auto queenMovement = queen.possibleMovements();
 
@@ -445,7 +445,7 @@ namespace Tests
     
     TEST_METHOD(KingMovementsFromInside)
     {
-      KingPiece king(Player::WHITE, { File::F_F, Rank::R_5 });
+      Piece king(PieceName::KING, Player::WHITE, { File::F_F, Rank::R_5 });
 
       auto kingMovement = king.possibleMovements();
 
@@ -465,7 +465,7 @@ namespace Tests
     
     TEST_METHOD(KingMovementsFromCorner)
     {
-      KingPiece king(Player::WHITE, { File::F_H, Rank::R_8 });
+      Piece king(PieceName::KING, Player::WHITE, { File::F_H, Rank::R_8 });
 
       auto kingMovement = king.possibleMovements();
 
@@ -480,7 +480,7 @@ namespace Tests
 
     TEST_METHOD(PawnMovements)
     {
-      PawnPiece pawn(Player::WHITE, { File::F_C, Rank::R_4 });
+      Piece pawn(PieceName::PAWN, Player::WHITE, { File::F_C, Rank::R_4 });
 
       auto pawnMovement = pawn.possibleMovements();
 
